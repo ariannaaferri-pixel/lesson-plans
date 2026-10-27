@@ -177,3 +177,37 @@ ol.items li::before {
   ol.items li { padding-left: 46px; }
   ol.items li::before { left: 8px; top: 22px; transform: none; }
 }
+
+/* ---- today view + expand (10/27/26) ---- */
+.week-days.collapsed .day:not(.is-today) { display: none; }
+.today-tag {
+  margin-left: auto; align-self: center; background: #fff; color: var(--blue-dark); font-family: "Inter", Arial, sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 12px; border-radius: 999px;
+}
+.expand {
+  display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin: 0 0 28px;
+  padding: 16px 20px; cursor: pointer; font: 700 19px "Inter", Arial, sans-serif; color: #5b8cff; letter-spacing: 0.01em;
+  background: linear-gradient(135deg, #0b0b0d 0%, #1c1d22 100%); border: 2px solid #000; border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.30); transition: transform 0.15s, box-shadow 0.15s;
+}
+.expand:hover { transform: translateY(-1px); color: #7aa2ff; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.40); }
+.expand .chev { width: 22px; height: 22px; transition: transform 0.2s; }
+.expand[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
+/* ---- late work blocks ---- */
+.late { margin: 8px 0 28px; }
+.late h2 { font-size: 22px; color: var(--blue-dark); margin: 0 0 2px; font-weight: 600; }
+.lblock {
+  background: #fff; border: 1px solid #d6e1f7; border-radius: 16px; margin: 0 0 14px; overflow: hidden;
+  box-shadow: 0 2px 4px rgba(23, 62, 168, 0.05), 0 8px 20px rgba(23, 62, 168, 0.07);
+}
+.lhead {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px;
+  padding: 12px 20px; background: linear-gradient(100deg, #f5f8ff 0%, #ffffff 80%); border-bottom: 1px solid #e3eaf8;
+}
+.lrange { font: 600 19px "Outfit", "Inter", Arial, sans-serif; color: var(--ink); }
+.luntil {
+  font-weight: 700; font-size: 16px; color: #5a4300; background: #ffe36e; padding: 3px 14px; border-radius: 999px;
+}
+.lblock ul { margin: 0; padding: 10px 20px 14px 42px; columns: 2 320px; column-gap: 40px; }
+.lblock li { margin: 4px 0; break-inside: avoid; }
