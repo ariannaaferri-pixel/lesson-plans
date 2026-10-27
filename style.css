@@ -1,0 +1,179 @@
+/* Lesson Plans site: Mrs. Troutman, Earth & Space Science, Kenmore West */
+:root {
+  --blue: #1f4fd8;         /* royal blue */
+  --blue-dark: #173ea8;
+  --blue-light: #e9effd;
+  --blue-soft: #f5f8ff;
+  --ink: #1d2733;
+  --muted: #5d6877;
+  --line: #e3e8f0;
+  --bg: #eef3fc;
+  --sky: #dfe9ff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; color: var(--ink);
+  background: linear-gradient(180deg, #e4ecfc 0%, #f1f5fd 320px, #f4f7fd 100%) fixed;
+  font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 18px; line-height: 1.6;
+}
+.wrap { max-width: none; width: 100%; margin: 0; padding: 20px 28px 40px; }
+h1, h2, h3, .dname { font-family: "Outfit", "Inter", Arial, sans-serif; }
+a { color: var(--blue); }
+
+/* header band */
+.site-head {
+  position: relative; overflow: hidden;
+  background: linear-gradient(120deg, #1a46c9 0%, var(--blue) 45%, #3a6ff0 100%);
+  color: #fff; border-radius: 18px; padding: 22px 28px; margin: 0 0 24px;
+  box-shadow: 0 8px 24px rgba(31, 79, 216, 0.20);
+}
+.site-head::after {   /* soft decorative glow, no images */
+  content: ""; position: absolute; right: -60px; top: -80px; width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 70%);
+}
+.site-head h1 { margin: 0; font-size: 34px; font-weight: 700; letter-spacing: 0.01em; }
+.site-head p { margin: 2px 0 0; color: rgba(255,255,255,0.92); font-size: 17px; }
+
+.week-title { margin: 0 0 2px; font-size: 28px; font-weight: 600; color: var(--ink); }
+.hint { margin: 0 0 14px; color: var(--muted); font-size: 16px; }
+.nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+.btn {
+  display: inline-block; border: 1.5px solid var(--blue); color: var(--blue); background: #fff;
+  text-decoration: none; font-weight: 600; font-size: 16px; padding: 7px 18px; border-radius: 999px;
+  transition: background 0.15s, color 0.15s;
+}
+.btn:hover { background: var(--blue); color: #fff; }
+.btn.off { border-color: var(--line); color: #a7afbb; background: transparent; pointer-events: none; }
+
+/* day cards */
+.day {
+  background: #fff; border: 1px solid var(--line); border-radius: 18px; margin: 0 0 18px; overflow: hidden;
+  box-shadow: 0 1px 2px rgba(20, 30, 60, 0.04), 0 6px 18px rgba(20, 30, 60, 0.05);
+}
+.day-head {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 13px 22px; border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, var(--blue-soft) 0%, #ffffff 70%);
+  border-left: 6px solid var(--blue);
+}
+.dname { font-size: 22px; font-weight: 600; color: var(--blue-dark); }
+.ddate { font-size: 17px; font-weight: 500; color: var(--muted); }
+.day-body { padding: 16px 22px 18px; }
+
+.intent {
+  margin: 0 0 14px; padding: 12px 16px; background: var(--blue-soft); border-radius: 12px;
+  border: 1px solid #dce6fb;
+}
+.intent .label {
+  display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--blue);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px;
+}
+.intent .label .ic { width: 17px; height: 17px; }
+.intent p { margin: 0; }
+.did { margin: 0 0 8px; }
+.did b { color: var(--ink); font-weight: 600; }
+
+/* numbered items: name and note on the left, due date and buttons on the right */
+ol.items { list-style: none; counter-reset: item; margin: 0; padding: 0; }
+ol.items li {
+  counter-increment: item; position: relative;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px;
+  padding: 12px 12px 12px 52px; margin: 0; border-radius: 12px;
+}
+ol.items li + li { border-top: 1px solid #eef1f6; }
+ol.items li:hover { background: #fafbff; }
+ol.items li::before {
+  content: counter(item); position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; border-radius: 50%; background: var(--blue-light); color: var(--blue-dark);
+  font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+ol.items li.plain .iname { color: var(--ink); font-weight: 500; }
+.main { flex: 1 1 380px; min-width: 0; }
+.iname { font-weight: 600; }
+.ilink { color: var(--blue); text-decoration: none; font-weight: 600; }
+.ilink:hover { text-decoration: underline; }
+.note { display: block; color: var(--muted); font-size: 16px; margin-top: 2px; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+.due {
+  display: inline-flex; align-items: center; gap: 5px; background: #f1f4f9; color: #3d4a5c; font-weight: 600;
+  font-size: 14px; padding: 4px 11px; border-radius: 999px; white-space: nowrap; border: 1px solid var(--line);
+}
+.due .ic { width: 16px; height: 16px; color: var(--blue); }
+
+.act {
+  display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: #fff !important;
+  font-size: 15px; font-weight: 600; padding: 6px 15px 6px 12px; border-radius: 999px; text-decoration: none !important;
+  box-shadow: 0 2px 6px rgba(31, 79, 216, 0.25); white-space: nowrap; transition: background 0.15s, transform 0.15s;
+}
+.act:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.act .ic { width: 18px; height: 18px; }
+
+/* videos, animations, and links */
+.videos { margin: 14px 0 0; padding: 12px 16px; background: #fafbfd; border: 1px solid var(--line); border-radius: 14px; }
+.videos h3 {
+  font-size: 13px; margin: 2px 0 4px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
+  font-family: "Inter", Arial, sans-serif;
+}
+.videos ul { list-style: none; margin: 0; padding: 0; }
+.videos li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 8px 0; }
+.videos li + li { border-top: 1px solid #eef1f6; }
+
+.day.off .day-head { border-left-color: #c3cad6; background: #fff; }
+.day.off .day-body { color: var(--muted); font-style: italic; }
+
+.earlier { margin-top: 32px; }
+.earlier h2 { font-size: 22px; color: var(--ink); margin: 0 0 10px; font-weight: 600; }
+.earlier ul { list-style: none; padding: 0; margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.earlier li + li { border-top: 1px solid var(--line); }
+.earlier li a { display: block; padding: 12px 20px; color: var(--blue); font-weight: 600; text-decoration: none; }
+.earlier li a:hover { background: var(--blue-soft); }
+
+
+/* ---- color and shading (10/27/26) ---- */
+.week-title { color: var(--blue-dark); }
+.day {
+  border: 1px solid #d6e1f7;
+  box-shadow: 0 2px 4px rgba(23, 62, 168, 0.06), 0 10px 26px rgba(23, 62, 168, 0.10);
+}
+.day-head {
+  background: linear-gradient(100deg, var(--blue) 0%, #2f66ee 60%, #4b80f5 100%);
+  border-left: none; border-bottom: none; padding: 14px 24px;
+}
+.dname { color: #fff; }
+.ddate { color: rgba(255, 255, 255, 0.85); }
+.intent {
+  background: linear-gradient(135deg, #eef3ff 0%, #e2ebff 100%);
+  border: 1px solid #cfdcfb; border-left: 5px solid var(--blue);
+}
+.did {
+  background: #f7f9fe; border: 1px solid #e3eaf8; border-radius: 12px; padding: 10px 14px; margin: 0 0 10px;
+}
+ol.items li:nth-child(even) { background: #f6f9ff; }
+ol.items li + li { border-top: 1px solid #e8eef9; }
+ol.items li:hover { background: #edf3ff; }
+ol.items li::before {
+  background: linear-gradient(135deg, var(--blue) 0%, #3b72f2 100%); color: #fff;
+  box-shadow: 0 2px 5px rgba(31, 79, 216, 0.30);
+}
+.due { background: #fff; border: 1px solid #cfdcfb; color: var(--blue-dark); }
+.act { background: linear-gradient(135deg, var(--blue) 0%, #3a70f1 100%); box-shadow: 0 3px 8px rgba(31, 79, 216, 0.30); }
+.act:hover { background: var(--blue-dark); }
+.videos { background: linear-gradient(135deg, #eaf1ff 0%, #f3f7ff 100%); border: 1px solid #d3dffa; }
+.videos h3 { color: var(--blue-dark); }
+.videos li + li { border-top: 1px solid #dbe5fa; }
+.btn { background: #fff; box-shadow: 0 1px 3px rgba(23, 62, 168, 0.10); }
+.btn.off { background: rgba(255,255,255,0.5); }
+.earlier ul { border-color: #d6e1f7; box-shadow: 0 4px 14px rgba(23, 62, 168, 0.08); }
+.day.off .day-head { background: linear-gradient(100deg, #8b97ad 0%, #a8b3c6 100%); }
+
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  .wrap { padding: 14px 12px 28px; }
+  .site-head { padding: 16px 18px; }
+  .site-head h1 { font-size: 26px; }
+  .week-title { font-size: 21px; }
+  .day-body { padding: 14px 14px 16px; }
+  ol.items li { padding-left: 46px; }
+  ol.items li::before { left: 8px; top: 22px; transform: none; }
+}
