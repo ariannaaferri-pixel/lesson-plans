@@ -81,5 +81,24 @@
 })();
 </script>
 </main>
+<script>
+/* Ask Canvas to make its window exactly as tall as this page (no blank space, no inner scrollbar). */
+(function () {
+  if (window.parent === window) return;
+  var main = document.querySelector('main'), last = 0;
+  function send() {
+    if (!main) return;
+    var h = Math.ceil(main.getBoundingClientRect().bottom + window.scrollY) + 16;
+    if (Math.abs(h - last) < 2) return;
+    last = h;
+    try { window.parent.postMessage({ subject: 'lti.frameResize', height: h }, '*'); } catch (err) {}
+    try { window.parent.postMessage(JSON.stringify({ subject: 'lti.frameResize', height: h }), '*'); } catch (err) {}
+  }
+  window.addEventListener('load', send);
+  if (window.ResizeObserver && main) new ResizeObserver(send).observe(main);
+  setInterval(send, 1000);
+  send();
+})();
+</script>
 </body>
 </html>
