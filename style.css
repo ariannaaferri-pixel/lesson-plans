@@ -341,3 +341,30 @@ ol.items li::before { width: 24px; height: 24px; }
   .tab .tnow { font-size: 10px; letter-spacing: 0.02em; }
   .tab-all { grid-column: 1 / -1; padding: 8px; }
 }
+
+/* ---- earlier weeks drop-down (10/28/26) ---- */
+details.earlier { margin-top: 18px; background: #fff; border: 1px solid #d6e1f7; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 14px rgba(23, 62, 168, 0.08); }
+details.earlier summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 10px 18px;
+  font: 600 22px "Outfit", "Inter", Arial, sans-serif; color: var(--blue-dark);
+}
+details.earlier summary::-webkit-details-marker { display: none; }
+details.earlier summary:hover { background: var(--blue-soft); }
+details.earlier .ecount { font: 600 15px "Inter", Arial, sans-serif; color: var(--muted); }
+details.earlier .chev { width: 24px; height: 24px; margin-left: auto; color: var(--blue); transition: transform 0.2s; }
+details.earlier[open] .chev { transform: rotate(180deg); }
+details.earlier ul { border: none; border-top: 1px solid #d6e1f7; border-radius: 0; box-shadow: none; }
+
+/* ---- late work blocks as drop-downs; closed blocks fold to one line (10/28/26) ---- */
+details.lblock > summary { list-style: none; cursor: pointer; }
+details.lblock > summary::-webkit-details-marker { display: none; }
+details.lblock .lhead { justify-content: flex-start; }
+details.lblock .luntil { margin-left: auto; }
+details.lblock .chev { width: 22px; height: 22px; flex: none; color: var(--blue); transition: transform 0.2s; }
+details.lblock[open] .chev { transform: rotate(180deg); }
+details.lblock:not([open]) .lhead { border-bottom: none; }
+details.lblock.past { box-shadow: none; }
+details.lblock.past .lhead { background: #f3f5f9; }
+details.lblock.past .lrange { color: var(--muted); }
+details.lblock.past .luntil { background: #e3e7ee; color: #5d6877; }
