@@ -368,3 +368,43 @@ details.lblock.past { box-shadow: none; }
 details.lblock.past .lhead { background: #f3f5f9; }
 details.lblock.past .lrange { color: var(--muted); }
 details.lblock.past .luntil { background: #e3e7ee; color: #5d6877; }
+
+/* ---- assignments set apart from the blue boxes; absent-student versions (10/28/26) ---- */
+/* the learning intention and the videos box stay light blue; the assignment list is white and gray */
+ol.items { background: #fff; border: 1px solid #e4e7ec; border-radius: 12px; overflow: hidden; }
+ol.items li { border-radius: 0; }
+ol.items li:nth-child(even) { background: #f5f6f8; }
+ol.items li + li { border-top: 1px solid #e9ebef; }
+ol.items li:hover { background: #eef0f4; }
+.did { background: #f5f6f8; border-color: #e4e7ec; }
+/* absent version: no number, a yellow box tucked under its assignment */
+.absent {
+  flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px;
+  background: #fff7d6; border: 1px solid #f1d77a; border-left: 5px solid #e9b800; border-radius: 10px;
+  padding: 5px 12px; margin: 2px 0 4px;
+}
+.absent .main { flex: 1 1 300px; }
+.absent-tag {
+  display: inline-flex; align-items: center; gap: 5px; flex: none;
+  background: #ffe36e; color: #5a4300; font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 2px 10px; border-radius: 999px;
+}
+.absent-tag .ic { width: 16px; height: 16px; }
+.absent .note { color: #5c4a10; }
+ol.items li.has-absent::before { top: 8px; transform: none; }
+/* "What we did" stands out slightly from the gray assignment rows (10/28/26) */
+.did { background: #eceff4; border: 1px solid #d3d9e2; border-left: 4px solid #6b7a90; }
+.did b { color: #3d4a5c; }
+/* "What we did" round 2 (10/28/26): white box with a royal blue outline and a solid blue label, so it pops against the gray rows */
+.did { background: #fff; border: 2px solid #1f4fd8; border-left-width: 2px; box-shadow: 0 2px 6px rgba(31, 79, 216, 0.12); }
+.did b {
+  display: inline-block; background: var(--blue); color: #fff; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; padding: 1px 10px; border-radius: 999px; margin-right: 6px;
+  vertical-align: 1px;
+}
+/* no striping (10/28/26): every assignment row is white, thin lines between rows */
+ol.items li:nth-child(even) { background: #fff; }
+ol.items li:hover { background: #f7f8fa; }
+/* darker lines between assignment rows (10/28/26) */
+ol.items { border-color: #b9c1cd; }
+ol.items li + li { border-top: 1px solid #b9c1cd; }
