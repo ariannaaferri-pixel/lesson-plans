@@ -408,3 +408,18 @@ ol.items li:hover { background: #f7f8fa; }
 /* darker lines between assignment rows (10/28/26) */
 ol.items { border-color: #b9c1cd; }
 ol.items li + li { border-top: 1px solid #b9c1cd; }
+
+/* ---- videos and links as orange "USES" buttons under their assignment (option A, 11/9/26) ---- */
+.usesrow { flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 2px 0 4px; }
+.usesrow .ulbl { font-size: 13px; font-weight: 800; letter-spacing: 0.06em; color: #b25f00; text-transform: uppercase; margin-right: 2px; }
+.uses {
+  display: inline-flex; align-items: center; gap: 6px; background: #fff4e5; border: 2px solid #ff9f1c;
+  color: #7a3e00 !important; font-weight: 600; font-size: 15px; padding: 3px 12px; border-radius: 999px;
+  text-decoration: none !important; transition: background 0.15s, transform 0.15s;
+}
+.uses:hover { background: #ffe2b8; transform: translateY(-1px); }
+.uses .ic { width: 18px; height: 18px; color: #e07a00; flex: none; }
+.uses b { font-weight: 800; }
+ol.items li.has-uses::before { top: 8px; transform: none; }
+ol.items li.usesonly { counter-increment: none; padding-left: 12px; }
+ol.items li.usesonly::before { display: none; }
