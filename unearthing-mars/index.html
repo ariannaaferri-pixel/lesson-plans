@@ -1,0 +1,762 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Unearthing Mars Lab Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: the lab sheet on the left plays one short demo, then holds; the right panel says exactly what to do on paper, then Next. */
+:root {
+  --bg: #EDF0F5; --surface: #FFFFFF; --fg: #15203A; --muted: #4F5B72; --line: #D2D9E5;
+  --accent: #1F4FD1; --accent-ink: #FFFFFF; --pink: #C2366E; --pink-soft: #FBE3EC; --ok: #1F7A4A; --ok-soft: #E2F3E9;
+  --paper: #FBFAF6; --ink: #1B2438; --grid: #E2E6EE; --red: #C8462E; --green: #2E8B57; --sun: #E8A33D;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0D1525; --surface: #152038; --fg: #E8EDF6; --muted: #A6B1C6; --line: #2A3755;
+  --accent: #7C9EFF; --accent-ink: #0D1525; --pink: #F28DB3; --pink-soft: #3A1E2D; --ok: #7FD3A2; --ok-soft: #173326; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0D1525; --surface: #152038; --fg: #E8EDF6; --muted: #A6B1C6; --line: #2A3755;
+  --accent: #7C9EFF; --accent-ink: #0D1525; --pink: #F28DB3; --pink-soft: #3A1E2D; --ok: #7FD3A2; --ok-soft: #173326; color-scheme: dark }
+
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.app { max-width: 1440px; margin: 0 auto; padding-block: 14px 20px; display: flex; flex-direction: column; gap: 14px; }
+
+.top { display: flex; flex-direction: column; gap: 10px; }
+.top-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; letter-spacing: -.01em; margin: 0; }
+.brand span { color: var(--muted); font-weight: 500; }
+.count { color: var(--muted); font-size: .95rem; font-variant-numeric: tabular-nums; margin: 0; }
+.bar { display: flex; gap: 4px; }
+.bar button { flex: 1; height: 10px; border: 0; padding: 0; border-radius: 3px; background: var(--line); cursor: pointer; }
+.bar button.done { background: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.bar button.now { background: var(--accent); }
+.bar button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); gap: 20px; align-items: start; }
+.view { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.sheet { position: relative; container-type: inline-size; aspect-ratio: 1100 / 940; width: min(100%, calc((100dvh - 200px) * 1100 / 940)); max-width: 100%; margin-inline: auto;
+  border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(10, 20, 40, .18); background: var(--paper); }
+.sheet svg { display: block; width: 100%; height: 100%; }
+.viewbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: min(100%, calc((100dvh - 200px) * 1100 / 940)); max-width: 100%; margin-inline: auto; }
+.status { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; min-width: 0; }
+.status .meter { width: 90px; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; flex: none; }
+.status .meter i { display: block; height: 100%; width: 0; background: var(--accent); }
+.status.turn { color: var(--ok); }
+.status.turn .meter { display: none; }
+.ghost { font: inherit; font-weight: 600; font-size: .95rem; color: var(--fg); background: var(--surface); border: 1.5px solid var(--line); border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+.ghost:hover { border-color: var(--accent); }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px 22px 18px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.eyebrow { margin: 0; font-size: .85rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.panel h1 { margin: 0; font-family: var(--font-display); font-size: 1.85rem; line-height: 1.12; letter-spacing: -.015em; text-wrap: balance; }
+.sub { margin: 0; font-size: .82rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.todo { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.todo label { display: flex; gap: 12px; align-items: flex-start; font-size: 1.12rem; line-height: 1.45; cursor: pointer; }
+.todo input { width: 1.35rem; height: 1.35rem; margin-top: .12rem; flex: none; accent-color: var(--accent); cursor: pointer; }
+.todo input:checked + span { color: var(--muted); }
+.record { display: block; background: var(--pink-soft); color: var(--fg); border-left: 5px solid var(--pink); border-radius: 6px; padding: 10px 14px; font-size: 1.05rem; }
+.record b { color: var(--pink); }
+.check { background: var(--ok-soft); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.check strong { color: var(--ok); font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; }
+.check p { margin: 0; font-size: 1.05rem; }
+.nav { display: flex; gap: 10px; margin-top: 4px; }
+.nav button { font: inherit; font-weight: 700; font-size: 1.05rem; border-radius: 10px; padding: 13px 18px; cursor: pointer; }
+.nav .back { background: transparent; color: var(--fg); border: 1.5px solid var(--line); }
+.nav .next { flex: 1; background: var(--accent); color: var(--accent-ink); border: 0; }
+.nav .next:hover { filter: brightness(1.08); }
+.nav button:disabled { opacity: .4; cursor: default; }
+.keys { margin: 0; color: var(--muted); font-size: .85rem; }
+.pq { background: var(--bg); border-left: 5px solid var(--accent); border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.pq-l { margin: 0; font-size: .9rem; color: var(--muted); }
+.pq-t { margin: 0; font-weight: 700; font-size: 1.05rem; line-height: 1.4; white-space: pre-line; }
+.gate { margin: 0; font-weight: 700; font-size: .98rem; color: var(--pink); }
+.bar button:disabled { opacity: .35; cursor: not-allowed; }
+.skip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.skip span { font-size: .85rem; font-weight: 700; color: var(--muted); margin-right: 2px; }
+.skip button { font: inherit; font-size: .88rem; font-weight: 600; padding: 5px 13px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.skip button:hover { border-color: var(--accent); }
+.skip button.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.todo b { color: var(--fg); }
+.todo input:checked + span b { color: var(--muted); }
+.c-table.c-t5 { grid-template-columns: 24% 20% 18% 20% 18%; }
+.c-table.c-t4 { grid-template-columns: 22% 22% 22% 34%; }
+.c-table.c-t3 { grid-template-columns: 30% 32% 38%; }
+.c-table.c-t5 p, .c-table.c-sm p { font-size: 2.45cqw; padding: .9cqw 1.2cqw; }
+.c-table.c-t5 .th, .c-table.c-sm .th { font-size: 1.9cqw; }
+.c-table .hl-sun { background: #FFF1D2; } .c-table .hl-earth { background: #E2F3E9; }
+.c-table .th.hl-sun { background: #FBDFA2; } .c-table .th.hl-earth { background: #BFE5CD; }
+.c-key { font-size: 2.85cqw; line-height: 1.3; padding: 1cqw 1.8cqw; border-left: .8cqw solid #9AA3B5; background: #EEF1F7; border-radius: .6cqw; }
+.c-key.sun { border-left-color: #E8A33D; background: #FFF1D2; } .c-key.earth { border-left-color: #2E8B57; background: #E2F3E9; }
+.svt { font-family: var(--font-body); font-weight: 700; fill: var(--ink); text-anchor: middle; dominant-baseline: middle; }
+
+/* The paper drawing */
+.lab { font-family: var(--font-body); font-weight: 700; font-size: 28px; fill: var(--ink); text-anchor: middle; dominant-baseline: middle; paint-order: stroke; stroke: var(--paper); stroke-width: 7px; stroke-linejoin: round; }
+.lab-s { font-size: 23px; }
+.hdr { font-family: var(--font-body); font-weight: 700; font-size: 25px; fill: var(--ink); letter-spacing: .03em; }
+.card { position: absolute; inset: 9% 7% 6%; color: var(--ink); display: flex; flex-direction: column; gap: 2.4cqw; }
+.card > *, .card li { margin: 0; }
+.c-h { font-size: 2.4cqw; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.c-big { font-family: var(--font-display); font-size: 4.3cqw; line-height: 1.18; font-weight: 700; }
+.c-row { font-size: 3.4cqw; line-height: 1.3; }
+.c-note { font-size: 2.9cqw; line-height: 1.3; color: #4A5468; }
+.c-ex { font-size: 2.9cqw; line-height: 1.35; background: #EEF1F7; border-radius: 1cqw; padding: 1.4cqw 2cqw; }
+.c-list { padding-left: 3.6cqw; display: flex; flex-direction: column; gap: 1.2cqw; font-size: 3.2cqw; }
+.c-table { display: grid; grid-template-columns: 15% 27% 29% 29%; border: .3cqw solid var(--ink); }
+.c-table p { margin: 0; padding: 1.4cqw 1.6cqw; border: .14cqw solid #9AA3B5; font-size: 3.2cqw; line-height: 1.2; }
+.c-table .th { font-size: 2.1cqw; font-weight: 700; background: #EEF1F7; }
+.c-table .m3 { background: #DDF0E4; font-weight: 700; }
+.c-two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4cqw; }
+.c-box { border: .3cqw solid var(--ink); border-radius: 1.2cqw; padding: 1.8cqw 2.2cqw; display: flex; flex-direction: column; gap: 1.1cqw; }
+.c-box.sun { background: #FFF1D2; } .c-box.earth { background: #E2F3E9; }
+.c-box h3 { margin: 0; font-family: var(--font-display); font-size: 3.5cqw; line-height: 1.1; }
+.c-box p { margin: 0; font-size: 2.75cqw; line-height: 1.3; }
+.c-box .root { font-weight: 700; font-size: 3cqw; }
+.c-sum { font-size: 3.2cqw; line-height: 1.3; font-weight: 700; background: #EEF1F7; border-radius: 1cqw; padding: 1.4cqw 2cqw; }
+.c-q { font-family: var(--font-display); font-size: 3.7cqw; line-height: 1.22; font-weight: 700; }
+
+@media (max-width: 900px) {
+  .stage { grid-template-columns: 1fr; }
+  .sheet, .viewbar { width: 100%; }
+  .panel h1 { font-size: 1.55rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="top-row">
+      <p class="brand">Unearthing Mars <span>Student Directions</span></p>
+      <p class="count" id="count">Screen 1 of 24</p>
+    </div>
+    <div class="bar" id="bar" aria-label="Jump to a screen"></div>
+    <nav class="skip" id="skip" aria-label="Skip to a part"><span>Skip to:</span></nav>
+  </header>
+
+  <main class="stage">
+    <section class="view" aria-label="Demonstration">
+      <div class="sheet" id="sheet">
+        <svg id="art" viewBox="760 70 1100 940" role="img" aria-label="Lab sheet demonstration"></svg>
+        <div class="card" id="card" hidden></div>
+      </div>
+      <div class="viewbar">
+        <div class="status" id="status"><span class="meter"><i id="meter"></i></span><span id="statusText">Watch</span></div>
+        <button class="ghost" id="replay" type="button">Replay</button>
+      </div>
+    </section>
+
+    <section class="panel" aria-live="polite">
+      <p class="eyebrow" id="tag"></p>
+      <h1 id="title"></h1>
+      <div class="pq" id="pq" hidden><p class="pq-l">Question from Student Answer Packet:</p><p class="pq-t" id="pqText"></p></div>
+      <p class="sub">Do this on your paper</p>
+      <ul class="todo" id="todo"></ul>
+      <div class="record" id="record" hidden></div>
+      <div class="check" id="check" hidden><strong>Check yours</strong><p id="checkText"></p></div>
+      <nav class="nav">
+        <button class="back" id="back" type="button">Back</button>
+        <button class="next" id="next" type="button">Next</button>
+      </nav>
+      <p class="gate" id="gate" hidden>Check every box to unlock Next.</p>
+      <p class="keys">Tip: the arrow keys also go back and next.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  // ---------- geometry ----------
+  const E = { cx: 1310, cy: 540, a: 320, b: 318.6, c: 30 };   // MODEL 1 ellipse, Sun at the right focus
+  const M = { cx: 1300, cy: 540, R: 230 };                    // MODEL 2, R = Earth's orbit
+  const PRE = [['M1', 150], ['M2', 260], ['M4', 30], ['M5', 80], ['M6', 115]];
+  const f = n => (+n).toFixed(1), cl = x => x < 0 ? 0 : x > 1 ? 1 : x;
+  const eio = x => { x = cl(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  const back = x => { x = cl(x); if (x <= 0) return 0; const u = x - 1; return 1 + 2.7 * u * u * u + 1.7 * u * u; };
+  const win = (w, t) => w == null ? 0 : typeof w === 'number' ? w : cl((t - w[0]) / (w[1] - w[0]));
+  const pt = (r, deg) => { const a = deg * Math.PI / 180; return [M.cx + r * M.R * Math.cos(a), M.cy - r * M.R * Math.sin(a)]; };
+  const marsR = th => 1.5107 / (1 + 0.0934 * Math.cos((th - 330) * Math.PI / 180));
+  // Triangulation of M3 from the real data: Earth at 5 deg and 323 deg, Mars seen at 284 deg and 347 deg.
+  const T = (() => {
+    const dir = d => [Math.cos(d * Math.PI / 180), -Math.sin(d * Math.PI / 180)];
+    const E1 = pt(1, 5), E2 = pt(1, 323), d1 = dir(284), d2 = dir(347);
+    const det = d1[0] * (-d2[1]) + d2[0] * d1[1], rx = E2[0] - E1[0], ry = E2[1] - E1[1];
+    const a = (rx * (-d2[1]) + d2[0] * ry) / det, b = (d1[0] * ry - d1[1] * rx) / det, g = 80;
+    return { E1, E2, M3: [E1[0] + a * d1[0], E1[1] + a * d1[1]], G1: [E1[0] + g * d1[0], E1[1] + g * d1[1]], G2: [E2[0] + g * d2[0], E2[1] + g * d2[1]],
+      L1: [E1[0] + 1.4 * a * d1[0], E1[1] + 1.4 * a * d1[1]], L2: [E2[0] + 1.7 * b * d2[0], E2[1] + 1.7 * b * d2[1]] };
+  })();
+  const M1p = pt(marsR(150), 150);
+
+  // ---------- drawing ----------
+  const L = (p, id, txt, s) => '<text id="' + id + '" class="lab' + (s ? ' lab-s' : '') + '" x="' + f(p[0]) + '" y="' + f(p[1]) + '">' + txt + '</text>';
+  const dot = (id, p, r, fill, sc) => '<g id="' + id + '" transform="translate(' + f(p[0]) + ' ' + f(p[1]) + ')' + (sc ? ' scale(0)' : '') + '"><circle r="' + r + '" style="fill:' + fill + '"/></g>';
+  const line = (id, a, b, col, w) => '<path id="' + id + '" pathLength="1" d="M' + f(a[0]) + ' ' + f(a[1]) + ' L' + f(b[0]) + ' ' + f(b[1]) + '" style="fill:none;stroke:' + col + ';stroke-width:' + w + ';stroke-linecap:round;opacity:0"/>';
+  const pin = '<ellipse cx="7" cy="9" rx="13" ry="6" style="fill:rgba(0,0,0,.2)"/><circle r="12" style="fill:var(--sun);stroke:var(--ink);stroke-width:2"/><circle cx="-4" cy="-4" r="4" style="fill:var(--paper);opacity:.75"/>';
+  const pencil = '<path d="M0 0 L-11 -30 H11 Z" style="fill:#E9C99A"/><path d="M0 0 L-4 -11 H4 Z" style="fill:var(--red)"/><rect x="-11" y="-200" width="22" height="170" style="fill:var(--red)"/><rect x="-11" y="-200" width="8" height="170" style="fill:rgba(255,255,255,.22)"/><rect x="-11" y="-226" width="22" height="28" rx="4" style="fill:#D9C2BC"/>';
+  const ell1 = () => { let d = ''; for (let i = 0; i <= 120; i++) { const a = i / 120 * Math.PI * 2; d += (i ? ' L' : 'M') + f(E.cx + E.a * Math.cos(a)) + ' ' + f(E.cy - E.b * Math.sin(a)); } return d; };
+  const ell2 = () => { let d = ''; for (let i = 0; i <= 120; i++) { const th = 330 + i * 3, p = pt(marsR(th), th); d += (i ? ' L' : 'M') + f(p[0]) + ' ' + f(p[1]); } return d; };
+
+  function buildSvg() {
+    const sx = E.cx + E.c, fx = E.cx - E.c, y = E.cy;
+    let s = '<defs><linearGradient id="hSk" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#F8D6BC"/><stop offset=".55" stop-color="#F1C2A0"/><stop offset="1" stop-color="#DFA27C"/></linearGradient><linearGradient id="hNl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFF5EF"/><stop offset="1" stop-color="#F2C6B6"/></linearGradient><linearGradient id="hSl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2A5BDB"/><stop offset="1" stop-color="#163A9E"/></linearGradient><linearGradient id="fgG" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="230" y2="0"><stop offset=".6" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient><mask id="fgFade" maskUnits="userSpaceOnUse" x="-10" y="-40" width="260" height="80"><rect x="-10" y="-40" width="260" height="80" fill="url(#fgG)"/></mask><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" style="fill:var(--ink)"/></marker><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse" x="760" y="70"><path d="M40 0 H0 V40" style="fill:none;stroke:var(--grid);stroke-width:1.5"/></pattern></defs>' +
+      '<rect x="760" y="70" width="1100" height="940" style="fill:var(--paper)"/><rect x="790" y="140" width="1040" height="840" fill="url(#grid)"/>';
+    // MODEL 1
+    s += '<g id="g1"><text class="hdr" x="790" y="112">MODEL 1: Model of Mars’ Orbit Using Given Calculations</text>' +
+      '<path id="m1apl" d="M' + (E.cx - E.a) + ' ' + y + ' H' + (E.cx + E.a) + '" style="fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:8 9;opacity:0"/>' +
+      '<path id="m1trail" pathLength="1" d="' + ell1() + '" style="fill:none;stroke:var(--red);stroke-width:6;stroke-linecap:round;opacity:0"/>' +
+      '<path id="m1str" style="fill:none;stroke:#8C93A3;stroke-width:3;stroke-linejoin:round;opacity:0"/>' +
+      '<path id="m1brk" d="M' + fx + ' 576 V592 H' + sx + ' V576" style="fill:none;stroke:var(--ink);stroke-width:2.5;opacity:0"/>' +
+      dot('m1f2', [fx, y], 8, 'var(--ink)', 1) + dot('m1sun', [sx, y], 14, 'var(--sun)') +
+      dot('m1peri', [E.cx + E.a, y], 10, 'var(--ink)', 1) + dot('m1aph', [E.cx - E.a, y], 10, 'var(--ink)', 1) +
+      '<g id="m1pinA">' + pin + '</g><g id="m1pinB">' + pin + '</g><g id="m1pen">' + pencil + '</g>' +
+      L([1388, 540], 'm1sunl', 'Sun') + L([1200, 540], 'm1f2l', 'Focus 2') + L([1310, 620], 'm1cm', '1.5 cm') + L([1310, 190], 'm1orbl', 'Mars’ Orbit') +
+      L([1630, 594], 'm1perl', 'Perihelion (closest to)') + L([990, 594], 'm1aphl', 'Aphelion (Furthest from)') +
+      L([1712, 488], 'm1start', 'Start and finish', 1) + '<g id="m1pl" style="opacity:0"><circle r="15" style="fill:var(--red);stroke:var(--ink);stroke-width:2.5"/></g></g>';
+    // MODEL 2
+    const u = [T.M3[0] - M.cx, T.M3[1] - M.cy], n = Math.hypot(u[0], u[1]);
+    const rl = Math.hypot(T.M3[0] - M1p[0], T.M3[1] - M1p[1]), ra = Math.atan2(T.M3[1] - M1p[1], T.M3[0] - M1p[0]) * 180 / Math.PI;
+    let tk = ''; for (let x = 0, i = 0; x <= rl + 20; x += 23, i++) tk += '<path d="M' + x.toFixed(1) + ' 14 v' + (i % 5 === 0 ? 22 : 12) + '" style="stroke:var(--ink);stroke-width:2"/>';
+    let pk = ''; for (let i = 0; i < 36; i++) { const a = i * 10 * Math.PI / 180, r0 = i % 3 === 0 ? 78 : 88; pk += '<path d="M' + f(r0 * Math.cos(a)) + ' ' + f(-r0 * Math.sin(a)) + ' L' + f(100 * Math.cos(a)) + ' ' + f(-100 * Math.sin(a)) + '" style="stroke:var(--ink);stroke-width:2"/>'; }
+    s += '<g id="g2"><text class="hdr" x="790" y="112">MODEL 2: Model of Mars’ Orbit Using Triangulation</text>' +
+      '<path d="M' + M.cx + ' ' + M.cy + ' H1830" style="fill:none;stroke:var(--ink);stroke-width:2.5"/>' +
+      '<circle cx="' + M.cx + '" cy="' + M.cy + '" r="' + M.R + '" style="fill:none;stroke:#8C93A3;stroke-width:2.5"/>' +
+      '<path id="m2orbit" pathLength="1" d="' + ell2() + '" style="fill:none;stroke:var(--ink);stroke-width:4;opacity:0"/>' +
+      line('m2ma', M1p, [M.cx, M.cy], 'rgba(232,163,61,.7)', 16) + line('m2mb', [M.cx, M.cy], T.M3, 'rgba(200,70,46,.5)', 16) +
+      line('m2axis', M1p, T.M3, 'var(--ink)', 3.5) + line('m2l1', T.E1, T.L1, 'var(--green)', 4) + line('m2l2', T.E2, T.L2, 'var(--green)', 4) +
+      '<g id="m2pres">' + PRE.map(a => dot('pre' + a[0], pt(marsR(a[1]), a[1]), 8, 'var(--ink)')).join('') + PRE.map(a => L(pt(marsR(a[1]) + 0.15, a[1]), 'prel' + a[0], a[0])).join('') + '</g>' +
+      dot('m2h1', T.E1, 9, 'var(--green)', 1) + dot('m2g1', T.G1, 9, 'var(--green)', 1) + dot('m2h2', T.E2, 9, 'var(--green)', 1) + dot('m2g2', T.G2, 9, 'var(--green)', 1) + dot('m2m3', T.M3, 11, 'var(--green)', 1) +
+      dot('m2sun', [M.cx, M.cy], 16, 'var(--sun)') + '<g id="m2mars" style="opacity:0"><circle r="13" style="fill:var(--red);stroke:var(--ink);stroke-width:2"/></g>' +
+      '<g id="m2ruler" style="opacity:0"><g transform="translate(' + f(M1p[0]) + ' ' + f(M1p[1]) + ') rotate(' + ra.toFixed(2) + ')"><rect x="-30" y="12" width="' + (rl + 60).toFixed(1) + '" height="56" rx="6" style="fill:rgba(232,163,61,.22);stroke:rgba(27,36,56,.6);stroke-width:2"/>' + tk + '</g></g>' +
+      '<rect id="m2hlE" rx="5" style="fill:rgba(255,214,0,.6)"/><rect id="m2hlR" rx="5" style="fill:rgba(255,214,0,.6)"/>' +
+      L([M.cx, M.cy + 42], 'm2sunl', 'Sun') + L([1712, 594], 'm2refl', 'Reference Line 1 (0°)', 1) + L(pt(0.8, 215), 'm2earl', 'Earth’s orbit', 1) +
+      L([T.M3[0] + u[0] / n * 42, T.M3[1] + u[1] / n * 42], 'm2m3l', 'M3') + L(pt(2.05, 200), 'm2orbl', 'Mars’ Orbit') +
+      L([1080, 316], 'm2axl', 'Major Axis') + L([1035, 430], 'm2aphl', 'Aphelion') + L([1645, 648], 'm2perl', 'Perihelion') +
+      L([1120, 500], 'm2al', '14A: M1 to Sun', 1) + L([1458, 578], 'm2bl', '14B: Sun to M3', 1) +
+      L([1310, 955], 'm2eq', '(M1 to Sun) − (Sun to M3) = distance between foci') +
+      '<g id="m2prot" style="opacity:0"><g id="m2protS"><circle r="100" style="fill:rgba(232,163,61,.14);stroke:var(--ink);stroke-width:2.5"/><circle r="60" style="fill:none;stroke:rgba(27,36,56,.35);stroke-width:1.5"/>' + pk +
+      '<path d="M0 0 H100" style="stroke:var(--red);stroke-width:4"/><path d="M-10 0 H10 M0 -10 V10" style="stroke:var(--ink);stroke-width:2"/></g>' +
+      '<path id="m2arc" style="fill:none;stroke:var(--red);stroke-width:4"/><path id="m2ray" style="fill:none;stroke:var(--red);stroke-width:3.5;stroke-dasharray:10 7"/>' +
+      '<text id="m2p0" class="lab lab-s">0°</text><text id="m2p180" class="lab lab-s">180°</text><text id="m2read" class="lab"></text></g>';
+    // Triangulation idea (example point, not M3)
+    const X = pt(marsR(80), 80), A = pt(1, 60), B = pt(1, 17), ext = P => [P[0] + (X[0] - P[0]) * 1.3, P[1] + (X[1] - P[1]) * 1.3];
+    s += '<g id="gt">' + line('tla', A, ext(A), 'var(--green)', 4) + line('tlb', B, ext(B), 'var(--green)', 4) +
+      dot('ta', A, 11, 'var(--ink)', 1) + dot('tb', B, 11, 'var(--ink)', 1) + dot('tx', X, 12, 'var(--red)', 1) +
+      L([A[0] + 118, A[1]], 'tal', 'Earth on day 1', 1) + L([B[0] + 162, B[1]], 'tbl', 'Earth, 687 days later', 1) + L([X[0] + 66, X[1] - 8], 'txl', 'Mars') + '</g>';
+    s += '</g>';
+    s += buildExtra();
+    return s;
+  }
+
+  // ----- Question drawings -----
+  const T_ = (x, y, txt, sz, extra) => '<text class="svt" x="' + f(x) + '" y="' + f(y) + '" style="font-size:' + (sz || 24) + 'px;paint-order:stroke;stroke:var(--paper);stroke-width:6px' + (extra || '') + '">' + txt + '</text>';
+  const TI = (id, x, y, txt, sz) => '<text id="' + id + '" class="svt" x="' + f(x) + '" y="' + f(y) + '" style="font-size:' + (sz || 24) + 'px;opacity:0;paint-order:stroke;stroke:var(--paper);stroke-width:7px">' + txt + '</text>';
+  // graph (Q1)
+  const GX = d => 940 + d / 4.5 * 820, GY = P => 880 - P / 100, PER = d => 365.25 * Math.pow(d / 0.1496, 1.5);
+  // equal areas (Law 2, Q7, Q8)
+  const AE = { cx: 1330, cy: 560, a: 430, e: .5 }; AE.b = AE.a * Math.sqrt(1 - AE.e * AE.e); AE.sx = AE.cx - AE.a * AE.e;
+  const aeP = K => [AE.cx - AE.a * Math.cos(K), AE.cy + AE.b * Math.sin(K)];
+  const aeK = Mn => { let K = Mn; for (let i = 0; i < 12; i++) K -= (K - AE.e * Math.sin(K) - Mn) / (1 - AE.e * Math.cos(K)); return K; };
+  const WEDGES = [['A1', .2, .75, .6], ['A2', 1.25, 1.8, .62], ['A3', Math.PI - .275, Math.PI + .275, .72]];
+  // planets (Law 3)
+  const PL = [['Mercury', .39, 88, '#8C93A3'], ['Venus', .72, 225, '#D9A55B'], ['Earth', 1, 365, '#2F6FD0'], ['Mars', 1.52, 687, '#C8462E']];
+  const KC = [1310, 560];
+  // flight (Q9)
+  const FC = [1310, 575], RIN = 205, ROUT = 335, pf = (r, deg) => [FC[0] + r * Math.cos(deg * Math.PI / 180), FC[1] - r * Math.sin(deg * Math.PI / 180)];
+  const rover = u => pf(RIN + (ROUT - RIN) * (1 - Math.cos(Math.PI * u)) / 2, 65 + 157 * u);
+  // A and B (Q6)
+  const AB = { cx: 975, cy: 540, r: 165, A: 1290, B: 1720 };
+
+  function buildExtra() {
+    let s = '';
+    // Q1 graph
+    let grid = '', ticks = '';
+    for (let i = 0; i <= 9; i++) { const x = GX(i / 2); grid += '<path d="M' + f(x) + ' 180 V880" style="stroke:#D9DEE8;stroke-width:1.5"/>'; ticks += T_(x, 908, (i / 2).toString(), 21); }
+    for (let i = 0; i <= 7; i++) { const y = GY(i * 10000); grid += '<path d="M940 ' + f(y) + ' H1760" style="stroke:#D9DEE8;stroke-width:1.5"/>'; ticks += T_(926, y, (i * 10000).toLocaleString('en-US'), 21, ';text-anchor:end'); }
+    let cv = ''; for (let i = 0; i <= 90; i++) { const d = 4.5 * i / 90; cv += (i ? ' L' : 'M') + f(GX(d)) + ' ' + f(GY(PER(d))); }
+    const finger = '<g transform="rotate(25) scale(.8)"><g style="mask:url(#fgFade)"><path d="M24 -18 C7 -18 0 -10 0 0 C0 10 7 18 24 18 L230 21 L230 -21 Z" style="fill:url(#hSk);stroke:#B87757;stroke-width:2.5;stroke-linejoin:round"/><path d="M8 -11 C4 -11 3 -5 3 0 C3 5 4 11 8 11 L30 11 C33 11 35 5 35 0 C35 -5 33 -11 30 -11 Z" style="fill:url(#hNl);stroke:#D49C88;stroke-width:1.5"/><path d="M32 -9 C34 -3 34 3 32 9" style="fill:none;stroke:#fff;stroke-width:1.4;opacity:.75"/><path d="M68 -9 C65 -3 65 3 68 9 M73 -9 C70 -3 70 3 73 9 M128 -10 C125 -3 125 3 128 10 M133 -10 C130 -3 130 3 133 10" style="fill:none;stroke:#C4825F;stroke-width:1.5;stroke-linecap:round"/><path d="M22 -11 L200 -14" style="stroke:#fff;stroke-width:4;opacity:.28;stroke-linecap:round"/></g></g>';
+    s += '<g id="gg" style="display:none">' + grid +
+      '<path d="M940 180 V880 H1770" style="fill:none;stroke:var(--ink);stroke-width:3"/>' + ticks +
+      T_(1350, 118, 'Relationship between Distance from the Sun and Period of Revolution', 25) +
+      T_(1350, 962, 'Mean Distance from the Sun (billion km)', 24) +
+      '<text class="svt" transform="translate(800 530) rotate(-90)" style="font-size:24px">Period of Revolution (days)</text>' +
+      '<path id="ggTrail" pathLength="1" d="' + cv + '" style="fill:none;stroke:rgba(255,214,0,.75);stroke-width:22;stroke-linecap:round;opacity:0"/>' +
+      '<path d="' + cv + '" style="fill:none;stroke:var(--ink);stroke-width:4"/>' +
+      '<path id="ggUp" style="fill:none;stroke:var(--green);stroke-width:4;stroke-dasharray:12 9"/><path id="ggAc" style="fill:none;stroke:var(--green);stroke-width:4;stroke-dasharray:12 9"/>' +
+      '<circle id="ggDot" r="10" style="fill:var(--green);opacity:0"/>' +
+      TI('ggUpL', GX(2) + 150, 760, '1. Go up to the line', 23) + TI('ggAcL', 1110, GY(PER(2)) - 30, '2. Go across to the y-axis', 23) +
+      '<g id="ggF" style="opacity:0">' + finger + '</g></g>';
+    // equal areas / arrow X
+    let el = ''; for (let i = 0; i <= 120; i++) { const p = aeP(i / 120 * Math.PI * 2); el += (i ? ' L' : 'M') + f(p[0]) + ' ' + f(p[1]); }
+    let wd = '', wl = '';
+    WEDGES.forEach(w => {
+      let d = 'M' + f(AE.sx) + ' ' + f(AE.cy);
+      for (let i = 0; i <= 24; i++) { const p = aeP(aeK(w[1] + (w[2] - w[1]) * i / 24)); d += ' L' + f(p[0]) + ' ' + f(p[1]); }
+      wd += '<path id="ga' + w[0] + '" d="' + d + ' Z" style="fill:rgba(27,36,56,.32);stroke:var(--ink);stroke-width:2;opacity:0"/>';
+      const pm = aeP(aeK((w[1] + w[2]) / 2));
+      wl += TI('gal' + w[0], AE.sx + (pm[0] - AE.sx) * w[3], AE.cy + (pm[1] - AE.cy) * w[3], w[0], 28);
+    });
+    const KX = -1.75, MX = aeP(KX), vx = AE.a * Math.sin(KX), vy = AE.b * Math.cos(KX), vn = Math.hypot(vx, vy);
+    const XE = [MX[0] + vx / vn * 190, MX[1] + vy / vn * 190];
+    s += '<g id="ga" style="display:none"><path d="' + el + '" style="fill:none;stroke:var(--ink);stroke-width:3.5"/>' + wd +
+      '<circle cx="' + f(AE.sx) + '" cy="' + AE.cy + '" r="34" style="fill:var(--sun);stroke:var(--ink);stroke-width:2.5"/>' + T_(AE.sx, AE.cy - 62, 'Sun', 26) + wl +
+      '<g id="gaX" style="opacity:0"><path id="gaXa" pathLength="1" d="M' + f(MX[0]) + ' ' + f(MX[1]) + ' L' + f(XE[0]) + ' ' + f(XE[1]) + '" style="fill:none;stroke:var(--ink);stroke-width:4;marker-end:url(#ah)"/>' +
+      '<circle cx="' + f(MX[0]) + '" cy="' + f(MX[1]) + '" r="20" style="fill:var(--red);stroke:var(--ink);stroke-width:2.5"/>' + T_(MX[0], MX[1] - 44, 'Mars', 24) + TI('gaXl', (MX[0] + XE[0]) / 2 - 6, (MX[1] + XE[1]) / 2 - 30, 'X', 30) + '</g>' +
+      T_(1330, 975, '(Not drawn to scale)', 21, ';font-weight:500') + '</g>';
+    // planets (Law 3)
+    let ko = '', kp = '';
+    PL.forEach((pl, i) => { const r = 245 * pl[1]; ko += '<circle cx="' + KC[0] + '" cy="' + KC[1] + '" r="' + f(r) + '" style="fill:none;stroke:#9AA3B5;stroke-width:2"/>';
+      kp += '<g id="gk' + i + '"><circle r="' + (13 + i * 2) + '" style="fill:' + pl[3] + ';stroke:var(--ink);stroke-width:2"/></g>' + TI('gkl' + i, 0, 0, pl[0], 22).replace('opacity:0;', ''); });
+    s += '<g id="gk" style="display:none">' + ko + '<circle cx="' + KC[0] + '" cy="' + KC[1] + '" r="30" style="fill:var(--sun);stroke:var(--ink);stroke-width:2.5"/>' + T_(KC[0], KC[1] + 50, 'Sun', 22) + kp +
+      '<text id="gkDay" class="svt" x="800" y="120" style="font-size:30px;text-anchor:start">Day 0</text>' + T_(1830, 120, 'Orbits drawn to the same scale', 21, ';text-anchor:end;font-weight:500') + '</g>';
+    // A and B (Q6)
+    const tan = P => { const D = P - AB.cx, a = Math.acos(AB.r / D); return [[AB.cx + AB.r * Math.cos(a), AB.cy - AB.r * Math.sin(a)], [AB.cx + AB.r * Math.cos(a), AB.cy + AB.r * Math.sin(a)]]; };
+    const arc = (P, r) => { const t2 = tan(P), a1 = Math.atan2(t2[0][1] - AB.cy, t2[0][0] - P), a2 = Math.atan2(t2[1][1] - AB.cy, t2[1][0] - P);
+      return 'M' + f(P + r * Math.cos(a1)) + ' ' + f(AB.cy + r * Math.sin(a1)) + ' A' + r + ' ' + r + ' 0 0 0 ' + f(P + r * Math.cos(a2)) + ' ' + f(AB.cy + r * Math.sin(a2)); };
+    const abl = (id, P) => { const t2 = tan(P); return line(id + '1', [P, AB.cy], t2[0], 'var(--ink)', 3) + line(id + '2', [P, AB.cy], t2[1], 'var(--ink)', 3); };
+    s += '<g id="gab" style="display:none"><circle cx="' + AB.cx + '" cy="' + AB.cy + '" r="' + AB.r + '" style="fill:#D5D9E0;stroke:var(--ink);stroke-width:3"/>' + T_(AB.cx, AB.cy - AB.r - 34, 'Sun', 28) +
+      abl('gabA', AB.A) + abl('gabB', AB.B) +
+      '<path id="gabAa" d="' + arc(AB.A, 70) + '" style="fill:none;stroke:var(--red);stroke-width:4;opacity:0"/><path id="gabBa" d="' + arc(AB.B, 110) + '" style="fill:none;stroke:var(--red);stroke-width:4;opacity:0"/>' +
+      '<circle id="gabAd" cx="' + AB.A + '" cy="' + AB.cy + '" r="9" style="fill:var(--ink);opacity:0"/><circle id="gabBd" cx="' + AB.B + '" cy="' + AB.cy + '" r="9" style="fill:var(--ink);opacity:0"/>' +
+      TI('gabAl', AB.A + 34, AB.cy, 'A', 32) + TI('gabBl', AB.B + 34, AB.cy, 'B', 32) +
+      T_(1310, 790, '(Not drawn to scale)', 21, ';font-weight:500') + '</g>';
+    // flight (Q9)
+    let rp = ''; for (let i = 0; i <= 80; i++) { const p = rover(i / 80); rp += (i ? ' L' : 'M') + f(p[0]) + ' ' + f(p[1]); }
+    const EL = pf(RIN, 65), ML = pf(ROUT, 118), MA = pf(ROUT, 222), EA = pf(RIN, 325);
+    s += '<g id="gf" style="display:none">' + T_(1310, 120, 'Flight Path of Curiosity Rover', 28) +
+      '<circle cx="' + FC[0] + '" cy="' + FC[1] + '" r="' + RIN + '" style="fill:none;stroke:var(--ink);stroke-width:2.5"/><circle cx="' + FC[0] + '" cy="' + FC[1] + '" r="' + ROUT + '" style="fill:none;stroke:var(--ink);stroke-width:2.5"/>' +
+      T_(FC[0] + RIN - 52, FC[1] + 8, 'Earth’s orbit', 19, ';font-weight:600;fill:#4A5468') + T_(FC[0] + ROUT - 50, FC[1] + 8, 'Mars’ orbit', 19, ';font-weight:600;fill:#4A5468') +
+      '<circle cx="' + FC[0] + '" cy="' + FC[1] + '" r="22" style="fill:var(--sun);stroke:var(--ink);stroke-width:2"/>' + T_(FC[0], FC[1] + 42, 'Sun', 22) +
+      '<path id="gfStr" d="M' + f(EL[0]) + ' ' + f(EL[1]) + ' L' + f(ML[0]) + ' ' + f(ML[1]) + '" style="fill:none;stroke:var(--ink);stroke-width:3;stroke-dasharray:10 8;opacity:0"/>' +
+      TI('gfStrL', (EL[0] + ML[0]) / 2 + 125, (EL[1] + ML[1]) / 2 - 28, 'Straight line to Mars on launch day?', 21) +
+      '<path id="gfTrail" pathLength="1" d="' + rp + '" style="fill:none;stroke:var(--green);stroke-width:5;opacity:0"/>' +
+      '<circle cx="' + f(EL[0]) + '" cy="' + f(EL[1]) + '" r="11" style="fill:var(--paper);stroke:#2F6FD0;stroke-width:3"/><circle cx="' + f(ML[0]) + '" cy="' + f(ML[1]) + '" r="13" style="fill:var(--paper);stroke:var(--red);stroke-width:3"/>' +
+      T_(EL[0] + 120, EL[1] - 40, 'Earth at launch', 22) + T_(EL[0] + 120, EL[1] - 14, 'November 26, 2011', 19, ';font-weight:500') + T_(ML[0] - 60, ML[1] - 40, 'Mars at launch', 22) +
+      '<g id="gfE"><circle r="12" style="fill:#2F6FD0;stroke:var(--ink);stroke-width:2"/></g><g id="gfM"><circle r="14" style="fill:var(--red);stroke:var(--ink);stroke-width:2"/></g><g id="gfR"><rect x="-8" y="-8" width="16" height="16" rx="3" style="fill:var(--ink)"/></g>' +
+      TI('gfMA', MA[0] - 70, MA[1] + 46, 'Mars at arrival, August 2012', 22) + TI('gfEA', EA[0] + 70, EA[1] + 40, 'Earth at arrival', 22) + TI('gfRL', 905, 470, 'Rover’s path', 22) +
+      T_(1310, 975, '(Not drawn to scale)', 21, ';font-weight:500') + '</g>';
+    // satellites (Q10)
+    const SM = [1250, 560], SA = [SM[0] + 185 * Math.cos(Math.PI / 4), SM[1] - 185 * Math.sin(Math.PI / 4)];
+    s += '<g id="gs" style="display:none"><circle cx="' + SM[0] + '" cy="' + SM[1] + '" r="185" style="fill:none;stroke:var(--ink);stroke-width:2.5;stroke-dasharray:12 10"/><circle cx="' + SM[0] + '" cy="' + SM[1] + '" r="410" style="fill:none;stroke:var(--ink);stroke-width:2.5;stroke-dasharray:12 10"/>' +
+      '<circle cx="' + SM[0] + '" cy="' + SM[1] + '" r="75" style="fill:#E7A491;stroke:var(--ink);stroke-width:3"/>' + T_(SM[0], SM[1], 'Mars', 26) +
+      '<g id="gsA" style="opacity:0"><path d="M' + f(SM[0] + 75 * Math.cos(Math.PI / 4)) + ' ' + f(SM[1] - 75 * Math.sin(Math.PI / 4)) + ' L' + f(SA[0] - 12) + ' ' + f(SA[1] + 12) + '" style="stroke:var(--ink);stroke-width:3;marker-start:url(#ah);marker-end:url(#ah)"/>' +
+      '<circle cx="' + f(SA[0]) + '" cy="' + f(SA[1]) + '" r="13" style="fill:var(--ink)"/>' + T_(SA[0] + 105, SA[1] - 4, 'Satellite A', 25) + T_(SM[0] + 60, SM[1] - 145, '200 km', 23, ';text-anchor:end') + '</g>' +
+      '<g id="gsB" style="opacity:0"><path d="M' + (SM[0] + 77) + ' ' + SM[1] + ' L' + (SM[0] + 395) + ' ' + SM[1] + '" style="stroke:var(--ink);stroke-width:3;marker-start:url(#ah);marker-end:url(#ah)"/>' +
+      '<circle cx="' + (SM[0] + 410) + '" cy="' + SM[1] + '" r="13" style="fill:var(--ink)"/>' + T_(SM[0] + 520, SM[1], 'Satellite B', 25) + T_(SM[0] + 236, SM[1] + 30, '500 km', 23) + '</g>' +
+      T_(1250, 1000, '(Not drawn to scale)', 21, ';font-weight:500') + '</g>';
+    return s;
+  }
+
+  function ggR(t) {
+    const p = eio((t - .6) / 3.6), d = 4.5 * Math.max(p, .001), P = [GX(d), GY(PER(d))];
+    g('ggF').setAttribute('transform', 'translate(' + f(P[0]) + ' ' + f(P[1]) + ')');
+    op('ggF', cl((t - .2) / .4) * (1 - cl((t - 4.6) / .4)));
+    draw('ggTrail', p);
+    const x2 = GX(2), y2 = GY(PER(2)), u = eio((t - 5) / 1), a = eio((t - 6.2) / 1);
+    g('ggUp').setAttribute('d', 'M' + f(x2) + ' 880 V' + f(880 + (y2 - 880) * u)); op('ggUp', u > 0 ? 1 : 0);
+    g('ggAc').setAttribute('d', 'M' + f(x2) + ' ' + f(y2) + ' H' + f(x2 + (940 - x2) * a)); op('ggAc', a > 0 ? 1 : 0);
+    g('ggDot').setAttribute('cx', f(x2)); g('ggDot').setAttribute('cy', f(y2)); op('ggDot', cl((t - 5.9) / .3));
+    op('ggUpL', cl((t - 5) / .4)); op('ggAcL', cl((t - 6.2) / .4));
+  }
+  function gaR(t, d) {
+    const w = win(d.wedges, t);
+    WEDGES.forEach((x, i) => { const q = cl(w * 3 - i); op('ga' + x[0], q); op('gal' + x[0], q); });
+    const x = win(d.arrow, t); op('gaX', d.arrow ? 1 : 0); draw('gaXa', eio(x)); op('gaXl', cl(x * 2 - 1));
+  }
+  function gkR(t) {
+    const days = Math.max(0, t - .6) * 55;
+    PL.forEach((pl, i) => { const r = 245 * pl[1], a = days / pl[2] * Math.PI * 2, x = KC[0] + r * Math.cos(a), y = KC[1] - r * Math.sin(a);
+      g('gk' + i).setAttribute('transform', 'translate(' + f(x) + ' ' + f(y) + ')');
+      const lx = KC[0] + (r + 0) * Math.cos(a), ly = KC[1] - (r + 0) * Math.sin(a) - 30; const l = g('gkl' + i); l.setAttribute('x', f(lx)); l.setAttribute('y', f(ly)); });
+    g('gkDay').textContent = 'Day ' + Math.floor(days);
+  }
+  function gabR(t) {
+    draw('gabA1', eio((t - .3) / .8)); draw('gabA2', eio((t - .3) / .8)); op('gabAd', cl((t - .1) / .3)); op('gabAl', cl((t - .1) / .3)); op('gabAa', cl((t - 1.1) / .4));
+    draw('gabB1', eio((t - 1.6) / .8)); draw('gabB2', eio((t - 1.6) / .8)); op('gabBd', cl((t - 1.4) / .3)); op('gabBl', cl((t - 1.4) / .3)); op('gabBa', cl((t - 2.4) / .4));
+  }
+  function gfR(t) {
+    const u = cl((t - 1.6) / 5);
+    op('gfStr', cl((t - .3) / .5)); op('gfStrL', cl((t - .3) / .5));
+    const E2 = pf(RIN, 65 + 260 * u), M2 = pf(ROUT, 118 + 104 * u), R2 = rover(u);
+    g('gfE').setAttribute('transform', 'translate(' + f(E2[0]) + ' ' + f(E2[1]) + ')');
+    g('gfM').setAttribute('transform', 'translate(' + f(M2[0]) + ' ' + f(M2[1]) + ')');
+    g('gfR').setAttribute('transform', 'translate(' + f(R2[0]) + ' ' + f(R2[1]) + ')');
+    draw('gfTrail', u); op('gfRL', cl((t - 4) / .5)); op('gfMA', cl((t - 6.6) / .4)); op('gfEA', cl((t - 6.8) / .4));
+  }
+  function gsR(t) { op('gsA', cl((t - .3) / .5)); op('gsB', cl((t - 1.2) / .5)); }
+
+  const art = document.getElementById('art');
+  art.innerHTML = buildSvg();
+  const $ = id => art.getElementById ? art.getElementById(id) : document.getElementById(id);
+  const el = {}; const g = id => el[id] || (el[id] = document.getElementById(id));
+  const op = (id, p) => { const e = g(id); if (e) e.style.opacity = p; };
+  const draw = (id, p) => { const e = g(id); e.style.strokeDasharray = '1 1'; e.style.strokeDashoffset = String(1 - p); e.style.opacity = p > .002 ? 1 : 0; };
+  const pop = (id, p, P) => g(id).setAttribute('transform', 'translate(' + f(P[0]) + ' ' + f(P[1]) + ') scale(' + back(p).toFixed(3) + ')');
+
+  function m1R(t, s) {
+    const sx = E.cx + E.c, fx = E.cx - E.c, y = E.cy, v = k => win(s[k], t);
+    const pf = v('f2'), pp = v('pins'), tr = eio(v('trace')), po = eio(v('out'));
+    pop('m1f2', pf, [fx, y]); op('m1brk', pf); op('m1f2l', pf); op('m1cm', pf);
+    const drop = eio(pp), pv = cl(pp * 2) * (1 - po);
+    [['m1pinA', fx], ['m1pinB', sx]].forEach(a => { g(a[0]).setAttribute('transform', 'translate(' + a[1] + ' ' + f(y - 50 * (1 - drop) - 80 * po) + ')'); op(a[0], pv); });
+    const a = tr * Math.PI * 2, P = [E.cx + E.a * Math.cos(a), E.cy - E.b * Math.sin(a)], tool = cl(pp * 3 - 2) * (1 - po);
+    draw('m1trail', tr);
+    g('m1str').setAttribute('d', 'M' + fx + ' ' + y + ' L' + f(P[0]) + ' ' + f(P[1]) + ' L' + sx + ' ' + y + ' Z'); op('m1str', tool);
+    g('m1pen').setAttribute('transform', 'translate(' + f(P[0]) + ' ' + f(P[1]) + ') rotate(28)'); op('m1pen', tool);
+    op('m1orbl', v('label'));
+    const pe = v('per'), ap = v('aph');
+    pop('m1peri', pe, [E.cx + E.a, y]); pop('m1aph', ap, [E.cx - E.a, y]);
+    op('m1perl', pe); op('m1aphl', ap); op('m1apl', .5 * Math.max(pe, ap));
+    if (s.planet != null) {
+      const e = E.c / E.a, Mn = Math.max(0, t - s.planet) / 6 * Math.PI * 2; let K = Mn;
+      for (let i = 0; i < 8; i++) K -= (K - e * Math.sin(K) - Mn) / (1 - e * Math.cos(K));
+      g('m1pl').setAttribute('transform', 'translate(' + f(E.cx + E.a * Math.cos(K)) + ' ' + f(E.cy - E.b * Math.sin(K)) + ')');
+      op('m1pl', cl((t - s.planet + .4) / .4)); op('m1start', cl((t - .2) / .4));
+    } else { op('m1pl', 0); op('m1start', 0); }
+  }
+
+  const HL = {};
+  function hlSet(rid, tid, p) {
+    const tx = g(tid);
+    if (!HL[tid]) { const b = tx.getBBox(); if (b.width) HL[tid] = b; }
+    const b = HL[tid], r = g(rid);
+    if (!b || p <= 0) { r.setAttribute('width', 0); tx.style.stroke = ''; return; }
+    r.setAttribute('x', f(b.x - 7)); r.setAttribute('y', f(b.y - 3)); r.setAttribute('height', f(b.height + 6)); r.setAttribute('width', f((b.width + 14) * eio(p)));
+    tx.style.stroke = 'none';
+  }
+  function m2R(t, c) {
+    const v = k => win(c[k], t);
+    const after = typeof HLI === 'number' && cur > HLI ? 1 : 0;
+    hlSet('m2hlE', 'm2earl', c.hlE == null ? after : v('hlE')); hlSet('m2hlR', 'm2refl', c.hlR == null ? after : v('hlR'));
+    pop('m2h1', v('h1'), T.E1); pop('m2g1', v('g1'), T.G1); pop('m2h2', v('h2'), T.E2); pop('m2g2', v('g2'), T.G2); pop('m2m3', v('m3'), T.M3);
+    draw('m2l1', eio(v('l1'))); draw('m2l2', eio(v('l2'))); draw('m2orbit', eio(v('orbit'))); draw('m2axis', eio(v('axis')));
+    draw('m2ma', eio(v('a14'))); draw('m2mb', eio(v('b14')));
+    op('m2pres', c.pre == null ? 1 : c.pre);
+    op('m2m3l', v('m3')); op('m2orbl', v('orbl')); op('m2axl', v('axis')); op('m2aphl', v('aph')); op('m2perl', v('per'));
+    op('m2al', v('a14')); op('m2bl', v('b14')); op('m2eq', v('eq'));
+    const pr = v('ruler'); op('m2ruler', pr); g('m2ruler').setAttribute('transform', 'translate(0 ' + (24 * (1 - eio(pr))).toFixed(1) + ')');
+    if (c.mars) { const th = 330 + 16 * t, P = pt(marsR(th), th); g('m2mars').setAttribute('transform', 'translate(' + f(P[0]) + ' ' + f(P[1]) + ')'); op('m2mars', 1); } else op('m2mars', 0);
+    const p = c.prot;
+    if (!p) { op('m2prot', 0); return; }
+    const ctr = p.at === 'E1' ? T.E1 : p.at === 'E2' ? T.E2 : [M.cx, M.cy], w = p.win;
+    const vis = cl((t - w[0]) / .5), sw = eio((t - w[1]) / (w[2] - w[1])), rad = p.ang * sw * Math.PI / 180;
+    op('m2prot', vis);
+    g('m2protS').setAttribute('transform', 'translate(' + f(ctr[0]) + ' ' + f(ctr[1]) + ') scale(' + (p.r / 100) + ')');
+    g('m2ray').setAttribute('d', 'M' + f(ctr[0]) + ' ' + f(ctr[1]) + ' L' + f(ctr[0] + p.len * Math.cos(rad)) + ' ' + f(ctr[1] - p.len * Math.sin(rad)));
+    op('m2ray', sw > 0 ? 1 : 0);
+    let d = ''; const nn = Math.max(2, Math.ceil(p.ang * sw / 4));
+    for (let i = 0; i <= nn; i++) { const a = rad * i / nn; d += (i ? ' L' : 'M') + f(ctr[0] + 36 * Math.cos(a)) + ' ' + f(ctr[1] - 36 * Math.sin(a)); }
+    g('m2arc').setAttribute('d', d);
+    const p0 = g('m2p0'), p1 = g('m2p180'), rd = g('m2read');
+    p0.setAttribute('x', f(ctr[0] + p.r + 34)); p0.setAttribute('y', f(ctr[1] + 20));
+    p1.setAttribute('x', f(ctr[0] - p.r - 40)); p1.setAttribute('y', f(ctr[1] + 20));
+    const Ld = p.rd || p.len + 45, fa = p.ang * Math.PI / 180;
+    rd.textContent = p.ang + '°'; rd.setAttribute('x', f(ctr[0] + Ld * Math.cos(fa))); rd.setAttribute('y', f(ctr[1] - Ld * Math.sin(fa)));
+    op('m2read', cl((t - w[2]) / .4));
+  }
+
+  function tR(t) {
+    const X = pt(marsR(80), 80), A = pt(1, 60), B = pt(1, 17);
+    const a = cl((t - .4) / .5), b = cl((t - 2.8) / .5), x = cl((t - 5.2) / .5);
+    pop('ta', a, A); pop('tb', b, B); pop('tx', x, X);
+    draw('tla', eio((t - 1.1) / 1.4)); draw('tlb', eio((t - 3.5) / 1.4));
+    op('tal', a); op('tbl', b); op('txl', x);
+  }
+
+  // ---------- screens ----------
+  const FULL = { h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: 1, m3: 1, orbit: 1, orbl: 1 };
+  const S = [
+    { part: 'Start', tag: 'Start here', title: 'How this works', dur: 3,
+      todo: ['Sit with your partner and get your clear container.', 'On each screen, watch the short demo on the left. Then do that step on your paper.', 'Check off every box when you finish it. Next unlocks once all the boxes are checked.'],
+      check: 'You need your PINK Student Answer Packet with the Model Orbit pages attached.', draw: Object.assign({ mode: 'm2', mars: true }, FULL) },
+    { part: 'Part 1', tag: 'Part 1 · Step 1', title: 'Write your name and check your materials', dur: 3.6,
+      todo: ['Write your name on the PINK Student Answer Packet.', 'Check your clear container against the list on the left.', 'Get 1 circular protractor, 1 metric ruler, 1 corkboard and 1 calculator.'],
+      check: 'Your Model Orbit pages are attached to your PINK packet.', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Materials</p><p class="c-note" data-at=".3">In your clear container (shared with your partner):</p><ul class="c-list"><li data-at=".8">2 red colored pencils</li><li data-at="1.2">2 green colored pencils</li><li data-at="1.6">2 small containers, each holding 2 push pins and 1 string</li><li data-at="2">2 pencil sharpeners</li></ul><p class="c-note" data-at="2.5">You also need:</p><ul class="c-list"><li data-at="2.9">1 circular protractor, 1 metric ruler, 1 corkboard, 1 calculator</li></ul>' },
+    { part: 'Part 1', tag: 'Part 1 · Step 2', title: 'Find the distance between the foci', dur: 3.8,
+      todo: ['Find #2 in your PINK packet. The eccentricity formula is missing the distance between foci.', 'Use the accepted eccentricity for Mars: 0.094.', 'Cross multiply to solve. Show all work.', 'Round to the nearest tenth.'],
+      record: 'PINK packet #2', check: 'Your answer should be about 1.5 cm.', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">PINK packet #2</p><p class="c-big" data-at=".3">eccentricity = distance between foci ÷ length of major axis</p><p class="c-row" data-at="1.4">0.094 = distance between foci ÷ length of major axis</p><p class="c-row" data-at="2.3">distance between foci = 0.094 × length of major axis</p><p class="c-note" data-at="3.2">Use the length of the major axis given in your packet.</p>' },
+    { part: 'Part 1', tag: 'Part 1 · Step 3', title: 'Plot Focus 2 on MODEL 1', dur: 2,
+      todo: ['Turn MODEL 1 sideways (landscape view).', 'Measure your distance from Step 2 to the LEFT of the Sun.', 'Make a large dot there. Label it Focus 2.'],
+      check: 'Focus 2 is about 1.5 cm to the left of the Sun.', draw: { mode: 'm1', f2: [.5, 1.1] } },
+    { part: 'Part 1', tag: 'Part 1 · Steps 4–5', title: 'Pin the Sun and Focus 2', dur: 2,
+      todo: ['Put MODEL 1 on the corkboard.', 'Push one pin into the Sun dot and one into the Focus 2 dot.'],
+      check: 'Both pins go straight down through the dots.', draw: { mode: 'm1', f2: 1, pins: [.4, 1.4] } },
+    { part: 'Part 1', tag: 'Part 1 · Step 6', title: 'Trace the orbit in RED', dur: 7,
+      todo: ['Place the string loop under the pins, around both of them.', 'Stretch the string tight with a RED colored pencil.', 'Keep it tight and trace all the way around.', 'Label the ellipse Mars’ Orbit.'],
+      check: 'Your orbit is an ellipse that looks almost like a circle.', draw: { mode: 'm1', f2: 1, pins: 1, trace: [.8, 6], label: [6.3, 6.8] } },
+    { part: 'Part 1', tag: 'Part 1 · Step 7', title: 'Remove the pins and string', dur: 1.8,
+      todo: ['Take out the pins and string.', 'Put them back in the small container. You will not need them again.'],
+      check: 'Only your red orbit, the Sun and Focus 2 are left on the page.', draw: { mode: 'm1', f2: 1, pins: 1, trace: 1, label: 1, out: [.4, 1.4] } },
+    { part: 'Part 1', tag: 'Part 1 · Steps 8–9', title: 'Mark perihelion and aphelion', dur: 3,
+      todo: ['Put a dot on the orbit at the point CLOSEST to the Sun (to the right of the Sun). Label it Perihelion (closest to).', 'Put a dot on the orbit at the point FARTHEST from the Sun (to the left of the Sun). Label it Aphelion (Furthest from).'],
+      check: 'Perihelion and aphelion sit at the two ends of the orbit, in line with the Sun and Focus 2. Part 1 is done!', draw: { mode: 'm1', f2: 1, trace: 1, label: 1, per: [.5, 1], aph: [2, 2.5] } },
+    { part: 'Part 2', tag: 'Part 2 · Read first', title: 'Heliocentric vs. geocentric longitude', dur: 4,
+      todo: ['Nothing to write on this screen. Read the card on the left.',
+        'Heliocentric longitude: “helio” means Sun. This angle is measured FROM THE SUN, starting at Reference Line 1 (0°). It tells you WHERE EARTH WAS in its orbit on that date. You plot it ON Earth’s orbit.',
+        'Geocentric longitude: “geo” means Earth. This angle is measured FROM EARTH (your green dot on Earth’s orbit). It tells you WHICH DIRECTION someone on Earth had to look to see Mars. You plot it OUTSIDE Earth’s orbit.',
+        'Remember it this way: heliocentric = where Earth was standing. Geocentric = which way Earth was looking.'],
+      check: 'Every date in the data table has one of each: a heliocentric angle (where Earth was) and a geocentric angle (where Mars appeared).', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Two angles for every date</p><div class="c-two" data-at=".3">' +
+        '<div class="c-box sun"><h3>Heliocentric longitude of Earth</h3><p class="root">helio = Sun</p><p>Measured from the <b>Sun</b>, starting at Reference Line 1 (0°)</p><p>Tells you <b>where Earth was</b> in its orbit</p><p>Plot it <b>ON</b> Earth’s orbit</p></div>' +
+        '<div class="c-box earth"><h3>Geocentric longitude of Mars</h3><p class="root">geo = Earth</p><p>Measured from <b>Earth</b> (your green dot), with 0° parallel to the grid lines on the graph paper</p><p>Tells you <b>which direction</b> to look from Earth to see Mars</p><p>Plot it <b>OUTSIDE</b> Earth’s orbit</p></div></div>' +
+        '<p class="c-sum" data-at="1.6">Heliocentric = where Earth was standing. Geocentric = which way Earth was looking.</p>' +
+        '<p class="c-note" data-at="2.4">One angle alone can’t find Mars. You need both, on two different dates.</p>' },
+    { part: 'Part 2', tag: 'Part 2 · Read first', title: 'How triangulation finds Mars', dur: 6,
+      todo: ['Nothing to write on this screen. Just watch and read.',
+        'Day 1: the heliocentric angle puts Earth on its orbit. The geocentric angle gives a line from Earth pointing toward Mars. Mars is somewhere on that line, but we don’t know how far away.',
+        'Mars takes 687 Earth days to go around the Sun once. So 687 days later, Mars is back in the exact same spot, but Earth is somewhere else in its orbit.',
+        'From Earth’s new spot, a second line points toward Mars. Mars is where the two lines cross.'],
+      check: 'This is the same idea behind GPS: two viewpoints pinpoint one spot.', draw: { mode: 'tri' } },
+    { part: 'Part 2', tag: 'Part 2 · Step 10', title: 'Open to MODEL 2 and find your data', dur: 3,
+      todo: ['Put the corkboard aside.', 'Open to MODEL 2 in your Model Orbit pages.', 'M1, M2, M4, M5 and M6 are already plotted. You will plot M3 using the 4 numbers on the left.'],
+      check: 'Heliocentric is plotted ON Earth’s orbit. Geocentric is plotted OUTSIDE Earth’s orbit.', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Data table: Triangulation of Mars</p><div class="c-table"><p class="th" data-at=".3">Mars Position</p><p class="th" data-at=".3">Date</p><p class="th" data-at=".3">Heliocentric Longitude of Earth</p><p class="th" data-at=".3">Geocentric Longitude of Mars</p>' +
+        '<p class="m3" data-at="1">M3</p><p data-at="1">September 19, 1591</p><p data-at="1">5°</p><p data-at="1">284°</p><p class="m3" data-at="1.7">M3</p><p data-at="1.7">August 6, 1593</p><p data-at="1.7">323°</p><p data-at="1.7">347°</p></div>' +
+        '<p class="c-note" data-at="2.4">Each Mars position uses two dates 687 Earth days apart.</p>' },
+    { part: 'Part 2', tag: 'Part 2 · Before STEP 1', title: 'Highlight Earth’s orbit and Reference Line 1', dur: 2.8, hlScreen: true,
+      todo: ['On MODEL 2, find the words Earth’s Orbit. Highlight them.', 'Find the words Reference Line 1 (0°). Highlight them.', 'Earth’s orbit is where your heliocentric dots go. Reference Line 1 is where 0° starts every time you center the protractor on the Sun.'],
+      check: 'You will use both of these in STEP 1 and STEP 4.', draw: { mode: 'm2', hlE: [.4, 1.2], hlR: [1.6, 2.4] } },
+    { part: 'Part 2', tag: 'Part 2 · STEP 1', title: 'September 19, 1591: plot Earth at 5°', dur: 3,
+      todo: ['Center the protractor on the Sun.', 'Line up 0° with Reference Line 1 (0°). The protractor will look upside down: 0° on the right, 180° on the left.', 'Use the RED numbers on the protractor to find 5°.', 'Make a GREEN dot ON Earth’s orbit at 5°.'],
+      check: 'Your dot is on Earth’s orbit, just above Reference Line 1.', draw: { mode: 'm2', h1: [2.5, 2.9], prot: { at: 'S', ang: 5, r: 120, len: 230, win: [.2, .9, 2.3] } } },
+    { part: 'Part 2', tag: 'Part 2 · STEP 2', title: 'Plot where Mars appeared: 284°', dur: 4,
+      todo: ['Center the protractor on your new GREEN dot.', 'Line up 0° parallel to the grid lines on the graph paper.', 'Make a GREEN dot at 284°, OUTSIDE Earth’s orbit.'],
+      check: '284° points down and a little to the right of your Earth dot.', draw: { mode: 'm2', h1: 1, g1: [3.4, 3.8], prot: { at: 'E1', ang: 284, r: 80, len: 80, rd: 128, win: [.2, .9, 3.2] } } },
+    { part: 'Part 2', tag: 'Part 2 · STEP 3', title: 'Draw the first line', dur: 2.6,
+      todo: ['Use your ruler to draw a GREEN line from your first dot through your second dot.', 'Keep going well past the 2nd dot so the next line can cross it.'],
+      check: 'Your line heads down and to the right, well past the second dot.', draw: { mode: 'm2', h1: 1, g1: 1, l1: [.4, 2.4] } },
+    { part: 'Part 2', tag: 'Part 2 · STEP 4', title: 'August 6, 1593: plot Earth at 323°', dur: 3.6,
+      todo: ['Center the protractor on the Sun. Line up 0° with Reference Line 1.', 'Use the RED numbers on the protractor to find 323°.', 'Make a GREEN dot ON Earth’s orbit at 323°.'],
+      check: '323° is below Reference Line 1, on the lower right of Earth’s orbit.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: [3.1, 3.5], prot: { at: 'S', ang: 323, r: 120, len: 230, rd: 285, win: [.2, .9, 2.9] } } },
+    { part: 'Part 2', tag: 'Part 2 · STEP 5', title: 'Plot where Mars appeared: 347°', dur: 3.6,
+      todo: ['Center the protractor on your new GREEN dot. Line up 0° parallel to the grid lines on the graph paper.', 'Make a GREEN dot at 347°, OUTSIDE Earth’s orbit.'],
+      check: '347° points to the right and slightly down.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: [3.1, 3.5], prot: { at: 'E2', ang: 347, r: 80, len: 80, rd: 150, win: [.2, .9, 2.9] } } },
+    { part: 'Part 2', tag: 'Part 2 · STEP 6', title: 'Draw the second line and find M3', dur: 3.4,
+      todo: ['Draw a GREEN line from your 323° dot through your 347° dot. Extend it past the 2nd dot.', 'Put a GREEN dot where your two lines cross. Label it M3.'],
+      check: 'M3 should line up with the curve made by M1, M2, M4, M5 and M6.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: [.4, 2.2], m3: [2.6, 3.1] } },
+    { part: 'Part 2', tag: 'Part 2 · Step 11', title: 'Connect all six points', dur: 4.4,
+      todo: ['Connect all 6 M points (M1 to M6) with a smooth curve.', 'Label it Mars’ Orbit.'],
+      check: 'Your curve passes through all 6 points, including your M3.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: 1, m3: 1, orbit: [.4, 3.6], orbl: [3.8, 4.3] } },
+    { part: 'Part 2', tag: 'Part 2 · Step 12', title: 'Draw the Major Axis', dur: 2.6,
+      todo: ['Use the ruler to draw a straight line from M1 to M3.', 'Make sure the line passes through the Sun.', 'Label the line Major Axis.'],
+      check: 'M1, the Sun and M3 all sit on one straight line.', draw: Object.assign({ mode: 'm2', axis: [.4, 2.4] }, FULL) },
+    { part: 'Part 2', tag: 'Part 2 · Step 13', title: 'Measure the Major Axis', dur: 1.6,
+      todo: ['Line up the ruler along the Major Axis.', 'Measure from M1 to M3 in centimeters.', 'Round to the nearest tenth.'],
+      record: 'PINK packet #13', draw: Object.assign({ mode: 'm2', axis: 1, ruler: [.3, 1.3] }, FULL) },
+    { part: 'Part 2', tag: 'Part 2 · Steps 14A–14B', title: 'Measure each side of the Sun', dur: 3.6,
+      todo: ['14A: Measure from M1 to the Sun. Write the value above the line between M1 and the Sun.', '14B: Measure from the Sun to M3. Write the value above the line between the Sun and M3.', 'Round both to the nearest tenth.'],
+      record: 'PINK packet #14A and #14B', check: 'M1 to the Sun is the longer side.', draw: Object.assign({ mode: 'm2', axis: 1, a14: [.3, 1.5], b14: [2, 3.2] }, FULL) },
+    { part: 'Part 2', tag: 'Part 2 · Steps 14C–14D', title: 'Label the ends and subtract', dur: 3.4,
+      todo: ['14C: On MODEL 2, label the M1 end Aphelion and the M3 end Perihelion.', '14D: Subtract. (M1 to Sun) − (Sun to M3) = distance between foci.', 'Round to the nearest tenth.'],
+      record: 'PINK packet #14D', check: 'Aphelion is at the longer end. Perihelion is at the shorter end, closer to the Sun.', draw: Object.assign({ mode: 'm2', axis: 1, a14: 1, b14: 1, aph: [.3, .8], per: [1.1, 1.6], eq: [2.2, 2.8] }, FULL) },
+    { part: 'Calculate', tag: 'Calculate · Step 15', title: 'Calculate the eccentricity', dur: 3.6,
+      todo: ['Find #15 in your PINK packet.', 'Divide: distance between foci (#14D) ÷ length of major axis (#13).', 'Keep cm with each number when you set it up: ___ cm ÷ ___ cm.', 'Your eccentricity has NO units. The cm on the top and the cm on the bottom cancel out.', 'Show your work. Round to the nearest thousandth (3 decimal places).'],
+      record: 'PINK packet #15', check: 'Mars’ orbit is close to a circle, so your answer should be a small decimal near 0.094.', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">PINK packet #15</p><p class="c-big" data-at=".3">eccentricity = distance between foci ÷ length of major axis</p><p class="c-row" data-at="1.3">eccentricity = #14D (cm) ÷ #13 (cm)</p><p class="c-row" data-at="1.9">cm ÷ cm cancel out, so eccentricity has <b>no units</b>.</p><p class="c-note" data-at="2.6">Rounding example only (not the answer):</p><p class="c-ex" data-at="3">0.08734 rounds to 0.087</p>' },
+    { part: 'Calculate', tag: 'Calculate · Step 16', title: 'Calculate your percent error', dur: 4.2,
+      todo: ['Find #16 in your PINK packet.', 'Find the difference between your value from #15 and the accepted value, 0.094. Use the positive difference.', 'Divide by 0.094, then multiply by 100.', 'Show your work. Round to the nearest tenth.'],
+      record: 'PINK packet #16', check: 'Percent error is always positive. A smaller percent means your model was closer to the accepted value.', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">PINK packet #16</p><p class="c-big" data-at=".3">percent error = (difference from accepted value ÷ accepted value) × 100</p><p class="c-row" data-at="1.3">accepted value = 0.094</p><p class="c-row" data-at="1.9">calculated value = your answer from #15</p><p class="c-note" data-at="2.7">Worked example only (not the answer):</p><p class="c-ex" data-at="3.1">0.094 − 0.087 = 0.007 → 0.007 ÷ 0.094 = 0.0745 → 0.0745 × 100 = 7.4%</p>' },
+    { part: 'Finish', tag: 'Finish · Steps 17–19', title: 'Clean up and answer the questions', dur: 3,
+      todo: ['17. Put all your materials back.', '18. Keep your Model Orbit pages attached to your PINK Student Answer Packet.', '19. Answer the questions in your PINK packet. The next screens walk you through each one.'],
+      check: 'Your PINK packet has #2 and #13 through #16 filled in, with work shown.', draw: Object.assign({ mode: 'm2', mars: true, axis: 1 }, FULL) },
+    { part: 'Questions', tag: 'Questions · Start here', title: 'How to use the question help', dur: 3,
+      todo: ['Each checkbox matches one answer line in your PINK packet. Check it after you write that answer.', 'The hints point you to your evidence. They do not give you the answer, so the words you write are yours.'],
+      check: 'Include units whenever you use a number (cm, days, km, billion km, years).', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Your evidence is already on your desk</p><ul class="c-list"><li data-at=".4">MODEL 1: your red orbit, perihelion and aphelion</li><li data-at=".9">MODEL 2: your M3, the major axis and your measurements</li><li data-at="1.4">PINK packet #2 and #13–#16: your numbers</li><li data-at="1.9">The graph, diagram or table next to each question</li></ul><p class="c-sum" data-at="2.5">Hints help you think. Your answer still has to be yours.</p>' },
+    { part: 'Questions', tag: 'Questions · #1', title: 'Distance from the Sun and period of revolution', dur: 7.4,
+      todo: [{ b: 'Claim', t: 'Slide your finger along the line on your graph from left to right, like the demo. Notice what happens to the period of revolution (days) as the distance from the Sun gets bigger. Write one sentence that describes that pattern using the words distance and period of revolution.' },
+        { b: 'Numerical Evidence', t: 'Pick two points on the line that are far apart. For each one, go up from the x-axis to the line, then straight across to the y-axis, like the demo. Write both distances (billion km) and both periods (days).' }],
+      record: 'PINK packet, Question 1', check: 'Evidence starter: At ___ billion km the period is about ___ days, but at ___ billion km it is about ___ days.', draw: { mode: 'graph' } },
+    { part: 'Questions', tag: 'Questions · #2 · Law 1', title: 'Law 1: the shape of an orbit', dur: 4.6,
+      todo: [{ b: 'Law 1', t: 'Look at your finished MODEL 1. The string and two pins drew the shape of Mars’ orbit, and the Sun is at one of the two pins (a focus), not in the center. Describe the shape of a planet’s orbit and where the Sun is.' }],
+      record: 'PINK packet, Question 2 (Law 1)', check: 'Use the word focus in your answer.', draw: { mode: 'm1', f2: 1, trace: [.3, 3], label: [3.1, 3.5], per: [3.6, 4], aph: [4.1, 4.5] } },
+    { part: 'Questions', tag: 'Questions · #2 · Law 2', title: 'Law 2: a planet’s speed', dur: 3.4,
+      todo: [{ b: 'Law 2', t: 'Look at this model (it is also above Question 8). Each shaded area takes Mars the same number of days. Compare how much of the orbit Mars covers near the Sun to how much it covers far from the Sun, then describe how its speed changes. Use the words perihelion and aphelion.' }],
+      record: 'PINK packet, Question 2 (Law 2)', draw: { mode: 'area', wedges: [.3, 2.8] } },
+    { part: 'Questions', tag: 'Questions · #2 · Law 3', title: 'Law 3: distance and a planet’s year', dur: 3,
+      todo: [{ b: 'Law 3', t: 'Look back at your claim for Question 1. Law 3 is that same relationship between a planet’s distance from the Sun and the length of its year. Watch the planets in the demo, then write it in your own words.' }],
+      record: 'PINK packet, Question 2 (Law 3)', check: 'The planets in the demo all start lined up. Watch which ones finish a trip around the Sun first.', draw: { mode: 'kep', loop: true } },
+    { part: 'Questions', tag: 'Questions · #3 · Model 1', title: 'How math built MODEL 1', dur: 4.6,
+      todo: [{ b: '(Model 1) Plotting the Orbit of Mars', t: 'Look at #2 in your PINK packet and your finished MODEL 1. Describe the math you did in #2 (the eccentricity you were given and the value you solved for), and how that number let you place Focus 2 and draw the orbit with the pins and string.' }],
+      record: 'PINK packet, Question 3 (Model 1)', draw: { mode: 'm1', f2: 1, trace: [.3, 3], label: [3.1, 3.5], per: [3.6, 4], aph: [4.1, 4.5] } },
+    { part: 'Questions', tag: 'Questions · #3 · Model 2', title: 'How math built MODEL 2', dur: 9,
+      todo: [{ b: '(Model 2) Plotting Positions of Mars', t: 'Use the data table and your finished MODEL 2. Describe how you used the two kinds of angles from the table to plot dots with the protractor, how the two green lines found M3, and what you measured and calculated after that (#13–#16).' }],
+      record: 'PINK packet, Question 3 (Model 2)', check: 'The demo shows the data table first, then your finished MODEL 2. Press Replay to see the table again.', draw: { mode: 'card', then: Object.assign({ mode: 'm2', at: 6.4, axis: 1, a14: [7, 7.6], b14: [7.4, 8], aph: 1, per: 1 }, FULL) },
+      card: '<p class="c-h" data-at="0">What you used from the data table</p><div class="c-table c-sm"><p class="th" data-at=".2">Mars Position</p><p class="th" data-at=".2">Date</p><p class="th hl-sun" data-at=".2">Heliocentric Longitude of Earth</p><p class="th hl-earth" data-at=".2">Geocentric Longitude of Mars</p>' +
+        '<p class="m3" data-at=".5">M3</p><p data-at=".5">September 19, 1591</p><p class="hl-sun" data-at=".5">5°</p><p class="hl-earth" data-at=".5">284°</p><p class="m3" data-at=".8">M3</p><p data-at=".8">August 6, 1593</p><p class="hl-sun" data-at=".8">323°</p><p class="hl-earth" data-at=".8">347°</p></div>' +
+        '<p class="c-key sun" data-at="1.6"><b>Heliocentric angles (5°, 323°):</b> measured from the Sun. Dots went ON Earth’s orbit.</p>' +
+        '<p class="c-key earth" data-at="2.6"><b>Geocentric angles (284°, 347°):</b> measured from Earth. Dots went OUTSIDE Earth’s orbit.</p>' +
+        '<p class="c-key" data-at="3.6"><b>Each date</b> gave one green line. The two lines crossed at M3.</p>' +
+        '<p class="c-note" data-at="4.6">Then you measured the major axis and both sides of the Sun (#13–#14D) and calculated #15 and #16.</p>' },
+    { part: 'Questions', tag: 'Questions · #4', title: 'Perihelion, aphelion and the length of a year', dur: 3,
+      todo: [{ b: 'Question 4', t: 'Watch Mars start at perihelion and travel the whole orbit. Perihelion and aphelion stay in the same spots every trip around. Explain how that makes them useful markers for measuring one full orbit (one year). Use the words perihelion, aphelion, orbit and year.' }],
+      record: 'PINK packet, Question 4', draw: { mode: 'm1', f2: 1, trace: 1, label: 1, per: 1, aph: 1, planet: .6, loop: true } },
+    { part: 'Questions', tag: 'Questions · #5', title: 'Gravity at perihelion and aphelion', dur: 3.4,
+      todo: [{ b: 'Question 5', t: 'Your MODEL 2 and #14A and #14B show which end of the orbit is closer to the Sun. Use what you know about distance and gravity to compare the Sun’s pull at perihelion and at aphelion, and how that changes the planet’s speed. Describe both positions.' }],
+      record: 'PINK packet, Question 5', draw: Object.assign({ mode: 'm2', axis: 1, a14: [.3, 1.3], b14: [1.5, 2.5], aph: [2.6, 3], per: [2.8, 3.2] }, FULL) },
+    { part: 'Questions', tag: 'Questions · #6', title: 'Why the Sun looks bigger at perihelion', dur: 3.4,
+      todo: [{ b: 'Evidence from Model', t: 'Compare points A and B: how far each one is from the Sun and how wide its angle is. A wider angle means the Sun takes up more of the sky. Decide which point matches perihelion and describe what the model shows.' },
+        { b: 'Numerical Evidence', t: 'Use your MODEL 2 measurements: #14B (Sun to M3, perihelion) and #14A (M1 to Sun, aphelion). Write both with cm and compare them.' }],
+      record: 'PINK packet, Question 6', draw: { mode: 'ab' } },
+    { part: 'Questions', tag: 'Questions · #7', title: 'What keeps Mars in orbit', dur: 2.4,
+      todo: [{ b: 'Question 7', t: 'Arrow X is the straight path Mars would take if nothing pulled on it. Mars curves around the Sun instead, so a force is pulling it toward the Sun. Write the name of that force.' }],
+      record: 'PINK packet, Question 7', draw: { mode: 'area', arrow: [.4, 1.6] } },
+    { part: 'Questions', tag: 'Questions · #8', title: 'Equal areas, equal times', dur: 3.4,
+      todo: [{ b: 'Question 8', t: 'Compare the three shaded areas: which one is closest to the Sun, and which one has the longest edge along the orbit. Mars covers each edge in the same number of days, so explain what that means for its speed in each spot. Connect it to gravity (Question 5) and name the Kepler law this shows.' }],
+      record: 'PINK packet, Question 8', draw: { mode: 'area', wedges: [.3, 2.8] } },
+    { part: 'Questions', tag: 'Questions · #9', title: 'Curiosity’s flight path', dur: 7.6,
+      todo: [{ b: 'a. Approximate travel time', t: 'On the model in your packet, count the SPACES between tick marks from launch to arrival (not the tick marks themselves). Each space is 20 Earth days. The trip went from November 2011 to August 2012, so use that to check that your number makes sense.' },
+        { b: 'b. Flight path explanation', t: 'Watch the demo. Mars keeps moving along its orbit while the rover travels. Explain why NASA aimed for where Mars would be on arrival instead of where Mars was on launch day. Use the words orbit and position.' }],
+      record: 'PINK packet, Question 9a and 9b', check: 'Think of a quarterback throwing to a running receiver: they throw to where the receiver will be.', draw: { mode: 'flight' } },
+    { part: 'Questions', tag: 'Questions · #10', title: 'Which satellite is faster?', dur: 2.6,
+      todo: [{ b: 'Description of speeds', t: 'The two satellites have about the same mass, so distance is the only difference. Decide which satellite feels stronger gravity from Mars, then compare the speeds of BOTH satellites in one sentence.' },
+        { b: 'Reason with quantitative evidence', t: 'Use both distances from the diagram, with km, to explain why.' }],
+      record: 'PINK packet, Question 10', draw: { mode: 'sat' } },
+    { part: 'Questions', tag: 'Questions · #11', title: 'Solar panels vs. radioactive batteries', dur: 3.4,
+      todo: [{ b: 'Solar panel benefit', t: 'Compare the yellow rows to the green rows in one column (cost, length of mission or mass). Pick a column where solar panels do better. Include numbers and units.' },
+        { b: 'Solar panel drawback', t: 'Pick a column where solar panels do worse. Include numbers and units.' },
+        { b: 'Radioactive battery benefit', t: 'Pick a column where radioactive batteries do better. Include numbers and units.' },
+        { b: 'Radioactive battery drawback', t: 'Pick a column where radioactive batteries do worse. Include numbers and units.' }],
+      record: 'PINK packet, Question 11', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Selected Mars Spacecraft</p><div class="c-table c-t5"><p class="th" data-at=".2">Spacecraft</p><p class="th" data-at=".2">Power Source</p><p class="th" data-at=".2">Cost (millions of dollars)</p><p class="th" data-at=".2">Length of Mission (years)</p><p class="th" data-at=".2">Mass (kg)</p>' +
+        [['Spirit rover', 'solar panel', '400', '6', '181.5'], ['Phoenix Mars lander', 'solar panel', '420', 'Less than 0.5', '350.2'], ['Curiosity rover', 'radioactive battery', '2500', '14', '1025.1'], ['Mars InSight lander', 'solar panel', '829', '4', '360.2'], ['Perseverance rover', 'radioactive battery', '2400', '14', '1025.1']]
+          .map((r, i) => r.map(c => '<p class="' + (r[1] === 'solar panel' ? 'hl-sun' : 'hl-earth') + '" data-at="' + (.5 + i * .3).toFixed(1) + '">' + c + '</p>').join('')).join('') + '</div>' +
+        '<p class="c-key sun" data-at="2.2"><b>Yellow rows:</b> solar panel</p><p class="c-key earth" data-at="2.6"><b>Green rows:</b> radioactive battery</p>' },
+    { part: 'Questions', tag: 'Questions · #12', title: 'Daylight at 68°N on Earth and on Mars', dur: 3.6,
+      todo: [{ b: 'Question 12', t: 'Use the table to describe how the hours of daylight change through the year at Arctic Village, including June and July. Then use the comparison at the bottom of the card to explain why the Phoenix site on Mars would have a similar pattern. Cover BOTH seasonal variations and length of daylight.' }],
+      record: 'PINK packet, Question 12', check: 'Use numbers from the table and the question as evidence, with units.', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Arctic Village, Alaska (68°N)</p><div class="c-table c-t4 c-sm"><p class="th" data-at=".2">Date</p><p class="th" data-at=".2">Sunrise</p><p class="th" data-at=".2">Sunset</p><p class="th" data-at=".2">Time Sun is above horizon</p>' +
+        [['April 1', '6:50 a.m.', '8:43 p.m.', '13 h 52 min'], ['May 1', '4:37 a.m.', '10:44 p.m.', '18 h 6 min'], ['June 1', 'N/A', 'N/A', '24 h'], ['July 1', 'N/A', 'N/A', '24 h'], ['August 1', '3:55 a.m.', '11:37 p.m.', '19 h 41 min'], ['September 1', '6:07 a.m.', '9:13 p.m.', '15 h 6 min']]
+          .map((r, i) => r.map(c => '<p data-at="' + (.4 + i * .2).toFixed(1) + '">' + c + '</p>').join('')).join('') + '</div>' +
+        '<p class="c-h" data-at="1.9">Compare</p><div class="c-table c-t3 c-sm"><p class="th" data-at="2.1"></p><p class="th" data-at="2.1">Arctic Village (Earth)</p><p class="th" data-at="2.1">Phoenix site (Mars)</p>' +
+        '<p data-at="2.4"><b>Latitude</b></p><p data-at="2.4">68°N</p><p data-at="2.4">68°N</p><p data-at="2.7"><b>Tilt of axis</b></p><p data-at="2.7">about 23.5°</p><p data-at="2.7">about 25°</p><p data-at="3"><b>Length of a day</b></p><p data-at="3">24 h</p><p data-at="3">24 h 37 min 22 s (a Sol)</p></div>' },
+  ];
+  const HLI = S.findIndex(x => x.hlScreen);
+  const Q2 = '2. Describe how the location and motions of the planets in our solar system are governed by each of Kepler’s Three Laws.';
+  const Q3 = '3. Based on the information from your Student Answer Packet, how were mathematical and computational representations used to predict the orbit and positions of Mars? (Using your work, explain how math, measurements, and plotting helped you complete Model 1 and Model 2)';
+  const PQ = {
+    'Questions · #1': '1. Using your knowledge of Kepler’s Laws and the graph below, make a claim using numerical evidence about the relationship between a planet’s distance from the Sun and its period of revolution.',
+    'Questions · #2 · Law 1': Q2 + '\nLaw 1: What does this law say about the shape of the orbit?',
+    'Questions · #2 · Law 2': Q2 + '\nLaw 2: What does this law say about a planet’s speed?',
+    'Questions · #2 · Law 3': Q2 + '\nLaw 3: What does this law say about distance and a planet’s year?',
+    'Questions · #3 · Model 1': Q3 + '\n(Model 1) Plotting the Orbit of Mars',
+    'Questions · #3 · Model 2': Q3 + '\n(Model 2) Plotting Positions of Mars to create an orbit',
+    'Questions · #4': '4. Construct an explanation that supports the claim that perihelion and aphelion locations can be used to determine the length of a year (one orbit) for planets in our solar system. (Think about where perihelion and aphelion are on an orbit)',
+    'Questions · #5': '5. How do gravitational effects between the Sun and a planet differ at the perihelion and the aphelion positions of the orbit of a planet?',
+    'Questions · #6': '6. Explain why the apparent angular diameter of the Sun would be larger (why the Sun looks bigger) at perihelion. Use evidence from the model and numerical evidence from your Student Answer Packet to justify your explanation.',
+    'Questions · #7': '7. The arrow, labeled X, shown in the model below represents the path that Mars would take if the Sun were not present.\nWhich force is responsible for the orbital path of Mars and all of the planets in our solar system?',
+    'Questions · #8': '8. Explain why Mars travels in its orbit for the same number of days as it passes along the edges of areas A1, A2, and A3 even though the distances traveled are different.',
+    'Questions · #9': '9. Use the model to calculate the approximate travel time between Earth and Mars in Earth days. Construct an explanation that describes why this flight path was selected rather than a straight-line path to Mars on the launch date.',
+    'Questions · #10': '10. Using your knowledge of the factors that affect gravitational attraction, describe the relative orbital speeds of both Satellites A and B. Give a reason for your answer using quantitative evidence from the diagram of each satellite shown in the model. (Simplified: Explain which satellite moves faster and why. Use the distances shown in the diagram to support your answer.)',
+    'Questions · #11': '11. Evaluate and compare the two different power sources by describing one benefit and one drawback of each power source used on Mars spacecraft based on one criterion found in the table.',
+    'Questions · #12': '12. Construct an explanation to support the claim that the pattern of seasonal variations and the length of daylight hours at the Phoenix lander site on Mars (68°N) and at Arctic Village, Alaska (68°N) are similar. Include both factors in your explanation.'
+  };
+
+
+  // ---------- page ----------
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const store = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+  const checks = store.get('um3-checks', {});
+  let cur = Math.min(S.length - 1, Math.max(0, store.get('um3-screen', 0) | 0));
+  for (let j = 0; j < cur; j++) { if (!S[j].todo.every((_, k) => !!checks['c-' + j + '-' + k])) { cur = j; break; } }
+  let t0 = 0, raf = 0;
+
+  const bar = document.getElementById('bar');
+  S.forEach((s, i) => { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Screen ' + (i + 1) + ': ' + s.tag); b.title = s.tag; b.addEventListener('click', () => { if (canGo(i)) show(i); }); bar.appendChild(b); });
+  const skip = document.getElementById('skip'), PARTS = [];
+  S.forEach((x, i) => { if (!PARTS.length || PARTS[PARTS.length - 1].name !== x.part) PARTS.push({ name: x.part, i }); });
+  PARTS.forEach(pt => { const b = document.createElement('button'); b.type = 'button'; b.textContent = pt.name; b.addEventListener('click', () => show(pt.i)); pt.btn = b; skip.appendChild(b); });
+  const complete = i => S[i].todo.every((_, j) => !!checks['c-' + i + '-' + j]);
+  const canGo = i => { for (let j = 0; j < i; j++) if (!complete(j)) return false; return true; };
+  function updateGate() {
+    const ok = complete(cur);
+    document.getElementById('next').disabled = !ok;
+    document.getElementById('gate').hidden = ok;
+    [...bar.children].forEach((b, j) => { b.disabled = !canGo(j); });
+  }
+
+  const card = document.getElementById('card');
+  let cardRows = [];
+  const MODES = { m1: ['g1'], m2: ['g2'], tri: ['g2', 'gt'], graph: ['gg'], area: ['ga'], kep: ['gk'], ab: ['gab'], flight: ['gf'], sat: ['gs'], card: [] };
+  const ALLG = ['g1', 'g2', 'gt', 'gg', 'ga', 'gk', 'gab', 'gf', 'gs'];
+  function render(t) {
+    const s = S[cur]; let d = s.draw;
+    if (d.then && t >= d.then.at) d = d.then;
+    const on = MODES[d.mode];
+    ALLG.forEach(id => { g(id).style.display = on.includes(id) ? '' : 'none'; });
+    card.hidden = d.mode !== 'card';
+    if (d.mode === 'graph') ggR(t);
+    if (d.mode === 'area') gaR(t, d);
+    if (d.mode === 'kep') gkR(t);
+    if (d.mode === 'ab') gabR(t);
+    if (d.mode === 'flight') gfR(t);
+    if (d.mode === 'sat') gsR(t);
+    if (d.mode === 'm1') m1R(t, d);
+    if (d.mode === 'm2') m2R(t, d);
+    if (d.mode === 'tri') { m2R(t, { pre: 0 }); tR(t); }
+    if (d.mode === 'card') cardRows.forEach(r => { const p = eio((t - parseFloat(r.dataset.at)) / .5); r.style.opacity = p; r.style.transform = 'translateX(' + (18 * (1 - p)).toFixed(1) + 'px)'; });
+    const done = t >= s.dur;
+    const st = document.getElementById('status');
+    st.classList.toggle('turn', done);
+    document.getElementById('statusText').textContent = done ? (s.part === 'Start' && cur === 0 ? 'Ready? Read the steps, then click Next.' : 'Your turn: do this on your paper') : 'Watch';
+    document.getElementById('meter').style.width = (cl(t / s.dur) * 100).toFixed(1) + '%';
+  }
+  function loop(now) {
+    const t = (now - t0) / 1000;
+    render(t);
+    const s = S[cur];
+    if (t < s.dur + .2 || s.draw.mars || s.draw.loop || (s.draw.then && t < s.draw.then.at + 2)) raf = requestAnimationFrame(loop);
+  }
+  function play() {
+    cancelAnimationFrame(raf);
+    if (reduce) { render(S[cur].dur + 30); return; }
+    t0 = performance.now(); raf = requestAnimationFrame(loop);
+  }
+
+  function show(i) {
+    cur = Math.max(0, Math.min(S.length - 1, i)); store.set('um3-screen', cur);
+    const s = S[cur];
+    document.getElementById('count').textContent = 'Screen ' + (cur + 1) + ' of ' + S.length;
+    [...bar.children].forEach((b, j) => { b.className = j < cur ? 'done' : j === cur ? 'now' : ''; if (j === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    PARTS.forEach(pt => pt.btn.classList.toggle('on', pt.name === s.part));
+    document.getElementById('tag').textContent = s.tag;
+    document.getElementById('title').textContent = s.title;
+    const pq = PQ[s.tag]; document.getElementById('pq').hidden = !pq; document.getElementById('pqText').textContent = pq || '';
+    const ul = document.getElementById('todo'); ul.innerHTML = '';
+    s.todo.forEach((txt, j) => {
+      const id = 'c-' + cur + '-' + j, li = document.createElement('li'), lab = document.createElement('label'), box = document.createElement('input'), sp = document.createElement('span');
+      box.type = 'checkbox'; box.id = id; box.checked = !!checks[id];
+      box.addEventListener('change', () => { checks[id] = box.checked; store.set('um3-checks', checks); updateGate(); });
+      if (typeof txt === 'object') { const bb = document.createElement('b'); bb.textContent = txt.b + ': '; sp.append(bb, document.createTextNode(txt.t)); } else sp.textContent = txt; lab.htmlFor = id; lab.append(box, sp); li.append(lab); ul.append(li);
+    });
+    const rec = document.getElementById('record');
+    if (s.record) { rec.hidden = false; rec.innerHTML = 'Record your answer in <b></b>'; rec.querySelector('b').textContent = s.record; } else rec.hidden = true;
+    const ck = document.getElementById('check');
+    if (s.check) { ck.hidden = false; document.getElementById('checkText').textContent = s.check; } else ck.hidden = true;
+    if (s.card) { card.innerHTML = s.card; cardRows = [...card.querySelectorAll('[data-at]')]; } else { card.innerHTML = ''; cardRows = []; } card.hidden = s.draw.mode !== 'card';
+    document.getElementById('back').disabled = cur === 0;
+    const nx = document.getElementById('next');
+    nx.textContent = cur === 0 ? 'Start' : cur === S.length - 1 ? 'Back to the start' : 'Next';
+    updateGate();
+    play();
+  }
+
+  document.getElementById('back').addEventListener('click', () => show(cur - 1));
+  document.getElementById('next').addEventListener('click', () => { if (complete(cur)) show(cur === S.length - 1 ? 0 : cur + 1); });
+  document.getElementById('replay').addEventListener('click', play);
+  document.addEventListener('keydown', e => {
+    if (e.target && e.target.tagName === 'INPUT' && e.key === ' ') return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); if (cur < S.length - 1 && complete(cur)) show(cur + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1); }
+  });
+  show(cur);
+})();
+</script>
+
+</body></html>
