@@ -185,7 +185,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       <p class="intro" id="intro" hidden></p>
       <ul class="todo" id="todo"></ul>
       <div class="record" id="record" hidden></div>
-      <div class="check" id="check" hidden><strong>Check yours</strong><p id="checkText"></p></div>
+      <div class="check" id="check" hidden><strong id="checkLbl">Check yours</strong><p id="checkText"></p></div>
       <nav class="nav">
         <button class="back" id="back" type="button">Back</button>
         <button class="next" id="next" type="button">Next</button>
@@ -626,8 +626,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
         '687 days later, Mars is back in the same spot, but Earth has moved.',
         'A second line from Earth’s new spot crosses the first one. That crossing is Mars.'],
       check: 'Same idea as GPS: two viewpoints pinpoint one spot. You will do this yourself to find M3.', draw: { mode: 'tri' } },
-    { part: 'Part 2', tag: 'Part 2 · Step 10', title: 'Open to MODEL 2 and find your data', dur: 3,
-      todo: ['Put the corkboard aside.', 'Open to MODEL 2 in your Model Orbit pages.', 'This is the data you will plot. M1, M2, M4, M5 and M6 are already plotted for you (see the picture). You will find M3 with these 4 numbers.'],
+    { part: 'Part 2', tag: 'Part 2 · Step 10', title: 'Flip to MODEL 2 and find your data', dur: 3, checkLabel: 'READ ME: What you will do on MODEL 2',
+      todo: ['Put the corkboard aside.', 'Flip your MODEL 1 sheet over. MODEL 2 is on the back.', 'This is the data you will plot. M1, M2, M4, M5 and M6 are already plotted for you (see the picture). You will find M3 with these 4 numbers.'],
       check: 'Next, you will use these 4 numbers to find M3 yourself, the same way M1, M2, M4, M5 and M6 were found on the last screen (shown on the left). M3 is the missing piece of Mars’ orbit. Once you find it, you can draw the whole orbit and measure it.', draw: { mode: 'card' },
       card: '<p class="c-h" data-at="0">The data you will plot: Triangulation of Mars</p>' + TBL(true) +
         ''+
@@ -878,6 +878,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     if (s.record) { rec.hidden = false; rec.innerHTML = 'Record your answer in <b></b>'; rec.querySelector('b').textContent = s.record; } else rec.hidden = true;
     const ck = document.getElementById('check');
     if (s.check) { ck.hidden = false; document.getElementById('checkText').textContent = s.check; } else ck.hidden = true;
+    document.getElementById('checkLbl').textContent = s.checkLabel || 'Check yours';
     if (s.card) { card.innerHTML = s.card; cardRows = [...card.querySelectorAll('[data-at]')]; } else { card.innerHTML = ''; cardRows = []; } card.hidden = s.draw.mode !== 'card';
     [document.getElementById('title'), ul, document.getElementById('checkText'), rec, card].forEach(colorize);
     document.getElementById('back').disabled = cur === 0;
