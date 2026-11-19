@@ -625,10 +625,9 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       card: '<p class="c-h" data-at="0">The data you will plot: Triangulation of Mars</p>' + TBL(true) +
         ''+
         '<div class="c-two" data-at="1.8" style="grid-template-columns:1fr 1fr;align-items:start"><div style="display:flex;flex-direction:column;gap:1.4cqw"><p class="c-key sun"><b>Heliocentric (5°, 323°):</b> plot ON Earth’s orbit</p><p class="c-key earth"><b>Geocentric (284°, 347°):</b> plot OUTSIDE Earth’s orbit</p><p class="c-note">M1, M2, M4, M5 and M6 are already on MODEL 2 (right). You will find M3.</p></div>' + miniM2() + '</div>' },
-    { part: 'Part 2', tag: 'Part 2 · Before STEP 1', title: 'Highlight Earth’s orbit and Reference Line 1', dur: 6.8, hlScreen: true,
+    { part: 'Part 2', tag: 'Part 2 · Before STEP 1', title: 'Highlight Earth’s orbit and Reference Line 1', dur: 2.8, hlScreen: true,
       todo: ['On MODEL 2, find the words Earth’s Orbit. Highlight them.', 'Find the words Reference Line 1 (0°). Highlight them.', 'Earth’s orbit is where your heliocentric dots go. Reference Line 1 is where 0° starts every time you center the protractor on the Sun.'],
-      check: 'Heliocentric dots (5° and 323°) go ON Earth’s orbit, measured from Reference Line 1. You will use both highlights in STEP 1 and STEP 4.', draw: { mode: 'card', then: { mode: 'm2', at: 4, hlE: [4.4, 5.2], hlR: [5.6, 6.4] } },
-      card: '<p class="c-h" data-at="0">Remember: the heliocentric angles</p>' + TBL(false) + '<p class="c-key sun" data-at="1.8"><b>Heliocentric (5° and 323°):</b> measured from the Sun, starting at Reference Line 1. These dots go ON Earth’s orbit.</p><p class="c-note" data-at="2.6">Next, highlight Earth’s orbit and Reference Line 1 on MODEL 2.</p>' },
+      check: 'Heliocentric dots (5° and 323°) go ON Earth’s orbit, measured from Reference Line 1. You will use both highlights in STEP 1 and STEP 4.', draw: { mode: 'm2', hlE: [.4, 1.2], hlR: [1.6, 2.4] } },
     { part: 'Part 2', tag: 'Part 2 · STEP 1', title: 'September 19, 1591: plot Earth at 5°', dur: 3,
       todo: ['Center the protractor on the Sun.', 'Line up 0° with Reference Line 1 (0°). The protractor will look upside down: 0° on the right, 180° on the left.', 'Use the RED numbers on the protractor to find 5°.', 'Make a GREEN dot ON Earth’s orbit at 5°.'],
       check: 'Your dot is on Earth’s orbit, just above Reference Line 1.', draw: { mode: 'm2', h1: [2.5, 2.9], prot: { at: 'S', ang: 5, r: 150, len: 230, win: [.2, .9, 2.3] } } },
