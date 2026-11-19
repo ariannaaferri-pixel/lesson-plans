@@ -3,22 +3,22 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Kalam:wght@700&family=Space+Grotesk:wght@500;700&display=swap">
 <style>
 /* Layout: the lab sheet on the left plays one short demo, then holds; the right panel says exactly what to do on paper, then Next. */
 :root {
   --bg: #EDF0F5; --surface: #FFFFFF; --fg: #15203A; --muted: #4F5B72; --line: #D2D9E5;
   --accent: #1F4FD1; --accent-ink: #FFFFFF; --pink: #C2366E; --pink-soft: #FBE3EC; --ok: #1F7A4A; --ok-soft: #E2F3E9;
-  --paper: #FBFAF6; --ink: #1B2438; --grid: #E2E6EE; --red: #C8462E; --green: #2E8B57; --sun: #E8A33D;
+  --paper: #FBFAF6; --ink: #1B2438; --grid: #E2E6EE; --red: #C8462E; --green: #2E8B57; --sun: #E8A33D; --red-t: #B83A22; --green-t: #1F7A4A;
   --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
   --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0D1525; --surface: #152038; --fg: #E8EDF6; --muted: #A6B1C6; --line: #2A3755;
-  --accent: #7C9EFF; --accent-ink: #0D1525; --pink: #F28DB3; --pink-soft: #3A1E2D; --ok: #7FD3A2; --ok-soft: #173326; color-scheme: dark } }
+  --accent: #7C9EFF; --accent-ink: #0D1525; --pink: #F28DB3; --pink-soft: #3A1E2D; --ok: #7FD3A2; --ok-soft: #173326; --red-t: #FF8A6E; --green-t: #6FD69A; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #0D1525; --surface: #152038; --fg: #E8EDF6; --muted: #A6B1C6; --line: #2A3755;
-  --accent: #7C9EFF; --accent-ink: #0D1525; --pink: #F28DB3; --pink-soft: #3A1E2D; --ok: #7FD3A2; --ok-soft: #173326; color-scheme: dark }
+  --accent: #7C9EFF; --accent-ink: #0D1525; --pink: #F28DB3; --pink-soft: #3A1E2D; --ok: #7FD3A2; --ok-soft: #173326; --red-t: #FF8A6E; --green-t: #6FD69A; color-scheme: dark }
 
 [hidden] { display: none !important; }
 html, body { height: 100%; }
@@ -98,6 +98,12 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
 /* The paper drawing */
 .lab { font-family: var(--font-body); font-weight: 700; font-size: 28px; fill: var(--ink); text-anchor: middle; dominant-baseline: middle; paint-order: stroke; stroke: var(--paper); stroke-width: 7px; stroke-linejoin: round; }
 .lab-s { font-size: 23px; }
+.pnum { font-family: var(--font-body); font-size: 6.6px; font-weight: 700; fill: #15181F; text-anchor: middle; dominant-baseline: middle; letter-spacing: -.02em; }
+.pnum.pred { fill: #C0392B; font-size: 4.7px; font-weight: 700; letter-spacing: 0; }
+.zt { font-family: var(--font-body); font-weight: 700; font-size: 22px; fill: var(--ink); }
+.zr { font-family: var(--font-body); font-weight: 800; font-size: 30px; fill: #C0392B; text-anchor: end; }
+.lab.hw { font-family: "Kalam", "Comic Sans MS", "Segoe Print", cursive; font-weight: 700; font-size: 40px; fill: #2A2F3C; }
+.lab.hw-g { fill: var(--green); }
 .hdr { font-family: var(--font-body); font-weight: 700; font-size: 25px; fill: var(--ink); letter-spacing: .03em; }
 .card { position: absolute; inset: 9% 7% 6%; color: var(--ink); display: flex; flex-direction: column; gap: 2.4cqw; }
 .card > *, .card li { margin: 0; }
@@ -119,6 +125,19 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
 .c-box .root { font-weight: 700; font-size: 3cqw; }
 .c-sum { font-size: 3.2cqw; line-height: 1.3; font-weight: 700; background: #EEF1F7; border-radius: 1cqw; padding: 1.4cqw 2cqw; }
 .c-q { font-family: var(--font-display); font-size: 3.7cqw; line-height: 1.22; font-weight: 700; }
+.c-p { font-size: 2.5cqw; line-height: 1.42; }
+.c-small { font-size: 2.15cqw; line-height: 1.32; }
+.xm { position: relative; display: flex; align-items: center; gap: 3cqw; font-weight: 700; height: 12cqw; }
+.xm .fr { display: inline-flex; flex-direction: column; align-items: center; text-align: center; }
+.xm .fr span:first-child { border-bottom: .35cqw solid var(--ink); padding: 0 1cqw .6cqw; }
+.xm .fr span:last-child { padding-top: .6cqw; }
+.xm .eq { font-size: 4cqw; position: relative; z-index: 1; background: var(--paper); padding: 0 .6cqw; line-height: 1; }
+.xm svg { position: absolute; left: 0; top: 0; width: 62cqw; height: 12cqw; pointer-events: none; overflow: visible; z-index: 0; }
+.t-red { color: var(--red-t); font-weight: 700; } .t-green { color: var(--green-t); font-weight: 700; }
+.card .t-red { color: #C8462E; } .card .t-green { color: #237A4B; }
+.t-pink { color: var(--pink); background: var(--pink-soft); font-weight: 700; border-radius: 4px; padding: 0 .2em; }
+.card .t-pink { color: #C2366E; background: #FBE3EC; }
+.t-yellow { color: #15203A; background: #FFE27A; font-weight: 700; border-radius: 4px; padding: 0 .2em; }
 
 @media (max-width: 900px) {
   .stage { grid-template-columns: 1fr; }
@@ -154,7 +173,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       <p class="eyebrow" id="tag"></p>
       <h1 id="title"></h1>
       <div class="pq" id="pq" hidden><p class="pq-l">Question from Student Answer Packet:</p><p class="pq-t" id="pqText"></p></div>
-      <p class="sub">Do this on your paper</p>
+      <p class="sub" id="sub">Do this on your paper</p>
       <ul class="todo" id="todo"></ul>
       <div class="record" id="record" hidden></div>
       <div class="check" id="check" hidden><strong>Check yours</strong><p id="checkText"></p></div>
@@ -173,7 +192,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
   // ---------- geometry ----------
   const E = { cx: 1310, cy: 540, a: 320, b: 318.6, c: 30 };   // MODEL 1 ellipse, Sun at the right focus
   const M = { cx: 1300, cy: 540, R: 230 };                    // MODEL 2, R = Earth's orbit
-  const PRE = [['M1', 150], ['M2', 260], ['M4', 30], ['M5', 80], ['M6', 115]];
+  const PRE = [['M1', 150], ['M2', 184], ['M4', 42], ['M5', 219], ['M6', 96]];   // positions read from the class MODEL 2 sheet
   const f = n => (+n).toFixed(1), cl = x => x < 0 ? 0 : x > 1 ? 1 : x;
   const eio = x => { x = cl(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
   const back = x => { x = cl(x); if (x <= 0) return 0; const u = x - 1; return 1 + 2.7 * u * u * u + 1.7 * u * u; };
@@ -190,6 +209,9 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       L1: [E1[0] + 1.4 * a * d1[0], E1[1] + 1.4 * a * d1[1]], L2: [E2[0] + 1.7 * b * d2[0], E2[1] + 1.7 * b * d2[1]] };
   })();
   const M1p = pt(marsR(150), 150);
+  // How each pre-plotted point was found: Earth on a first date, then 687 days later (Earth ends up about 43 degrees behind).
+  const TRI_E = { M1: [157, 115], M2: [195, 155], M4: [77, 39], M5: [244, 200], M6: [123, 78] };   // Earth's two positions for each point, read from the sheet
+  const TRI = PRE.map(a => ({ n: a[0], th: a[1], X: pt(marsR(a[1]), a[1]), A: pt(1, TRI_E[a[0]][0]), B: pt(1, TRI_E[a[0]][1]) }));
 
   // ---------- drawing ----------
   const L = (p, id, txt, s) => '<text id="' + id + '" class="lab' + (s ? ' lab-s' : '') + '" x="' + f(p[0]) + '" y="' + f(p[1]) + '">' + txt + '</text>';
@@ -214,16 +236,26 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       dot('m1peri', [E.cx + E.a, y], 10, 'var(--ink)', 1) + dot('m1aph', [E.cx - E.a, y], 10, 'var(--ink)', 1) +
       '<g id="m1pinA">' + pin + '</g><g id="m1pinB">' + pin + '</g><g id="m1pen">' + pencil + '</g>' +
       L([1388, 540], 'm1sunl', 'Sun') + L([1200, 540], 'm1f2l', 'Focus 2') + L([1310, 620], 'm1cm', '1.5 cm') + L([1310, 190], 'm1orbl', 'Mars’ Orbit') +
-      L([1630, 594], 'm1perl', 'Perihelion (closest to)') + L([990, 594], 'm1aphl', 'Aphelion (Furthest from)') +
+      L([1625, 598], 'm1perl', 'Perihelion (closest to)') + L([1010, 598], 'm1aphl', 'Aphelion (Furthest from)') +
       L([1712, 488], 'm1start', 'Start and finish', 1) + '<g id="m1pl" style="opacity:0"><circle r="15" style="fill:var(--red);stroke:var(--ink);stroke-width:2.5"/></g></g>';
     // MODEL 2
     const u = [T.M3[0] - M.cx, T.M3[1] - M.cy], n = Math.hypot(u[0], u[1]);
     const rl = Math.hypot(T.M3[0] - M1p[0], T.M3[1] - M1p[1]), ra = Math.atan2(T.M3[1] - M1p[1], T.M3[0] - M1p[0]) * 180 / Math.PI;
     let tk = ''; for (let x = 0, i = 0; x <= rl + 20; x += 23, i++) tk += '<path d="M' + x.toFixed(1) + ' 14 v' + (i % 5 === 0 ? 22 : 12) + '" style="stroke:var(--ink);stroke-width:2"/>';
-    let pk = ''; for (let i = 0; i < 36; i++) { const a = i * 10 * Math.PI / 180, r0 = i % 3 === 0 ? 78 : 88; pk += '<path d="M' + f(r0 * Math.cos(a)) + ' ' + f(-r0 * Math.sin(a)) + ' L' + f(100 * Math.cos(a)) + ' ' + f(-100 * Math.sin(a)) + '" style="stroke:var(--ink);stroke-width:2"/>'; }
+    // The class protractor: a clear 360-degree ring. Black numbers run clockwise, RED numbers run counterclockwise, both with 0 on the right.
+    let pk = '', pn = '';
+    for (let i = 0; i < 360; i++) { const a = i * Math.PI / 180, l = i % 10 === 0 ? 11 : i % 5 === 0 ? 7 : 4; pk += 'M' + f(100 * Math.cos(a)) + ' ' + f(-100 * Math.sin(a)) + 'L' + f((100 - l) * Math.cos(a)) + ' ' + f(-(100 - l) * Math.sin(a)); }
+    for (let v = 0; v < 360; v += 10) { const b = -v * Math.PI / 180, r2 = v * Math.PI / 180;
+      pn += '<text class="pnum" transform="translate(' + f(82 * Math.cos(b)) + ' ' + f(-82 * Math.sin(b)) + ') rotate(' + (90 + v) + ')">' + v + '</text>';
+      pn += '<text class="pnum pred" transform="translate(' + f(65.5 * Math.cos(r2)) + ' ' + f(-65.5 * Math.sin(r2)) + ') rotate(' + (90 - v) + ')">' + v + '</text>'; }
+    // Pieces of the protractor, reused for the zoomed-in close-up box.
+    const pBody = '<path d="M100 0 A100 100 0 1 0 -100 0 A100 100 0 1 0 100 0 Z M56 0 A56 56 0 1 1 -56 0 A56 56 0 1 1 56 0 Z" style="fill:rgba(190,215,235,.45);fill-rule:evenodd;stroke:rgba(27,36,56,.55);stroke-width:.6"/>' +
+      '<circle r="74" style="fill:none;stroke:var(--ink);stroke-width:.4"/><path d="' + pk + '" style="stroke:var(--ink);stroke-width:.35"/>' + pn;
+    const pArm = '<path d="M-8 0 L-3 -97 L3 -97 L8 0 Z" style="fill:rgba(47,111,208,.3);stroke:rgba(47,111,208,.85);stroke-width:.4"/><path d="M0 0 V-97" style="stroke:var(--ink);stroke-width:.5"/>';
     s += '<g id="g2"><text class="hdr" x="790" y="112">MODEL 2: Model of Mars’ Orbit Using Triangulation</text>' +
       '<path d="M' + M.cx + ' ' + M.cy + ' H1830" style="fill:none;stroke:var(--ink);stroke-width:2.5"/>' +
       '<circle cx="' + M.cx + '" cy="' + M.cy + '" r="' + M.R + '" style="fill:none;stroke:#8C93A3;stroke-width:2.5"/>' +
+      [90, 180, 270].map(d => { const a = pt(0.95, d), b = pt(1.05, d); return '<path d="M' + f(a[0]) + ' ' + f(a[1]) + ' L' + f(b[0]) + ' ' + f(b[1]) + '" style="stroke:var(--ink);stroke-width:2.5"/>' + L(pt(1.13, d), 'deg' + d, d + '°', 1); }).join('') +
       '<path id="m2orbit" pathLength="1" d="' + ell2() + '" style="fill:none;stroke:var(--ink);stroke-width:4;opacity:0"/>' +
       line('m2ma', M1p, [M.cx, M.cy], 'rgba(232,163,61,.7)', 16) + line('m2mb', [M.cx, M.cy], T.M3, 'rgba(200,70,46,.5)', 16) +
       line('m2axis', M1p, T.M3, 'var(--ink)', 3.5) + line('m2l1', T.E1, T.L1, 'var(--green)', 4) + line('m2l2', T.E2, T.L2, 'var(--green)', 4) +
@@ -233,19 +265,29 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       '<g id="m2ruler" style="opacity:0"><g transform="translate(' + f(M1p[0]) + ' ' + f(M1p[1]) + ') rotate(' + ra.toFixed(2) + ')"><rect x="-30" y="12" width="' + (rl + 60).toFixed(1) + '" height="56" rx="6" style="fill:rgba(232,163,61,.22);stroke:rgba(27,36,56,.6);stroke-width:2"/>' + tk + '</g></g>' +
       '<rect id="m2hlE" rx="5" style="fill:rgba(255,214,0,.6)"/><rect id="m2hlR" rx="5" style="fill:rgba(255,214,0,.6)"/>' +
       L([M.cx, M.cy + 42], 'm2sunl', 'Sun') + L([1712, 594], 'm2refl', 'Reference Line 1 (0°)', 1) + L(pt(0.8, 215), 'm2earl', 'Earth’s orbit', 1) +
-      L([T.M3[0] + u[0] / n * 42, T.M3[1] + u[1] / n * 42], 'm2m3l', 'M3') + L(pt(2.05, 200), 'm2orbl', 'Mars’ Orbit') +
+      L([T.M3[0] + u[0] / n * 42, T.M3[1] + u[1] / n * 42], 'm2m3l', 'M3') + L(pt(1.85, 60), 'm2orbl', 'Mars’ Orbit') +
       L([1080, 316], 'm2axl', 'Major Axis') + L([1035, 430], 'm2aphl', 'Aphelion') + L([1645, 648], 'm2perl', 'Perihelion') +
       L([1120, 500], 'm2al', '14A: M1 to Sun', 1) + L([1458, 578], 'm2bl', '14B: Sun to M3', 1) +
       L([1310, 955], 'm2eq', '(M1 to Sun) − (Sun to M3) = distance between foci') +
-      '<g id="m2prot" style="opacity:0"><g id="m2protS"><circle r="100" style="fill:rgba(232,163,61,.14);stroke:var(--ink);stroke-width:2.5"/><circle r="60" style="fill:none;stroke:rgba(27,36,56,.35);stroke-width:1.5"/>' + pk +
-      '<path d="M0 0 H100" style="stroke:var(--red);stroke-width:4"/><path d="M-10 0 H10 M0 -10 V10" style="stroke:var(--ink);stroke-width:2"/></g>' +
+      '<g id="m2prot" style="opacity:0"><g id="m2protS">' +
+      '<path d="M100 0 A100 100 0 1 0 -100 0 A100 100 0 1 0 100 0 Z M56 0 A56 56 0 1 1 -56 0 A56 56 0 1 1 56 0 Z" style="fill:rgba(190,215,235,.45);fill-rule:evenodd;stroke:rgba(27,36,56,.55);stroke-width:1.2"/>' +
+      '<circle r="74" style="fill:none;stroke:var(--ink);stroke-width:.8"/><path d="' + pk + '" style="stroke:var(--ink);stroke-width:.6"/>' + pn +
+      '<rect x="-56" y="-5" width="112" height="10" style="fill:rgba(150,190,230,.4);stroke:rgba(27,36,56,.4);stroke-width:.6"/>' +
+      '<g id="m2arm" transform="rotate(90)"><path d="M-8 0 L-3 -97 L3 -97 L8 0 Z" style="fill:rgba(47,111,208,.35);stroke:rgba(47,111,208,.85);stroke-width:.8"/><path d="M0 0 V-97" style="stroke:var(--ink);stroke-width:1.2"/></g>' +
+      '<circle r="15" style="fill:rgba(47,111,208,.22);stroke:#2F6FD0;stroke-width:3"/><path d="M-9 0 H9 M0 -9 V9" style="stroke:var(--ink);stroke-width:1"/><circle r="1.8" style="fill:var(--red)"/></g>' +
       '<path id="m2arc" style="fill:none;stroke:var(--red);stroke-width:4"/><path id="m2ray" style="fill:none;stroke:var(--red);stroke-width:3.5;stroke-dasharray:10 7"/>' +
-      '<text id="m2p0" class="lab lab-s">0°</text><text id="m2p180" class="lab lab-s">180°</text><text id="m2read" class="lab"></text></g>';
+      '<text id="m2p0" class="lab lab-s" style="display:none">0°</text><text id="m2p180" class="lab lab-s" style="display:none">180°</text><text id="m2read" class="lab"></text></g>';
+    // Close-up box (lower left): a big piece of the same protractor where the arm points, so the numbers can be read.
+    s += '<g id="m2zoom" style="opacity:0"><defs><clipPath id="zClip"><rect x="797" y="744" width="336" height="229" rx="10"/></clipPath></defs>' +
+      '<rect x="795" y="700" width="340" height="275" rx="12" style="fill:#FFFFFF;stroke:var(--ink);stroke-width:3"/>' +
+      '<text class="zt" x="811" y="731">Zoomed in</text><text id="m2zr" class="zr" x="1119" y="733"></text>' +
+      '<path d="M795 744 H1135" style="stroke:var(--ink);stroke-width:2"/>' +
+      '<g clip-path="url(#zClip)"><g id="m2zp">' + pBody + '<g id="m2zarm">' + pArm + '</g></g></g></g>';
     // Triangulation idea (example point, not M3)
-    const X = pt(marsR(80), 80), A = pt(1, 60), B = pt(1, 17), ext = P => [P[0] + (X[0] - P[0]) * 1.3, P[1] + (X[1] - P[1]) * 1.3];
-    s += '<g id="gt">' + line('tla', A, ext(A), 'var(--green)', 4) + line('tlb', B, ext(B), 'var(--green)', 4) +
-      dot('ta', A, 11, 'var(--ink)', 1) + dot('tb', B, 11, 'var(--ink)', 1) + dot('tx', X, 12, 'var(--red)', 1) +
-      L([A[0] + 118, A[1]], 'tal', 'Earth on day 1', 1) + L([B[0] + 162, B[1]], 'tbl', 'Earth, 687 days later', 1) + L([X[0] + 66, X[1] - 8], 'txl', 'Mars') + '</g>';
+    const ext = (P, X) => { const dx = X[0] - P[0], dy = X[1] - P[1], n = Math.hypot(dx, dy); return [X[0] + dx / n * 0.55 * M.R, X[1] + dy / n * 0.55 * M.R]; };
+    s += '<g id="gt"><clipPath id="gtClip"><rect x="790" y="140" width="1040" height="840"/></clipPath><g clip-path="url(#gtClip)">' + TRI.map((o, i) => line('tla' + i, o.A, ext(o.A, o.X), 'var(--green)', 4) + line('tlb' + i, o.B, ext(o.B, o.X), 'var(--green)', 4)).join('') + '</g>' +
+      TRI.map((o, i) => dot('ta' + i, o.A, 7, 'var(--green)', 1) + dot('tb' + i, o.B, 7, 'var(--green)', 1) + '<g id="tx' + i + '" transform="translate(' + f(o.X[0]) + ' ' + f(o.X[1]) + ') scale(0)"><circle r="15" style="fill:none;stroke:var(--ink);stroke-width:2.5"/><circle r="7" style="fill:var(--ink)"/></g>' + L(pt(marsR(o.th) + 0.15, o.th), 'txl' + i, o.n)).join('') +
+      L([0, 0], 'tal', 'Earth, first date', 1) + L([0, 0], 'tbl', 'Earth, 687 days later', 1) + L([1310, 945], 'tex', 'How the other points were found. Nothing to draw yet.') + '</g>';
     s += '</g>';
     s += buildExtra();
     return s;
@@ -390,6 +432,9 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
 
   const art = document.getElementById('art');
   art.innerHTML = buildSvg();
+  // Labels the students write themselves look handwritten; printed labels on the sheet stay in type.
+  ['m1f2l', 'm1orbl', 'm1perl', 'm1aphl', 'm2m3l', 'm2orbl', 'm2axl', 'm2aphl', 'm2perl'].forEach(id => { const e = document.getElementById(id); if (e) e.classList.add('hw'); });
+  document.getElementById('m2m3l').classList.add('hw-g');
   const $ = id => art.getElementById ? art.getElementById(id) : document.getElementById(id);
   const el = {}; const g = id => el[id] || (el[id] = document.getElementById(id));
   const op = (id, p) => { const e = g(id); if (e) e.style.opacity = p; };
@@ -440,13 +485,17 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     const pr = v('ruler'); op('m2ruler', pr); g('m2ruler').setAttribute('transform', 'translate(0 ' + (24 * (1 - eio(pr))).toFixed(1) + ')');
     if (c.mars) { const th = 330 + 16 * t, P = pt(marsR(th), th); g('m2mars').setAttribute('transform', 'translate(' + f(P[0]) + ' ' + f(P[1]) + ')'); op('m2mars', 1); } else op('m2mars', 0);
     const p = c.prot;
-    if (!p) { op('m2prot', 0); return; }
+    if (!p) { op('m2prot', 0); op('m2zoom', 0); return; }
     const ctr = p.at === 'E1' ? T.E1 : p.at === 'E2' ? T.E2 : [M.cx, M.cy], w = p.win;
     const vis = cl((t - w[0]) / .5), sw = eio((t - w[1]) / (w[2] - w[1])), rad = p.ang * sw * Math.PI / 180;
     op('m2prot', vis);
     g('m2protS').setAttribute('transform', 'translate(' + f(ctr[0]) + ' ' + f(ctr[1]) + ') scale(' + (p.r / 100) + ')');
     g('m2ray').setAttribute('d', 'M' + f(ctr[0]) + ' ' + f(ctr[1]) + ' L' + f(ctr[0] + p.len * Math.cos(rad)) + ' ' + f(ctr[1] - p.len * Math.sin(rad)));
-    op('m2ray', sw > 0 ? 1 : 0);
+    op('m2ray', sw > 0 && p.len > p.r ? 1 : 0); g('m2arm').setAttribute('transform', 'rotate(' + (90 - p.ang * sw).toFixed(2) + ')');
+    { const fa0 = p.ang * Math.PI / 180, C = [965, 860], k = 4.2; op('m2zoom', vis);
+      g('m2zp').setAttribute('transform', 'translate(' + f(C[0] - k * 70 * Math.cos(fa0)) + ' ' + f(C[1] + k * 70 * Math.sin(fa0)) + ') scale(' + k + ')');
+      g('m2zarm').setAttribute('transform', 'rotate(' + (90 - p.ang * sw).toFixed(2) + ')');
+      const zr = g('m2zr'); zr.textContent = 'RED ' + p.ang + '°'; zr.style.opacity = cl((t - w[2]) / .4); }
     let d = ''; const nn = Math.max(2, Math.ceil(p.ang * sw / 4));
     for (let i = 0; i <= nn; i++) { const a = rad * i / nn; d += (i ? ' L' : 'M') + f(ctr[0] + 36 * Math.cos(a)) + ' ' + f(ctr[1] - 36 * Math.sin(a)); }
     g('m2arc').setAttribute('d', d);
@@ -459,29 +508,65 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
   }
 
   function tR(t) {
-    const X = pt(marsR(80), 80), A = pt(1, 60), B = pt(1, 17);
-    const a = cl((t - .4) / .5), b = cl((t - 2.8) / .5), x = cl((t - 5.2) / .5);
-    pop('ta', a, A); pop('tb', b, B); pop('tx', x, X);
-    draw('tla', eio((t - 1.1) / 1.4)); draw('tlb', eio((t - 3.5) / 1.4));
-    op('tal', a); op('tbl', b); op('txl', x);
+    let ci = -1;
+    TRI.forEach((o, i) => {
+      const t0 = .3 + i * 2.5, a = cl((t - t0) / .4), b = cl((t - t0 - 1) / .4), x = cl((t - t0 - 2) / .35), fade = 1;
+      pop('ta' + i, a, o.A); pop('tb' + i, b, o.B); pop('tx' + i, x, o.X);
+      op('ta' + i, fade); op('tb' + i, fade);
+      const pa = eio((t - t0 - .3) / .7), pb = eio((t - t0 - 1.3) / .7);
+      draw('tla' + i, pa); draw('tlb' + i, pb);
+      if (pa > .002) op('tla' + i, fade); if (pb > .002) op('tlb' + i, fade);
+      op('txl' + i, x);
+      if (t >= t0 && t < t0 + 2.5) ci = i;
+    });
+    const lab = (id, P, p) => { const u = [P[0] - M.cx, P[1] - M.cy], n = Math.hypot(u[0], u[1]), e = g(id); e.setAttribute('x', f(P[0] + u[0] / n * 95)); e.setAttribute('y', f(P[1] + u[1] / n * 40)); e.style.opacity = p; };
+    if (ci >= 0) { const o = TRI[ci], t0 = .3 + ci * 2.5; lab('tal', o.A, cl((t - t0) / .4)); lab('tbl', o.B, cl((t - t0 - 1) / .4)); } else { op('tal', 0); op('tbl', 0); }
   }
 
   // ---------- screens ----------
+  const miniM2 = () => { const P = (p, txt) => '<text class="svt" x="' + f(p[0]) + '" y="' + f(p[1]) + '" style="font-size:46px">' + txt + '</text>';
+    return '<svg viewBox="870 100 860 840" style="display:block;width:100%;height:auto;background:#fff;border:.3cqw solid var(--ink);border-radius:1cqw"><path d="M1300 540 H1700" style="stroke:var(--ink);stroke-width:3"/><circle cx="1300" cy="540" r="230" style="fill:none;stroke:#8C93A3;stroke-width:3"/><circle cx="1300" cy="540" r="22" style="fill:var(--sun);stroke:var(--ink);stroke-width:3"/>' +
+      PRE.map(a => { const p = pt(marsR(a[1]), a[1]); return '<circle cx="' + f(p[0]) + '" cy="' + f(p[1]) + '" r="14" style="fill:var(--ink)"/>' + P(pt(marsR(a[1]) + 0.22, a[1]), a[0]); }).join('') + '</svg>'; };
+  const TBL = hlE => '<div class="c-table c-sm"><p class="th" data-at=".3">Mars Position</p><p class="th" data-at=".3">Date</p><p class="th hl-sun" data-at=".3">Heliocentric Longitude of Earth</p><p class="th' + (hlE ? ' hl-earth' : '') + '" data-at=".3">Geocentric Longitude of Mars</p>' +
+    '<p class="m3" data-at=".8">M3</p><p data-at=".8">September 19, 1591</p><p class="hl-sun" data-at=".8">5°</p><p' + (hlE ? ' class="hl-earth"' : '') + ' data-at=".8">284°</p><p class="m3" data-at="1.2">M3</p><p data-at="1.2">August 6, 1593</p><p class="hl-sun" data-at="1.2">323°</p><p' + (hlE ? ' class="hl-earth"' : '') + ' data-at="1.2">347°</p></div>';
   const FULL = { h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: 1, m3: 1, orbit: 1, orbl: 1 };
   const S = [
-    { part: 'Start', tag: 'Start here', title: 'How this works', dur: 3,
-      todo: ['Sit with your partner and get your clear container.', 'On each screen, watch the short demo on the left. Then do that step on your paper.', 'Check off every box when you finish it. Next unlocks once all the boxes are checked.'],
-      check: 'You need your PINK Student Answer Packet with the Model Orbit pages attached.', draw: Object.assign({ mode: 'm2', mars: true }, FULL) },
+    { part: 'Start', tag: 'Start here', title: 'How this works', dur: 4, read: true,
+      todo: ['Sit with your partner. Get your clear container, your PINK Student Answer Packet and your Model Orbit page (MODEL 1 on the front, MODEL 2 on the back).', 'On each screen, watch the short demo on the left. Then do that step on your paper.', 'Check off every box when you finish it. Next unlocks once all the boxes are checked.'],
+      check: 'You need 2 papers: the PINK Student Answer Packet and the Model Orbit page (MODEL 1 on the front, MODEL 2 on the back).', draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">What is this lab about?</p>' +
+        '<p class="c-row" data-at=".3">Over 400 years ago, there were no telescopes. A scientist named Tycho Brahe still carefully measured where Mars was in the sky.</p>' +
+        '<p class="c-row" data-at="1">His assistant, Johannes Kepler, used those measurements to figure out the shape of Mars’ path around the Sun.</p>' +
+        '<p class="c-big" data-at="1.8">In this lab, you will do what Kepler did:</p>' +
+        '<ol class="c-list"><li data-at="2.3">Draw Mars’ orbit using math (Part 1)</li><li data-at="2.7">Find where Mars was using real data from 1591 and 1593 (Part 2)</li><li data-at="3.1">Check how close your answer is (percent error)</li></ol>' +
+        '<p class="c-note" data-at="3.6">NASA still uses these same ideas today to send rovers to Mars.</p>' },
+    { part: 'Start', tag: 'Start · Focus Questions', title: 'Focus Questions', dur: 2.6, read: true,
+      todo: ['Read the four focus questions on the left.', 'Keep them in mind while you work. They guide the whole investigation.'],
+      draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Focus Questions</p><p class="c-note" data-at=".2">While performing this investigation, use the following focus questions to guide your work.</p><ol class="c-list" style="font-size:3cqw"><li data-at=".6">How did Kepler’s Laws affect the ability of scientists to determine the locations and the motions of objects in the solar system?</li><li data-at="1.1">Which mathematical and/or computational representations are used to plot the location of Mars and predict its orbit?</li><li data-at="1.6">How do gravitational effects change the orbits of objects in the solar system?</li><li data-at="2.1">How can the principles of relative motion and perspective from Earth and other solar system objects be used to describe celestial phenomena today?</li></ol>' },
+    { part: 'Start', tag: 'Start · Purpose', title: 'Purpose of Investigation', dur: 1.8,
+      todo: ['Read the Purpose of Investigation on the left. Then answer Part A (#1–2) and Part B (#3–4) on the front page of your PINK Student Answer Packet.'],
+      record: 'Part A and Part B, front page of your PINK Student Answer Packet', check: 'Every Part A and Part B answer is in this reading. For Part B, if a statement is false, fix it so it is true.',
+      draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Purpose of Investigation</p><p class="c-p" data-at=".2">In the late 1500s, Tycho Brahe made several very accurate observations of the positions of Mars 20 years before the telescope was even invented. In fact, his measurements can be used to locate astronomical objects to this day. Johannes Kepler, Brahe’s assistant, later determined the orbital period of Mars to be 687 Earth days. With Brahe’s data and the orbital period of Mars, Kepler devised a method of triangulation, using his perspective from Earth to determine the location of Mars in its orbit.</p><p class="c-p" data-at=".7">Mars is a major focus for space exploration in the present day. The goal of the United States’ exploration of Mars is to provide researchers with a continuous flow of discovery and scientific information, obtained from robotic orbiters, landers, and mobile laboratories interconnected by a sophisticated Mars/Earth communications network. The present-day planning and implementation of space probe missions to Mars utilize the same principles of relative motion and gravity that were investigated by Brahe in the late 1500s and by Kepler in the early 1600s.</p>' },
+    { part: 'Start', tag: 'Start · Your tasks', title: 'Your tasks in this investigation', dur: 2.8,
+      todo: ['Read your tasks and the summary on the left. Then answer Part C (#5–6) on the front page of your PINK Student Answer Packet.'],
+      record: 'Part C, front page of your PINK Student Answer Packet', check: 'Every Part C answer is in the tasks and the summary.',
+      draw: { mode: 'card' },
+      card: '<p class="c-h" data-at="0">Your tasks</p><p class="c-small" data-at=".2">Your tasks in this investigation will be to use mathematical and computational representations to:</p><ul class="c-list" style="font-size:2.15cqw;gap:.8cqw"><li data-at=".5"><b>Create a model</b> of the orbit of Mars from given and derived calculations</li><li data-at=".9"><b>Create a second model</b> of the orbit of Mars using the same triangulation method as Johannes Kepler</li><li data-at="1.3"><b>Conduct a percent error analysis</b> between the known eccentricity of Mars and the calculated eccentricity of Mars from the second predicted model of Mars’ orbit in this investigation</li><li data-at="1.7"><b>Identify patterns of evidence</b> from the early history of astronomical observations of Mars and Earth and use principles of relative motion, perspective, and gravity to describe the motions of solar system objects</li></ul><p class="c-h" data-at="2.1">Summary</p><p class="c-small" data-at="2.3">You will be using mathematical and computational representations to create a model of the orbit of Mars. You will then triangulate various locations to draw a predicted orbit of Mars using six plotted locations. Finally, you will calculate your percent error by comparing your eccentricity from the second model to the accepted eccentricity of Mars.</p>' },
     { part: 'Part 1', tag: 'Part 1 · Step 1', title: 'Write your name and check your materials', dur: 3.6,
       todo: ['Write your name on the PINK Student Answer Packet.', 'Check your clear container against the list on the left.', 'Get 1 circular protractor, 1 metric ruler, 1 corkboard and 1 calculator.'],
       check: 'Your Model Orbit pages are attached to your PINK packet.', draw: { mode: 'card' },
       card: '<p class="c-h" data-at="0">Materials</p><p class="c-note" data-at=".3">In your clear container (shared with your partner):</p><ul class="c-list"><li data-at=".8">2 red colored pencils</li><li data-at="1.2">2 green colored pencils</li><li data-at="1.6">2 small containers, each holding 2 push pins and 1 string</li><li data-at="2">2 pencil sharpeners</li></ul><p class="c-note" data-at="2.5">You also need:</p><ul class="c-list"><li data-at="2.9">1 circular protractor, 1 metric ruler, 1 corkboard, 1 calculator</li></ul>' },
-    { part: 'Part 1', tag: 'Part 1 · Step 2', title: 'Find the distance between the foci', dur: 3.8,
+    { part: 'Part 1', tag: 'Part 1 · Step 2', title: 'Find the distance between the foci', dur: 4.6,
       todo: ['Find #2 in your PINK packet. The eccentricity formula is missing the distance between foci.', 'Use the accepted eccentricity for Mars: 0.094.', 'Cross multiply to solve. Show all work.', 'Round to the nearest tenth.'],
       record: 'PINK packet #2', check: 'Your answer should be about 1.5 cm.', draw: { mode: 'card' },
-      card: '<p class="c-h" data-at="0">PINK packet #2</p><p class="c-big" data-at=".3">eccentricity = distance between foci ÷ length of major axis</p><p class="c-row" data-at="1.4">0.094 = distance between foci ÷ length of major axis</p><p class="c-row" data-at="2.3">distance between foci = 0.094 × length of major axis</p><p class="c-note" data-at="3.2">Use the length of the major axis given in your packet.</p>' },
+      card: '<p class="c-h" data-at="0">PINK packet #2</p><p class="c-row" data-at=".3">eccentricity = distance between foci ÷ length of major axis</p><p class="c-note" data-at="1">Write it as two fractions, then cross multiply:</p>' +
+        '<div class="xm" data-at="1.4"><span class="fr" style="width:16cqw;font-size:3.6cqw"><span>0.094</span><span>1</span></span><span class="eq">=</span><span class="fr" style="width:36cqw;font-size:2.9cqw"><span>distance between foci</span><span>length of major axis</span></span>' +
+        '<svg viewBox="0 0 62 12"><defs><marker id="xmA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" style="fill:#1F4FD1"/></marker></defs><path d="M14.6 3.4 L24.6 8.6" style="fill:none;stroke:#1F4FD1;stroke-width:.35;marker-end:url(#xmA)"/><path d="M14.6 8.6 L24.6 3.4" style="fill:none;stroke:#1F4FD1;stroke-width:.35;marker-end:url(#xmA)"/></svg></div>' +
+        '<p class="c-row" data-at="2.6" style="font-size:3cqw;font-weight:700;white-space:nowrap;background:#EEF1F7;border-radius:1cqw;padding:1.4cqw 2cqw;align-self:flex-start">distance between foci = 0.094 × length of major axis</p><p class="c-note" data-at="4.1">Use the length of the major axis given in your packet. Round to the nearest tenth.</p>' },
     { part: 'Part 1', tag: 'Part 1 · Step 3', title: 'Plot Focus 2 on MODEL 1', dur: 2,
-      todo: ['Turn MODEL 1 sideways (landscape view).', 'Measure your distance from Step 2 to the LEFT of the Sun.', 'Make a large dot there. Label it Focus 2.'],
+      todo: ['Find MODEL 1 on the single white sheet. Turn it sideways (landscape view).', 'Measure your distance from Step 2 to the LEFT of the Sun.', 'Make a large dot there. Label it Focus 2.'],
       check: 'Focus 2 is about 1.5 cm to the left of the Sun.', draw: { mode: 'm1', f2: [.5, 1.1] } },
     { part: 'Part 1', tag: 'Part 1 · Steps 4–5', title: 'Pin the Sun and Focus 2', dur: 2,
       todo: ['Put MODEL 1 on the corkboard.', 'Push one pin into the Sun dot and one into the Focus 2 dot.'],
@@ -495,52 +580,53 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     { part: 'Part 1', tag: 'Part 1 · Steps 8–9', title: 'Mark perihelion and aphelion', dur: 3,
       todo: ['Put a dot on the orbit at the point CLOSEST to the Sun (to the right of the Sun). Label it Perihelion (closest to).', 'Put a dot on the orbit at the point FARTHEST from the Sun (to the left of the Sun). Label it Aphelion (Furthest from).'],
       check: 'Perihelion and aphelion sit at the two ends of the orbit, in line with the Sun and Focus 2. Part 1 is done!', draw: { mode: 'm1', f2: 1, trace: 1, label: 1, per: [.5, 1], aph: [2, 2.5] } },
-    { part: 'Part 2', tag: 'Part 2 · Read first', title: 'Heliocentric vs. geocentric longitude', dur: 4,
+    { part: 'Part 2', tag: 'Part 2 · Read first', title: 'Heliocentric vs. geocentric longitude', dur: 4, read: true,
       todo: ['Nothing to write on this screen. Read the card on the left.',
-        'Heliocentric longitude: “helio” means Sun. This angle is measured FROM THE SUN, starting at Reference Line 1 (0°). It tells you WHERE EARTH WAS in its orbit on that date. You plot it ON Earth’s orbit.',
-        'Geocentric longitude: “geo” means Earth. This angle is measured FROM EARTH (your green dot on Earth’s orbit). It tells you WHICH DIRECTION someone on Earth had to look to see Mars. You plot it OUTSIDE Earth’s orbit.',
+        'Heliocentric (helio = Sun): measured from the Sun. It shows where Earth was.',
+        'Geocentric (geo = Earth): measured from Earth. It shows which way to look to see Mars.',
         'Remember it this way: heliocentric = where Earth was standing. Geocentric = which way Earth was looking.'],
-      check: 'Every date in the data table has one of each: a heliocentric angle (where Earth was) and a geocentric angle (where Mars appeared).', draw: { mode: 'card' },
+      check: 'You need both angles to find Mars.', draw: { mode: 'card' },
       card: '<p class="c-h" data-at="0">Two angles for every date</p><div class="c-two" data-at=".3">' +
-        '<div class="c-box sun"><h3>Heliocentric longitude of Earth</h3><p class="root">helio = Sun</p><p>Measured from the <b>Sun</b>, starting at Reference Line 1 (0°)</p><p>Tells you <b>where Earth was</b> in its orbit</p><p>Plot it <b>ON</b> Earth’s orbit</p></div>' +
-        '<div class="c-box earth"><h3>Geocentric longitude of Mars</h3><p class="root">geo = Earth</p><p>Measured from <b>Earth</b> (your green dot), with 0° parallel to the grid lines on the graph paper</p><p>Tells you <b>which direction</b> to look from Earth to see Mars</p><p>Plot it <b>OUTSIDE</b> Earth’s orbit</p></div></div>' +
+        '<div class="c-box sun"><h3>Heliocentric</h3><p class="root">helio = Sun</p><p>Measured from the <b>Sun</b></p><p>Shows <b>where Earth was</b></p></div>' +
+        '<div class="c-box earth"><h3>Geocentric</h3><p class="root">geo = Earth</p><p>Measured from <b>Earth</b></p><p>Shows <b>which way to look</b> to see Mars</p></div></div>' +
         '<p class="c-sum" data-at="1.6">Heliocentric = where Earth was standing. Geocentric = which way Earth was looking.</p>' +
-        '<p class="c-note" data-at="2.4">One angle alone can’t find Mars. You need both, on two different dates.</p>' },
-    { part: 'Part 2', tag: 'Part 2 · Read first', title: 'How triangulation finds Mars', dur: 6,
-      todo: ['Nothing to write on this screen. Just watch and read.',
-        'Day 1: the heliocentric angle puts Earth on its orbit. The geocentric angle gives a line from Earth pointing toward Mars. Mars is somewhere on that line, but we don’t know how far away.',
-        'Mars takes 687 Earth days to go around the Sun once. So 687 days later, Mars is back in the exact same spot, but Earth is somewhere else in its orbit.',
-        'From Earth’s new spot, a second line points toward Mars. Mars is where the two lines cross.'],
-      check: 'This is the same idea behind GPS: two viewpoints pinpoint one spot.', draw: { mode: 'tri' } },
+        '<p class="c-note" data-at="2.4">You need both angles to find Mars.</p>' },
+    { part: 'Part 2', tag: 'Part 2 · Read first', title: 'How triangulation finds Mars', dur: 13, read: true,
+      todo: ['Nothing to draw yet. This shows how M1, M2, M4, M5 and M6 were found for you.',
+        'First date (a real date from history, not day 1 of this lab): a line from Earth points toward Mars.',
+        '687 days later, Mars is back in the same spot, but Earth has moved.',
+        'A second line from Earth’s new spot crosses the first one. That crossing is Mars.'],
+      check: 'Same idea as GPS: two viewpoints pinpoint one spot. You will do this yourself to find M3.', draw: { mode: 'tri' } },
     { part: 'Part 2', tag: 'Part 2 · Step 10', title: 'Open to MODEL 2 and find your data', dur: 3,
-      todo: ['Put the corkboard aside.', 'Open to MODEL 2 in your Model Orbit pages.', 'M1, M2, M4, M5 and M6 are already plotted. You will plot M3 using the 4 numbers on the left.'],
+      todo: ['Put the corkboard aside.', 'Open to MODEL 2 in your Model Orbit pages.', 'This is the data you will plot. M1, M2, M4, M5 and M6 are already plotted for you (see the picture). You will find M3 with these 4 numbers.'],
       check: 'Heliocentric is plotted ON Earth’s orbit. Geocentric is plotted OUTSIDE Earth’s orbit.', draw: { mode: 'card' },
-      card: '<p class="c-h" data-at="0">Data table: Triangulation of Mars</p><div class="c-table"><p class="th" data-at=".3">Mars Position</p><p class="th" data-at=".3">Date</p><p class="th" data-at=".3">Heliocentric Longitude of Earth</p><p class="th" data-at=".3">Geocentric Longitude of Mars</p>' +
-        '<p class="m3" data-at="1">M3</p><p data-at="1">September 19, 1591</p><p data-at="1">5°</p><p data-at="1">284°</p><p class="m3" data-at="1.7">M3</p><p data-at="1.7">August 6, 1593</p><p data-at="1.7">323°</p><p data-at="1.7">347°</p></div>' +
-        '<p class="c-note" data-at="2.4">Each Mars position uses two dates 687 Earth days apart.</p>' },
-    { part: 'Part 2', tag: 'Part 2 · Before STEP 1', title: 'Highlight Earth’s orbit and Reference Line 1', dur: 2.8, hlScreen: true,
+      card: '<p class="c-h" data-at="0">The data you will plot: Triangulation of Mars</p>' + TBL(true) +
+        ''+
+        '<div class="c-two" data-at="1.8" style="grid-template-columns:1.2fr .8fr;align-items:start"><div style="display:flex;flex-direction:column;gap:1.4cqw"><p class="c-key sun"><b>Heliocentric (5°, 323°):</b> plot ON Earth’s orbit</p><p class="c-key earth"><b>Geocentric (284°, 347°):</b> plot OUTSIDE Earth’s orbit</p><p class="c-note">M1, M2, M4, M5 and M6 are already on MODEL 2 (right). You will find M3.</p></div>' + miniM2() + '</div>' },
+    { part: 'Part 2', tag: 'Part 2 · Before STEP 1', title: 'Highlight Earth’s orbit and Reference Line 1', dur: 6.8, hlScreen: true,
       todo: ['On MODEL 2, find the words Earth’s Orbit. Highlight them.', 'Find the words Reference Line 1 (0°). Highlight them.', 'Earth’s orbit is where your heliocentric dots go. Reference Line 1 is where 0° starts every time you center the protractor on the Sun.'],
-      check: 'You will use both of these in STEP 1 and STEP 4.', draw: { mode: 'm2', hlE: [.4, 1.2], hlR: [1.6, 2.4] } },
+      check: 'Heliocentric dots (5° and 323°) go ON Earth’s orbit, measured from Reference Line 1. You will use both highlights in STEP 1 and STEP 4.', draw: { mode: 'card', then: { mode: 'm2', at: 4, hlE: [4.4, 5.2], hlR: [5.6, 6.4] } },
+      card: '<p class="c-h" data-at="0">Remember: the heliocentric angles</p>' + TBL(false) + '<p class="c-key sun" data-at="1.8"><b>Heliocentric (5° and 323°):</b> measured from the Sun, starting at Reference Line 1. These dots go ON Earth’s orbit.</p><p class="c-note" data-at="2.6">Next, highlight Earth’s orbit and Reference Line 1 on MODEL 2.</p>' },
     { part: 'Part 2', tag: 'Part 2 · STEP 1', title: 'September 19, 1591: plot Earth at 5°', dur: 3,
       todo: ['Center the protractor on the Sun.', 'Line up 0° with Reference Line 1 (0°). The protractor will look upside down: 0° on the right, 180° on the left.', 'Use the RED numbers on the protractor to find 5°.', 'Make a GREEN dot ON Earth’s orbit at 5°.'],
-      check: 'Your dot is on Earth’s orbit, just above Reference Line 1.', draw: { mode: 'm2', h1: [2.5, 2.9], prot: { at: 'S', ang: 5, r: 120, len: 230, win: [.2, .9, 2.3] } } },
+      check: 'Your dot is on Earth’s orbit, just above Reference Line 1.', draw: { mode: 'm2', h1: [2.5, 2.9], prot: { at: 'S', ang: 5, r: 150, len: 230, win: [.2, .9, 2.3] } } },
     { part: 'Part 2', tag: 'Part 2 · STEP 2', title: 'Plot where Mars appeared: 284°', dur: 4,
-      todo: ['Center the protractor on your new GREEN dot.', 'Line up 0° parallel to the grid lines on the graph paper.', 'Make a GREEN dot at 284°, OUTSIDE Earth’s orbit.'],
+      todo: ['Center the protractor on your new GREEN dot.', 'Line up 0° parallel to the grid lines on the graph paper.', 'Use the RED numbers on the protractor to find 284°. Make a GREEN dot there, OUTSIDE Earth’s orbit.'],
       check: '284° points down and a little to the right of your Earth dot.', draw: { mode: 'm2', h1: 1, g1: [3.4, 3.8], prot: { at: 'E1', ang: 284, r: 80, len: 80, rd: 128, win: [.2, .9, 3.2] } } },
     { part: 'Part 2', tag: 'Part 2 · STEP 3', title: 'Draw the first line', dur: 2.6,
       todo: ['Use your ruler to draw a GREEN line from your first dot through your second dot.', 'Keep going well past the 2nd dot so the next line can cross it.'],
       check: 'Your line heads down and to the right, well past the second dot.', draw: { mode: 'm2', h1: 1, g1: 1, l1: [.4, 2.4] } },
     { part: 'Part 2', tag: 'Part 2 · STEP 4', title: 'August 6, 1593: plot Earth at 323°', dur: 3.6,
       todo: ['Center the protractor on the Sun. Line up 0° with Reference Line 1.', 'Use the RED numbers on the protractor to find 323°.', 'Make a GREEN dot ON Earth’s orbit at 323°.'],
-      check: '323° is below Reference Line 1, on the lower right of Earth’s orbit.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: [3.1, 3.5], prot: { at: 'S', ang: 323, r: 120, len: 230, rd: 285, win: [.2, .9, 2.9] } } },
+      check: '323° is below Reference Line 1, on the lower right of Earth’s orbit.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: [3.1, 3.5], prot: { at: 'S', ang: 323, r: 150, len: 230, rd: 285, win: [.2, .9, 2.9] } } },
     { part: 'Part 2', tag: 'Part 2 · STEP 5', title: 'Plot where Mars appeared: 347°', dur: 3.6,
-      todo: ['Center the protractor on your new GREEN dot. Line up 0° parallel to the grid lines on the graph paper.', 'Make a GREEN dot at 347°, OUTSIDE Earth’s orbit.'],
+      todo: ['Center the protractor on your new GREEN dot. Line up 0° parallel to the grid lines on the graph paper.', 'Use the RED numbers on the protractor to find 347°. Make a GREEN dot there, OUTSIDE Earth’s orbit.'],
       check: '347° points to the right and slightly down.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: [3.1, 3.5], prot: { at: 'E2', ang: 347, r: 80, len: 80, rd: 150, win: [.2, .9, 2.9] } } },
     { part: 'Part 2', tag: 'Part 2 · STEP 6', title: 'Draw the second line and find M3', dur: 3.4,
       todo: ['Draw a GREEN line from your 323° dot through your 347° dot. Extend it past the 2nd dot.', 'Put a GREEN dot where your two lines cross. Label it M3.'],
       check: 'M3 should line up with the curve made by M1, M2, M4, M5 and M6.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: [.4, 2.2], m3: [2.6, 3.1] } },
     { part: 'Part 2', tag: 'Part 2 · Step 11', title: 'Connect all six points', dur: 4.4,
-      todo: ['Connect all 6 M points (M1 to M6) with a smooth curve.', 'Label it Mars’ Orbit.'],
+      todo: ['Use your pencil, not the string, to connect all 6 M points (M1 to M6) with a smooth curve.', 'Label it Mars’ Orbit.'],
       check: 'Your curve passes through all 6 points, including your M3.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: 1, m3: 1, orbit: [.4, 3.6], orbl: [3.8, 4.3] } },
     { part: 'Part 2', tag: 'Part 2 · Step 12', title: 'Draw the Major Axis', dur: 2.6,
       todo: ['Use the ruler to draw a straight line from M1 to M3.', 'Make sure the line passes through the Sun.', 'Label the line Major Axis.'],
@@ -549,19 +635,19 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       todo: ['Line up the ruler along the Major Axis.', 'Measure from M1 to M3 in centimeters.', 'Round to the nearest tenth.'],
       record: 'PINK packet #13', draw: Object.assign({ mode: 'm2', axis: 1, ruler: [.3, 1.3] }, FULL) },
     { part: 'Part 2', tag: 'Part 2 · Steps 14A–14B', title: 'Measure each side of the Sun', dur: 3.6,
-      todo: ['14A: Measure from M1 to the Sun. Write the value above the line between M1 and the Sun.', '14B: Measure from the Sun to M3. Write the value above the line between the Sun and M3.', 'Round both to the nearest tenth.'],
+      todo: ['14A: Measure from M1 to the Sun. Write the value above the line between M1 and the Sun.', '14B: Measure from the Sun to M3. Write the value above the line between the Sun and M3.', 'Round both to the nearest tenth. Next you will subtract #14A − #14B to get the distance between foci.'],
       record: 'PINK packet #14A and #14B', check: 'M1 to the Sun is the longer side.', draw: Object.assign({ mode: 'm2', axis: 1, a14: [.3, 1.5], b14: [2, 3.2] }, FULL) },
     { part: 'Part 2', tag: 'Part 2 · Steps 14C–14D', title: 'Label the ends and subtract', dur: 3.4,
-      todo: ['14C: On MODEL 2, label the M1 end Aphelion and the M3 end Perihelion.', '14D: Subtract. (M1 to Sun) − (Sun to M3) = distance between foci.', 'Round to the nearest tenth.'],
+      todo: ['14C: On MODEL 2, label the M1 end Aphelion and the M3 end Perihelion.', '14D: Subtract #14A − #14B. (M1 to Sun) − (Sun to M3) = distance between foci.', 'Round to the nearest tenth.'],
       record: 'PINK packet #14D', check: 'Aphelion is at the longer end. Perihelion is at the shorter end, closer to the Sun.', draw: Object.assign({ mode: 'm2', axis: 1, a14: 1, b14: 1, aph: [.3, .8], per: [1.1, 1.6], eq: [2.2, 2.8] }, FULL) },
     { part: 'Calculate', tag: 'Calculate · Step 15', title: 'Calculate the eccentricity', dur: 3.6,
       todo: ['Find #15 in your PINK packet.', 'Divide: distance between foci (#14D) ÷ length of major axis (#13).', 'Keep cm with each number when you set it up: ___ cm ÷ ___ cm.', 'Your eccentricity has NO units. The cm on the top and the cm on the bottom cancel out.', 'Show your work. Round to the nearest thousandth (3 decimal places).'],
       record: 'PINK packet #15', check: 'Mars’ orbit is close to a circle, so your answer should be a small decimal near 0.094.', draw: { mode: 'card' },
       card: '<p class="c-h" data-at="0">PINK packet #15</p><p class="c-big" data-at=".3">eccentricity = distance between foci ÷ length of major axis</p><p class="c-row" data-at="1.3">eccentricity = #14D (cm) ÷ #13 (cm)</p><p class="c-row" data-at="1.9">cm ÷ cm cancel out, so eccentricity has <b>no units</b>.</p><p class="c-note" data-at="2.6">Rounding example only (not the answer):</p><p class="c-ex" data-at="3">0.08734 rounds to 0.087</p>' },
-    { part: 'Calculate', tag: 'Calculate · Step 16', title: 'Calculate your percent error', dur: 4.2,
-      todo: ['Find #16 in your PINK packet.', 'Find the difference between your value from #15 and the accepted value, 0.094. Use the positive difference.', 'Divide by 0.094, then multiply by 100.', 'Show your work. Round to the nearest tenth.'],
+    { part: 'Calculate', tag: 'Calculate · Step 16', title: 'Calculate your percent error', dur: 4.6,
+      todo: ['Find #16 in your PINK packet.', 'Subtract: calculated value (#15) − accepted value (0.094). If your calculated value is LOWER than 0.094, flip them: 0.094 − calculated value. Your difference should never be negative.', 'Divide by 0.094, then multiply by 100.', 'Show your work. Round to the nearest tenth.'],
       record: 'PINK packet #16', check: 'Percent error is always positive. A smaller percent means your model was closer to the accepted value.', draw: { mode: 'card' },
-      card: '<p class="c-h" data-at="0">PINK packet #16</p><p class="c-big" data-at=".3">percent error = (difference from accepted value ÷ accepted value) × 100</p><p class="c-row" data-at="1.3">accepted value = 0.094</p><p class="c-row" data-at="1.9">calculated value = your answer from #15</p><p class="c-note" data-at="2.7">Worked example only (not the answer):</p><p class="c-ex" data-at="3.1">0.094 − 0.087 = 0.007 → 0.007 ÷ 0.094 = 0.0745 → 0.0745 × 100 = 7.4%</p>' },
+      card: '<p class="c-h" data-at="0">PINK packet #16</p><p class="c-big" data-at=".3">percent error = (difference ÷ 0.094) × 100</p><p class="c-row" data-at="1.1"><b>Step 1:</b> Subtract calculated − accepted. If your calculated value is LOWER than 0.094, flip them: 0.094 − calculated.</p><div class="c-two" data-at="2"><div class="c-box sun"><h3>Lower than 0.094: flip</h3><p>Example value: 0.087</p><p>0.094 − 0.087 = 0.007</p><p>0.007 ÷ 0.094 = 0.0745</p><p>0.0745 × 100 = <b>7.4%</b></p></div><div class="c-box earth"><h3>Higher than 0.094</h3><p>Example value: 0.100</p><p>0.100 − 0.094 = 0.006</p><p>0.006 ÷ 0.094 = 0.0638</p><p>0.0638 × 100 = <b>6.4%</b></p></div></div><p class="c-note" data-at="3.4">Examples only, not your answer. Subtract first, then divide. Your percent error is always positive.</p>' },
     { part: 'Finish', tag: 'Finish · Steps 17–19', title: 'Clean up and answer the questions', dur: 3,
       todo: ['17. Put all your materials back.', '18. Keep your Model Orbit pages attached to your PINK Student Answer Packet.', '19. Answer the questions in your PINK packet. The next screens walk you through each one.'],
       check: 'Your PINK packet has #2 and #13 through #16 filled in, with work shown.', draw: Object.assign({ mode: 'm2', mars: true, axis: 1 }, FULL) },
@@ -662,8 +748,15 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
   // ---------- page ----------
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const store = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
-  const checks = store.get('um3-checks', {});
-  let cur = Math.min(S.length - 1, Math.max(0, store.get('um3-screen', 0) | 0));
+  let checks = store.get('um4-checks', null), savedScreen = store.get('um4-screen', null);
+  if (!checks) {
+    // Carry over progress from before the 3 front-page screens were added after screen 1.
+    const old = store.get('um3-checks', {}), K = 3, os = store.get('um3-screen', 0) | 0; checks = {};
+    Object.keys(old).forEach(k => { const m = /^c-(\d+)-(\d+)$/.exec(k); if (m) { const i = +m[1]; checks['c-' + (i === 0 ? 0 : i + K) + '-' + m[2]] = old[k]; } });
+    if (os > 0 || Object.keys(old).some(k => !/^c-0-/.test(k))) for (let i = 1; i <= K; i++) S[i].todo.forEach((_, j) => { checks['c-' + i + '-' + j] = true; });
+    savedScreen = os > 0 ? os + K : os; store.set('um4-checks', checks); store.set('um4-screen', savedScreen);
+  }
+  let cur = Math.min(S.length - 1, Math.max(0, savedScreen | 0));
   for (let j = 0; j < cur; j++) { if (!S[j].todo.every((_, k) => !!checks['c-' + j + '-' + k])) { cur = j; break; } }
   let t0 = 0, raf = 0;
 
@@ -681,6 +774,19 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     [...bar.children].forEach((b, j) => { b.disabled = !canGo(j); });
   }
 
+  function colorize(root) {
+    if (!root) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), ns = [];
+    while (w.nextNode()) ns.push(w.currentNode);
+    ns.forEach(n => {
+      if (n.parentNode && n.parentNode.closest && n.parentNode.closest('svg')) return;
+      const parts = n.nodeValue.split(/\b(pink (?:student answer packet|packet)|(?:red|green) colored pencils?|red|green|pink|yellow)\b/i);
+      if (parts.length < 2) return;
+      const fr = document.createDocumentFragment();
+      parts.forEach((p, i) => { if (i % 2) { const s = document.createElement('span'); s.className = 't-' + ({ r: 'red', g: 'green', p: 'pink', y: 'yellow' })[p[0].toLowerCase()]; s.textContent = p; fr.append(s); } else if (p) fr.append(document.createTextNode(p)); });
+      n.replaceWith(fr);
+    });
+  }
   const card = document.getElementById('card');
   let cardRows = [];
   const MODES = { m1: ['g1'], m2: ['g2'], tri: ['g2', 'gt'], graph: ['gg'], area: ['ga'], kep: ['gk'], ab: ['gab'], flight: ['gf'], sat: ['gs'], card: [] };
@@ -704,7 +810,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     const done = t >= s.dur;
     const st = document.getElementById('status');
     st.classList.toggle('turn', done);
-    document.getElementById('statusText').textContent = done ? (s.part === 'Start' && cur === 0 ? 'Ready? Read the steps, then click Next.' : 'Your turn: do this on your paper') : 'Watch';
+    document.getElementById('statusText').textContent = done ? (cur === 0 || s.read ? 'Read the steps, then click Next.' : 'Your turn: do this on your paper') : 'Watch';
     document.getElementById('meter').style.width = (cl(t / s.dur) * 100).toFixed(1) + '%';
   }
   function loop(now) {
@@ -720,19 +826,20 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
   }
 
   function show(i) {
-    cur = Math.max(0, Math.min(S.length - 1, i)); store.set('um3-screen', cur);
+    cur = Math.max(0, Math.min(S.length - 1, i)); store.set('um4-screen', cur);
     const s = S[cur];
     document.getElementById('count').textContent = 'Screen ' + (cur + 1) + ' of ' + S.length;
     [...bar.children].forEach((b, j) => { b.className = j < cur ? 'done' : j === cur ? 'now' : ''; if (j === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
     PARTS.forEach(pt => pt.btn.classList.toggle('on', pt.name === s.part));
     document.getElementById('tag').textContent = s.tag;
     document.getElementById('title').textContent = s.title;
+    document.getElementById('sub').textContent = s.read ? 'Read these steps' : 'Do this on your paper';
     const pq = PQ[s.tag]; document.getElementById('pq').hidden = !pq; document.getElementById('pqText').textContent = pq || '';
     const ul = document.getElementById('todo'); ul.innerHTML = '';
     s.todo.forEach((txt, j) => {
       const id = 'c-' + cur + '-' + j, li = document.createElement('li'), lab = document.createElement('label'), box = document.createElement('input'), sp = document.createElement('span');
       box.type = 'checkbox'; box.id = id; box.checked = !!checks[id];
-      box.addEventListener('change', () => { checks[id] = box.checked; store.set('um3-checks', checks); updateGate(); });
+      box.addEventListener('change', () => { checks[id] = box.checked; store.set('um4-checks', checks); updateGate(); });
       if (typeof txt === 'object') { const bb = document.createElement('b'); bb.textContent = txt.b + ': '; sp.append(bb, document.createTextNode(txt.t)); } else sp.textContent = txt; lab.htmlFor = id; lab.append(box, sp); li.append(lab); ul.append(li);
     });
     const rec = document.getElementById('record');
@@ -740,6 +847,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     const ck = document.getElementById('check');
     if (s.check) { ck.hidden = false; document.getElementById('checkText').textContent = s.check; } else ck.hidden = true;
     if (s.card) { card.innerHTML = s.card; cardRows = [...card.querySelectorAll('[data-at]')]; } else { card.innerHTML = ''; cardRows = []; } card.hidden = s.draw.mode !== 'card';
+    [document.getElementById('title'), ul, document.getElementById('checkText'), rec, card].forEach(colorize);
     document.getElementById('back').disabled = cur === 0;
     const nx = document.getElementById('next');
     nx.textContent = cur === 0 ? 'Start' : cur === S.length - 1 ? 'Back to the start' : 'Next';
