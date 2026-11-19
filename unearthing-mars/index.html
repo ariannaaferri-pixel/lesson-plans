@@ -133,6 +133,11 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
 .xm .fr { display: inline-flex; flex-direction: column; align-items: center; text-align: center; }
 .xm .fr span:first-child { border-bottom: .35cqw solid var(--ink); padding: 0 1cqw .6cqw; }
 .xm .fr span:last-child { padding-top: .6cqw; }
+.sh2 { display: flex; align-items: center; gap: 2.2cqw; font-size: 3.8cqw; font-weight: 700; border: .25cqw dashed #9AA3B5; border-radius: 1cqw; padding: 1.4cqw 2.4cqw; background: #fff; align-self: flex-start; }
+.sh2 .fr { display: inline-flex; flex-direction: column; align-items: center; min-width: 14cqw; }
+.sh2 .fr span:first-child { border-bottom: .35cqw solid var(--ink); padding: 0 1cqw .6cqw; }
+.sh2 .fr span:last-child { padding-top: .6cqw; }
+.sh2 .lbls { display: flex; flex-direction: column; gap: 2.6cqw; font-size: 2.5cqw; font-weight: 500; color: #4A5468; }
 .xm .eq { font-size: 4cqw; position: relative; z-index: 1; background: var(--paper); padding: 0 .6cqw; line-height: 1; }
 .xm svg { position: absolute; left: 0; top: 0; width: 62cqw; height: 12cqw; pointer-events: none; overflow: visible; z-index: 0; }
 .t-red { color: var(--red-t); font-weight: 700; } .t-green { color: var(--green-t); font-weight: 700; }
@@ -579,12 +584,14 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       check: 'Your Model Orbit pages are attached to your PINK packet.', draw: { mode: 'card' },
       card: '<p class="c-h" data-at="0">Materials</p><p class="c-note" data-at=".3">In your clear container (shared with your partner):</p><ul class="c-list"><li data-at=".8">2 red colored pencils</li><li data-at="1.2">2 green colored pencils</li><li data-at="1.6">2 small containers, each holding 2 push pins and 1 string</li><li data-at="2">2 pencil sharpeners</li></ul><p class="c-note" data-at="2.5">You also need:</p><ul class="c-list"><li data-at="2.9">1 circular protractor, 1 metric ruler, 1 corkboard, 1 calculator</li></ul>' },
     { part: 'Part 1', tag: 'Part 1 · Step 2', title: 'Find the distance between the foci', dur: 4.6,
-      todo: ['Find #2 in your PINK packet. The eccentricity formula is missing the distance between foci.', 'Use the accepted eccentricity for Mars: 0.094.', 'Cross multiply to solve. Show all work.', 'Round to the nearest tenth.'],
+      todo: ['Find #2 in your PINK packet. The eccentricity formula is missing the distance between foci.', 'Use the accepted eccentricity for Mars (0.094) and the length of the major axis on your sheet (16.1 cm).', 'Cross multiply to solve. Show all work.', 'Round to the nearest tenth.'],
       record: 'PINK packet #2', check: 'Your answer should be about 1.5 cm.', draw: { mode: 'card' },
-      card: '<p class="c-h" data-at="0">PINK packet #2</p><p class="c-row" data-at=".3">eccentricity = distance between foci ÷ length of major axis</p><p class="c-note" data-at="1">Write it as two fractions, then cross multiply:</p>' +
-        '<div class="xm" data-at="1.4"><span class="fr" style="width:16cqw;font-size:3.6cqw"><span>0.094</span><span>1</span></span><span class="eq">=</span><span class="fr" style="width:36cqw;font-size:2.9cqw"><span>distance between foci</span><span>length of major axis</span></span>' +
-        '<svg viewBox="0 0 62 12"><defs><marker id="xmA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" style="fill:#1F4FD1"/></marker></defs><path d="M14.6 3.4 L24.6 8.6" style="fill:none;stroke:#1F4FD1;stroke-width:.35;marker-end:url(#xmA)"/><path d="M14.6 8.6 L24.6 3.4" style="fill:none;stroke:#1F4FD1;stroke-width:.35;marker-end:url(#xmA)"/></svg></div>' +
-        '<p class="c-row" data-at="2.6" style="font-size:3cqw;font-weight:700;white-space:nowrap;background:#EEF1F7;border-radius:1cqw;padding:1.4cqw 2cqw;align-self:flex-start">distance between foci = 0.094 × length of major axis</p><p class="c-note" data-at="4.1">Use the length of the major axis given in your packet. Round to the nearest tenth.</p>' },
+      card: '<p class="c-h" data-at="0">PINK packet #2</p><p class="c-note" data-at=".2">Eccentricity of Model of Mars’ Orbit Using Given Calculations (the accepted value for Mars’ eccentricity is 0.094)</p>' +
+        '<div class="sh2" data-at=".5"><span>0.094 =</span><span class="fr"><span>x</span><span>16.1 cm</span></span><span class="lbls"><span>← distance between foci (cm)</span><span>← length of major axis (cm)</span></span></div>' +
+        '<p class="c-note" data-at="1">Write 0.094 over 1, then cross multiply:</p>' +
+        '<div class="xm" data-at="1.4"><span class="fr" style="width:16cqw;font-size:3.6cqw"><span>0.094</span><span>1</span></span><span class="eq">=</span><span class="fr" style="width:16cqw;font-size:3.6cqw"><span>x</span><span>16.1 cm</span></span>' +
+        '<svg viewBox="0 0 62 12"><defs><marker id="xmA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" style="fill:#1F4FD1"/></marker></defs><path d="M14 3.6 L26 8.6" style="fill:none;stroke:#1F4FD1;stroke-width:.35;marker-end:url(#xmA)"/><path d="M12.5 8.6 L29.8 3.4" style="fill:none;stroke:#1F4FD1;stroke-width:.35;marker-end:url(#xmA)"/></svg></div>' +
+        '<p class="c-row" data-at="2.6" style="font-size:3cqw;font-weight:700;white-space:nowrap;background:#EEF1F7;border-radius:1cqw;padding:1.4cqw 2cqw;align-self:flex-start">x = 0.094 × 16.1 cm</p><p class="c-note" data-at="3.4">Multiply, then round to the nearest tenth. x is the distance between foci.</p>' },
     { part: 'Part 1', tag: 'Part 1 · Step 3', title: 'Plot Focus 2 on MODEL 1', dur: 3.6,
       todo: ['Find MODEL 1 on the single white sheet. Turn it sideways (landscape view).', 'Put the 0 of your ruler on the Sun. Measure 1.5 cm (your answer from Step 2) to the LEFT of the Sun.', 'Make a large dot there. Label it Focus 2.'],
       check: 'Focus 2 is about 1.5 cm to the left of the Sun.', draw: { mode: 'm1', ruler: [.3, 1], meas: [1.3, 2.6], f2: [2.8, 3.3] } },
