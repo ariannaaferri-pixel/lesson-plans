@@ -536,9 +536,17 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
   }
 
   // ---------- screens ----------
-  const miniM2 = () => { const P = (p, txt) => '<text class="svt" x="' + f(p[0]) + '" y="' + f(p[1]) + '" style="font-size:46px">' + txt + '</text>';
-    return '<svg viewBox="870 100 860 840" style="display:block;width:100%;height:auto;background:#fff;border:.3cqw solid var(--ink);border-radius:1cqw"><path d="M1300 540 H1700" style="stroke:var(--ink);stroke-width:3"/><circle cx="1300" cy="540" r="230" style="fill:none;stroke:#8C93A3;stroke-width:3"/><circle cx="1300" cy="540" r="22" style="fill:var(--sun);stroke:var(--ink);stroke-width:3"/>' +
-      PRE.map(a => { const p = pt(marsR(a[1]), a[1]); return '<circle cx="' + f(p[0]) + '" cy="' + f(p[1]) + '" r="14" style="fill:var(--ink)"/>' + P(pt(marsR(a[1]) + 0.22, a[1]), a[0]); }).join('') + '</svg>'; };
+  // Small copy of the finished screen 13 picture: how M1, M2, M4, M5 and M6 were found.
+  const miniM2 = () => {
+    const P = (p, txt, sz) => '<text class="svt" x="' + f(p[0]) + '" y="' + f(p[1]) + '" style="font-size:' + (sz || 42) + 'px;paint-order:stroke;stroke:#fff;stroke-width:9px">' + txt + '</text>';
+    const ex = (A, X) => { const dx = X[0] - A[0], dy = X[1] - A[1], n = Math.hypot(dx, dy); return [X[0] + dx / n * .55 * M.R, X[1] + dy / n * .55 * M.R]; };
+    let s = '<svg viewBox="790 90 1040 890" style="display:block;width:100%;height:auto;background:#fff;border:.3cqw solid var(--ink);border-radius:1cqw">' +
+      '<path d="M1300 540 H1830" style="stroke:var(--ink);stroke-width:4"/><circle cx="1300" cy="540" r="230" style="fill:none;stroke:#8C93A3;stroke-width:4"/>' +
+      [90, 180, 270].map(d => P(pt(1.15, d), d + '°', 34)).join('') + '<circle cx="1300" cy="540" r="18" style="fill:var(--sun);stroke:var(--ink);stroke-width:3"/>';
+    TRI.forEach(o => { [o.A, o.B].forEach(E => { const e = ex(E, o.X); s += '<path d="M' + f(E[0]) + ' ' + f(E[1]) + ' L' + f(e[0]) + ' ' + f(e[1]) + '" style="stroke:var(--green);stroke-width:6"/><circle cx="' + f(E[0]) + '" cy="' + f(E[1]) + '" r="9" style="fill:var(--green)"/>'; }); });
+    TRI.forEach(o => { s += '<circle cx="' + f(o.X[0]) + '" cy="' + f(o.X[1]) + '" r="18" style="fill:#fff;stroke:var(--ink);stroke-width:4"/><circle cx="' + f(o.X[0]) + '" cy="' + f(o.X[1]) + '" r="8" style="fill:var(--ink)"/>' + P(pt(marsR(o.th) + 0.2, o.th), o.n); });
+    return s + '</svg>';
+  };
   const TBL = hlE => '<div class="c-table c-sm"><p class="th" data-at=".3">Mars Position</p><p class="th" data-at=".3">Date</p><p class="th hl-sun" data-at=".3">Heliocentric Longitude of Earth</p><p class="th' + (hlE ? ' hl-earth' : '') + '" data-at=".3">Geocentric Longitude of Mars</p>' +
     '<p class="m3" data-at=".8">M3</p><p data-at=".8">September 19, 1591</p><p class="hl-sun" data-at=".8">5°</p><p' + (hlE ? ' class="hl-earth"' : '') + ' data-at=".8">284°</p><p class="m3" data-at="1.2">M3</p><p data-at="1.2">August 6, 1593</p><p class="hl-sun" data-at="1.2">323°</p><p' + (hlE ? ' class="hl-earth"' : '') + ' data-at="1.2">347°</p></div>';
   const FULL = { h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: 1, m3: 1, orbit: 1, orbl: 1 };
@@ -613,10 +621,10 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       check: 'Same idea as GPS: two viewpoints pinpoint one spot. You will do this yourself to find M3.', draw: { mode: 'tri' } },
     { part: 'Part 2', tag: 'Part 2 · Step 10', title: 'Open to MODEL 2 and find your data', dur: 3,
       todo: ['Put the corkboard aside.', 'Open to MODEL 2 in your Model Orbit pages.', 'This is the data you will plot. M1, M2, M4, M5 and M6 are already plotted for you (see the picture). You will find M3 with these 4 numbers.'],
-      check: 'Heliocentric is plotted ON Earth’s orbit. Geocentric is plotted OUTSIDE Earth’s orbit.', draw: { mode: 'card' },
+      check: 'Next, you will use these 4 numbers to find M3 yourself, the same way M1, M2, M4, M5 and M6 were found on the last screen (shown on the left). M3 is the missing piece of Mars’ orbit. Once you find it, you can draw the whole orbit and measure it.', draw: { mode: 'card' },
       card: '<p class="c-h" data-at="0">The data you will plot: Triangulation of Mars</p>' + TBL(true) +
         ''+
-        '<div class="c-two" data-at="1.8" style="grid-template-columns:1.2fr .8fr;align-items:start"><div style="display:flex;flex-direction:column;gap:1.4cqw"><p class="c-key sun"><b>Heliocentric (5°, 323°):</b> plot ON Earth’s orbit</p><p class="c-key earth"><b>Geocentric (284°, 347°):</b> plot OUTSIDE Earth’s orbit</p><p class="c-note">M1, M2, M4, M5 and M6 are already on MODEL 2 (right). You will find M3.</p></div>' + miniM2() + '</div>' },
+        '<div class="c-two" data-at="1.8" style="grid-template-columns:1fr 1fr;align-items:start"><div style="display:flex;flex-direction:column;gap:1.4cqw"><p class="c-key sun"><b>Heliocentric (5°, 323°):</b> plot ON Earth’s orbit</p><p class="c-key earth"><b>Geocentric (284°, 347°):</b> plot OUTSIDE Earth’s orbit</p><p class="c-note">M1, M2, M4, M5 and M6 are already on MODEL 2 (right). You will find M3.</p></div>' + miniM2() + '</div>' },
     { part: 'Part 2', tag: 'Part 2 · Before STEP 1', title: 'Highlight Earth’s orbit and Reference Line 1', dur: 6.8, hlScreen: true,
       todo: ['On MODEL 2, find the words Earth’s Orbit. Highlight them.', 'Find the words Reference Line 1 (0°). Highlight them.', 'Earth’s orbit is where your heliocentric dots go. Reference Line 1 is where 0° starts every time you center the protractor on the Sun.'],
       check: 'Heliocentric dots (5° and 323°) go ON Earth’s orbit, measured from Reference Line 1. You will use both highlights in STEP 1 and STEP 4.', draw: { mode: 'card', then: { mode: 'm2', at: 4, hlE: [4.4, 5.2], hlR: [5.6, 6.4] } },
