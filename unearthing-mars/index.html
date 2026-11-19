@@ -208,9 +208,9 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     const dir = d => [Math.cos(d * Math.PI / 180), -Math.sin(d * Math.PI / 180)];
     const E1 = pt(1, 5), E2 = pt(1, 323), d1 = dir(284), d2 = dir(347);
     const det = d1[0] * (-d2[1]) + d2[0] * d1[1], rx = E2[0] - E1[0], ry = E2[1] - E1[1];
-    const a = (rx * (-d2[1]) + d2[0] * ry) / det, b = (d1[0] * ry - d1[1] * rx) / det, g = 80;
+    const a = (rx * (-d2[1]) + d2[0] * ry) / det, b = (d1[0] * ry - d1[1] * rx) / det, g = 240;   // geocentric dots sit just outside the protractor's edge, past M3
     return { E1, E2, M3: [E1[0] + a * d1[0], E1[1] + a * d1[1]], G1: [E1[0] + g * d1[0], E1[1] + g * d1[1]], G2: [E2[0] + g * d2[0], E2[1] + g * d2[1]],
-      L1: [E1[0] + 1.4 * a * d1[0], E1[1] + 1.4 * a * d1[1]], L2: [E2[0] + 1.7 * b * d2[0], E2[1] + 1.7 * b * d2[1]] };
+      L1: [E1[0] + (g + 45) * d1[0], E1[1] + (g + 45) * d1[1]], L2: [E2[0] + (g + 45) * d2[0], E2[1] + (g + 45) * d2[1]] };
   })();
   const M1p = pt(marsR(150), 150);
   // How each pre-plotted point was found: Earth on a first date, then 687 days later (Earth ends up about 43 degrees behind).
@@ -629,20 +629,20 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       todo: ['On MODEL 2, find the words Earth’s Orbit. Highlight them.', 'Find the words Reference Line 1 (0°). Highlight them.', 'Earth’s orbit is where your heliocentric dots go. Reference Line 1 is where 0° starts every time you center the protractor on the Sun.'],
       check: 'Heliocentric dots (5° and 323°) go ON Earth’s orbit, measured from Reference Line 1. You will use both highlights in STEP 1 and STEP 4.', draw: { mode: 'm2', hlE: [.4, 1.2], hlR: [1.6, 2.4] } },
     { part: 'Part 2', tag: 'Part 2 · STEP 1', title: 'September 19, 1591: plot Earth at 5°', dur: 3,
-      todo: ['Center the protractor on the Sun.', 'Line up 0° with Reference Line 1 (0°). The protractor will look upside down: 0° on the right, 180° on the left.', 'Use the RED numbers on the protractor to find 5°.', 'Make a GREEN dot ON Earth’s orbit at 5°.'],
-      check: 'Your dot is on Earth’s orbit, just above Reference Line 1.', draw: { mode: 'm2', h1: [2.5, 2.9], prot: { at: 'S', ang: 5, r: 150, len: 230, win: [.2, .9, 2.3] } } },
+      todo: ['Center the protractor on the Sun.', 'Line up 0° with Reference Line 1 (0°). The protractor will look upside down: 0° on the right, 180° on the left.', 'Use the RED numbers on the protractor to find 5°.', 'Make a GREEN dot at 5°, right outside the edge of the protractor. That spot is on Earth’s orbit.'],
+      check: 'Your dot is right outside the protractor, on Earth’s orbit, just above Reference Line 1.', draw: { mode: 'm2', h1: [2.5, 2.9], prot: { at: 'S', ang: 5, r: 218, len: 230, win: [.2, .9, 2.3] } } },
     { part: 'Part 2', tag: 'Part 2 · STEP 2', title: 'Plot where Mars appeared: 284°', dur: 4,
-      todo: ['Center the protractor on your new GREEN dot.', 'Line up 0° parallel to the grid lines on the graph paper.', 'Use the RED numbers on the protractor to find 284°. Make a GREEN dot there, OUTSIDE Earth’s orbit.'],
-      check: '284° points down and a little to the right of your Earth dot.', draw: { mode: 'm2', h1: 1, g1: [3.4, 3.8], prot: { at: 'E1', ang: 284, r: 80, len: 80, rd: 128, win: [.2, .9, 3.2] } } },
+      todo: ['Center the protractor on your new GREEN dot.', 'Line up 0° parallel to the grid lines on the graph paper.', 'Use the RED numbers on the protractor to find 284°. Make a GREEN dot there, right outside the edge of the protractor.'],
+      check: '284° points down and a little to the right of your Earth dot.', draw: { mode: 'm2', h1: 1, g1: [3.4, 3.8], prot: { at: 'E1', ang: 284, r: 218, len: 240, rd: 285, win: [.2, .9, 3.2] } } },
     { part: 'Part 2', tag: 'Part 2 · STEP 3', title: 'Draw the first line', dur: 2.6,
       todo: ['Use your ruler to draw a GREEN line from your first dot through your second dot.', 'Keep going well past the 2nd dot so the next line can cross it.'],
       check: 'Your line heads down and to the right, well past the second dot.', draw: { mode: 'm2', h1: 1, g1: 1, l1: [.4, 2.4] } },
     { part: 'Part 2', tag: 'Part 2 · STEP 4', title: 'August 6, 1593: plot Earth at 323°', dur: 3.6,
-      todo: ['Center the protractor on the Sun. Line up 0° with Reference Line 1.', 'Use the RED numbers on the protractor to find 323°.', 'Make a GREEN dot ON Earth’s orbit at 323°.'],
-      check: '323° is below Reference Line 1, on the lower right of Earth’s orbit.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: [3.1, 3.5], prot: { at: 'S', ang: 323, r: 150, len: 230, rd: 285, win: [.2, .9, 2.9] } } },
+      todo: ['Center the protractor on the Sun. Line up 0° with Reference Line 1.', 'Use the RED numbers on the protractor to find 323°.', 'Make a GREEN dot at 323°, right outside the edge of the protractor. That spot is on Earth’s orbit.'],
+      check: '323° is below Reference Line 1, on the lower right of Earth’s orbit.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: [3.1, 3.5], prot: { at: 'S', ang: 323, r: 218, len: 230, rd: 285, win: [.2, .9, 2.9] } } },
     { part: 'Part 2', tag: 'Part 2 · STEP 5', title: 'Plot where Mars appeared: 347°', dur: 3.6,
-      todo: ['Center the protractor on your new GREEN dot. Line up 0° parallel to the grid lines on the graph paper.', 'Use the RED numbers on the protractor to find 347°. Make a GREEN dot there, OUTSIDE Earth’s orbit.'],
-      check: '347° points to the right and slightly down.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: [3.1, 3.5], prot: { at: 'E2', ang: 347, r: 80, len: 80, rd: 150, win: [.2, .9, 2.9] } } },
+      todo: ['Center the protractor on your new GREEN dot. Line up 0° parallel to the grid lines on the graph paper.', 'Use the RED numbers on the protractor to find 347°. Make a GREEN dot there, right outside the edge of the protractor.'],
+      check: '347° points to the right and slightly down.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: [3.1, 3.5], prot: { at: 'E2', ang: 347, r: 218, len: 240, rd: 285, win: [.2, .9, 2.9] } } },
     { part: 'Part 2', tag: 'Part 2 · STEP 6', title: 'Draw the second line and find M3', dur: 3.4,
       todo: ['Draw a GREEN line from your 323° dot through your 347° dot. Extend it past the 2nd dot.', 'Put a GREEN dot where your two lines cross. Label it M3.'],
       check: 'M3 should line up with the curve made by M1, M2, M4, M5 and M6.', draw: { mode: 'm2', h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: [.4, 2.2], m3: [2.6, 3.1] } },
