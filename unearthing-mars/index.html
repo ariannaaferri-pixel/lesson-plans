@@ -552,7 +552,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
   const FULL = { h1: 1, g1: 1, l1: 1, h2: 1, g2: 1, l2: 1, m3: 1, orbit: 1, orbl: 1 };
   const S = [
     { part: 'Start', tag: 'Start here', title: 'How this works', dur: 4, read: true,
-      todo: ['Sit with your partner. Get your clear container, your PINK Student Answer Packet and your Model Orbit page (MODEL 1 on the front, MODEL 2 on the back).', 'On each screen, watch the short demo on the left. Then do that step on your paper.', 'Check off every box when you finish it. Next unlocks once all the boxes are checked.'],
+      todo: ['Read what this lab is about on the left.', 'Sit with your partner. Get your clear container, your PINK Student Answer Packet and your Model Orbit page (MODEL 1 on the front, MODEL 2 on the back).', 'On each screen, watch the short demo on the left. Then do that step on your paper.', 'Check off every box when you finish it. Next unlocks once all the boxes are checked.'],
       check: 'You need 2 papers: the PINK Student Answer Packet and the Model Orbit page (MODEL 1 on the front, MODEL 2 on the back).', draw: { mode: 'card' },
       card: '<p class="c-h" data-at="0">What is this lab about?</p>' +
         '<p class="c-row" data-at=".3">Over 400 years ago, there were no telescopes. A scientist named Tycho Brahe still carefully measured where Mars was in the sky.</p>' +
@@ -777,6 +777,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     if (os > 0 || Object.keys(old).some(k => !/^c-0-/.test(k))) for (let i = 1; i <= K; i++) S[i].todo.forEach((_, j) => { checks['c-' + i + '-' + j] = true; });
     savedScreen = os > 0 ? os + K : os; store.set('um4-checks', checks); store.set('um4-screen', savedScreen);
   }
+  // Students who already got past screen 1 keep their place after screen 1 gained a checkbox.
+  if (Object.keys(checks).some(k => /^c-[1-9]/.test(k) && checks[k])) S[0].todo.forEach((_, j) => { checks['c-0-' + j] = true; });
   let cur = Math.min(S.length - 1, Math.max(0, savedScreen | 0));
   for (let j = 0; j < cur; j++) { if (!S[j].todo.every((_, k) => !!checks['c-' + j + '-' + k])) { cur = j; break; } }
   let t0 = 0, raf = 0;
