@@ -235,12 +235,12 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
 
   function buildSvg() {
     const sx = E.cx + E.c, fx = E.cx - E.c, y = E.cy;
-    // MODEL 1 ruler: 0 on the Sun, cm marks every 40 units going LEFT (1.5 cm lands on Focus 2).
-    let rt = ''; for (let i = 0; i <= 60; i++) { const x = sx - i * 4, h = i % 10 === 0 ? 18 : i % 5 === 0 ? 12 : 7; rt += 'M' + x + ' 558 V' + (558 + h); }
-    let rn = ''; for (let c = 0; c <= 6; c++) rn += '<text class="svt" x="' + (sx - c * 40) + '" y="596" style="font-size:19px">' + c + '</text>';
-    const ruler1 = '<g id="m1ruler" style="opacity:0"><rect x="' + (sx - 262) + '" y="558" width="284" height="56" rx="4" style="fill:rgba(232,215,160,.8);stroke:rgba(27,36,56,.6);stroke-width:2"/>' +
+    // MODEL 1 ruler, read normally (0 on the left): the 1.5 cm mark sits on the Sun, so the 0 mark lands on Focus 2.
+    let rt = ''; for (let i = 0; i <= 60; i++) { const x = sx - 60 + i * 4, h = i % 10 === 0 ? 18 : i % 5 === 0 ? 12 : 7; rt += 'M' + x + ' 558 V' + (558 + h); }
+    let rn = ''; for (let c = 0; c <= 6; c++) rn += '<text class="svt" x="' + (sx - 60 + c * 40) + '" y="596" style="font-size:19px">' + c + '</text>';
+    const ruler1 = '<g id="m1ruler" style="opacity:0"><rect x="' + (sx - 82) + '" y="558" width="284" height="56" rx="4" style="fill:rgba(232,215,160,.8);stroke:rgba(27,36,56,.6);stroke-width:2"/>' +
       '<rect id="m1rband" x="' + sx + '" y="558" width="0" height="56" style="fill:rgba(200,70,46,.32)"/><path d="' + rt + '" style="stroke:var(--ink);stroke-width:1.5"/>' + rn +
-      '<text class="svt" x="' + (sx - 252) + '" y="577" style="font-size:13px">cm</text></g>';
+      '<text class="svt" x="' + (sx + 193) + '" y="577" style="font-size:13px">cm</text></g>';
     let s = '<defs><linearGradient id="hSk" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#F8D6BC"/><stop offset=".55" stop-color="#F1C2A0"/><stop offset="1" stop-color="#DFA27C"/></linearGradient><linearGradient id="hNl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFF5EF"/><stop offset="1" stop-color="#F2C6B6"/></linearGradient><linearGradient id="hSl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2A5BDB"/><stop offset="1" stop-color="#163A9E"/></linearGradient><linearGradient id="fgG" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="230" y2="0"><stop offset=".6" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient><mask id="fgFade" maskUnits="userSpaceOnUse" x="-10" y="-40" width="260" height="80"><rect x="-10" y="-40" width="260" height="80" fill="url(#fgG)"/></mask><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" style="fill:var(--ink)"/></marker><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse" x="760" y="70"><path d="M40 0 H0 V40" style="fill:none;stroke:var(--grid);stroke-width:1.5"/></pattern></defs>' +
       '<rect x="760" y="70" width="1100" height="940" style="fill:var(--paper)"/><rect x="790" y="140" width="1040" height="840" fill="url(#grid)"/>';
     // MODEL 1
@@ -595,7 +595,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
         '<svg viewBox="0 0 62 12"><defs><marker id="xmA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" style="fill:#1F4FD1"/></marker></defs><path d="M14 3.6 L26 8.6" style="fill:none;stroke:#1F4FD1;stroke-width:.35;marker-end:url(#xmA)"/><path d="M12.5 8.6 L29.8 3.4" style="fill:none;stroke:#1F4FD1;stroke-width:.35;marker-end:url(#xmA)"/></svg></div>' +
         '<p class="c-row" data-at="2.6" style="font-size:3cqw;font-weight:700;white-space:nowrap;background:#EEF1F7;border-radius:1cqw;padding:1.4cqw 2cqw;align-self:flex-start">x = 0.094 × 16.1 cm</p><p class="c-note" data-at="3.4">Multiply, then round to the nearest tenth. x is the distance between foci.</p>' },
     { part: 'Part 1', tag: 'Part 1 · Step 3', title: 'Plot Focus 2 on MODEL 1', dur: 3.6,
-      todo: ['Find MODEL 1 on the single white sheet. Turn it sideways (landscape view).', 'Put the 0 of your ruler on the Sun. Measure 1.5 cm (your answer from Step 2) to the LEFT of the Sun.', 'Make a large dot there. Label it Focus 2.'],
+      todo: ['Find MODEL 1 on the single white sheet. Turn it sideways (landscape view).', 'Put the 1.5 cm mark of your ruler on the Sun, with 0 to the left. Go left to the 0 and make a dot there. That is 1.5 cm (your answer from Step 2) to the LEFT of the Sun.', 'Make a large dot there. Label it Focus 2.'],
       check: 'Focus 2 is about 1.5 cm to the left of the Sun.', draw: { mode: 'm1', ruler: [.3, 1], meas: [1.3, 2.6], f2: [2.8, 3.3] } },
     { part: 'Part 1', tag: 'Part 1 · Steps 4–5', title: 'Pin the Sun and Focus 2', dur: 2,
       todo: ['Put MODEL 1 on the corkboard.', 'Push one pin into the Sun dot and one into the Focus 2 dot.'],
