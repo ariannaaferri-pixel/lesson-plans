@@ -153,6 +153,29 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
 .card .t-pink { color: #C2366E; background: #FBE3EC; }
 .t-yellow { color: #15203A; background: #FFE27A; font-weight: 700; border-radius: 4px; padding: 0 .2em; }
 
+/* PINK packet #16, drawn like the paper */
+.pk-h { font-size: 2.35cqw; line-height: 1.3; }
+.pk-l { font-size: 2.15cqw; line-height: 1.3; padding-left: 4cqw; display: flex; align-items: baseline; gap: .8cqw; flex-wrap: wrap; }
+.pk-hw { font-family: "Kalam", "Comic Sans MS", "Segoe Print", cursive; font-weight: 700; font-size: 3cqw; color: #2A2F3C; line-height: 1; }
+.pk-blank { display: inline-block; min-width: 10cqw; border-bottom: .2cqw solid var(--ink); text-align: center; }
+.pk-box { border: .2cqw solid var(--ink); background: #fff; display: flex; flex-direction: column; }
+.pk-box > div { padding: .9cqw 1.8cqw; }
+.pk-wrap { display: flex; flex-direction: column; gap: 1.7cqw; }
+.pk-wrap p { margin: 0; }
+.pk-box > div + div { border-top: .15cqw solid #9AA3B5; }
+.pk-f { display: flex; align-items: center; justify-content: center; gap: .9cqw; font-size: 2.2cqw; }
+.pk-fr { display: inline-flex; flex-direction: column; align-items: center; text-align: center; }
+.pk-fr > span:first-child { border-bottom: .2cqw solid var(--ink); padding: 0 .6cqw .3cqw; }
+.pk-fr > span:last-child { padding-top: .3cqw; }
+.pk-ws { display: flex; flex-direction: column; gap: .9cqw; }
+.pk-ws .lbl { font-size: 2.1cqw; }
+.pk-row { display: flex; align-items: center; gap: 1cqw; padding-left: 3cqw; }
+.pk-row .pk-fr > span:first-child { border-bottom-color: #2A2F3C; }
+.pk-ans { display: flex; justify-content: flex-end; align-items: baseline; gap: .8cqw; font-size: 2.3cqw; }
+.pk-warn { border: .3cqw solid #C2366E; background: #FBE3EC; border-radius: 1cqw; padding: 1cqw 1.8cqw; font-size: 2.2cqw; line-height: 1.35; color: #15203A; }
+.pk-warn b:first-child { color: #A3204F; font-size: 2.6cqw; }
+.card mark.pk-flip { background: #FFE27A; }
+.pk-tag { margin-left: .6cqw; background: #EEF1F7; border-radius: .5cqw; padding: .1cqw .8cqw; font-size: 1.7cqw; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #4A5468; }
 @media (max-width: 900px) {
   .stage { grid-template-columns: 1fr; }
   .sheet, .viewbar { width: 100%; }
@@ -690,10 +713,19 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
         '<li data-at="2.5">Small mistakes add up: reading the protractor wrong, thick pencil lines, or a dot in the wrong spot.</li>' +
         '<li data-at="3.1">Mars’ orbit is almost a circle, so being off by just 1 or 2 mm can change your answer a lot.</li></ul>' +
         '<p class="c-sum" data-at="3.8" style="font-size:2.7cqw">Scientists always check their models against real data. That is what you are doing here.</p>' },
-    { part: 'Calculate', tag: 'Calculate · Step 16', title: 'Calculate your percent error', dur: 4.6,
+    { part: 'Calculate', tag: 'Calculate · Step 16', title: 'Calculate your percent error', dur: 4.4,
       todo: ['Find #16 in your PINK packet.', { b: 'You should NOT have a negative percent error.', r: 'Subtract: calculated value (#15) − accepted value (0.094). If your calculated value is LOWER than 0.094, flip them: 0.094 − calculated value. Your difference should never be negative.' }, 'Divide by 0.094, then multiply by 100.', 'Show your work. Round to the nearest tenth.'],
       record: 'PINK packet #16', check: 'Percent error is always positive. A smaller percent means your model was closer to the accepted value.', draw: { mode: 'card' },
-      card: '<p class="c-h" data-at="0">PINK packet #16</p><p class="c-big" data-at=".3">percent error = (difference ÷ 0.094) × 100</p><p class="c-row" data-at="1.1"><b>Step 1:</b> Subtract calculated − accepted. If your calculated value is LOWER than 0.094, flip them: 0.094 − calculated.</p><div class="c-two" data-at="2"><div class="c-box sun"><h3>Lower than 0.094: flip</h3><p>Example value: 0.087</p><p>0.094 − 0.087 = 0.007</p><p>0.007 ÷ 0.094 = 0.0745</p><p>0.0745 × 100 = <b>7.4%</b></p></div><div class="c-box earth"><h3>Higher than 0.094</h3><p>Example value: 0.100</p><p>0.100 − 0.094 = 0.006</p><p>0.006 ÷ 0.094 = 0.0638</p><p>0.0638 × 100 = <b>6.4%</b></p></div></div><p class="c-note" data-at="3.4">Examples only, not your answer. Subtract first, then divide. Your percent error is always positive.</p>' },
+      card: '<div class="pk-wrap"><p class="pk-h" data-at="0"><b>16. Percent error calculation</b> (express your answer to the nearest tenth) <span class="pk-tag">Example numbers, not your answer</span></p>' +
+        '<p class="pk-l" data-at=".4">What was your calculated value (from #15): <span class="pk-blank"><span class="pk-hw">0.087</span></span></p>' +
+        '<p class="pk-l" data-at=".8">What is the Accepted Value (Mars’ eccentricity) mentioned in #2: <span class="pk-blank"><span class="pk-hw">0.094</span></span></p>' +
+        '<div class="pk-box" data-at="1.2"><div class="pk-f">% Error = <span class="pk-fr"><span>calculated value − accepted value</span><span>accepted value</span></span> × 100</div>' +
+        '<div class="pk-ws"><span class="lbl">Workspace:</span>' +
+        '<div class="pk-row" data-at="2.2"><span class="pk-ws lbl" style="font-size:2.3cqw">% Error =</span><span class="pk-fr"><span><span class="pk-hw"><mark class="pk-flip">0.094 − 0.087</mark></span></span><span><span class="pk-hw">0.094</span></span></span><span class="pk-hw">× 100</span></div>' +
+        '<div class="pk-row" data-at="2.6" style="padding-left:12cqw"><span class="pk-hw">= 0.007 ÷ 0.094 × 100</span></div>' +
+        '<div class="pk-row" data-at="3" style="padding-left:12cqw"><span class="pk-hw">= 0.0745 × 100 = 7.4</span></div></div>' +
+        '<div class="pk-ans" data-at="3.5">% Error: <span class="pk-blank"><span class="pk-hw">7.4</span></span> %</div></div>' +
+        '<p class="pk-warn" data-at="1.7"><b>Your percent error should NEVER be negative.</b> 0.087 is LOWER than 0.094, so flip the top: <mark class="pk-flip">0.094 − 0.087</mark>. HIGHER than 0.094? Subtract the way the formula shows.</p></div>' },
     { part: 'Finish', tag: 'Finish · Steps 17–19', title: 'Clean up and answer the questions', dur: 3,
       todo: ['17. Put all your materials back.', '18. Keep your Model Orbit pages attached to your PINK Student Answer Packet.', '19. Answer the questions in your PINK packet. The next screens walk you through each one.'],
       check: 'Your PINK packet has #2 and #13 through #16 filled in, with work shown.', draw: Object.assign({ mode: 'm2', mars: true, axis: 1 }, FULL) },
