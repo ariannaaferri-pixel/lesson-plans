@@ -320,6 +320,11 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       L([1080, 316], 'm2axl', 'Major Axis') + L([1035, 430], 'm2aphl', 'Aphelion') + L([1645, 648], 'm2perl', 'Perihelion') +
       L([1120, 500], 'm2al', '14A: M1 to Sun', 1) + L([1458, 578], 'm2bl', '14B: Sun to M3', 1) +
       L([1310, 955], 'm2eq', '(M1 to Sun) − (Sun to M3) = distance between foci') +
+      L([(M1p[0] + M.cx) / 2 + 38, (M1p[1] + M.cy) / 2 - 52], 'm2av', '8.7 cm') + L([M.cx + (T.M3[0] - M.cx) * .45 - 30, M.cy + (T.M3[1] - M.cy) * .45 + 52], 'm2bv', '7.3 cm') +
+      '<g id="m2math" style="opacity:0"><rect x="778" y="866" width="440" height="136" rx="12" style="fill:#FFFFFF;stroke:var(--ink);stroke-width:3"/>' +
+      '<text class="zt" x="796" y="895">#14D: subtract</text><path d="M778 908 H1218" style="stroke:var(--ink);stroke-width:2"/>' +
+      '<text class="svt" x="998" y="938" style="font-size:23px">14A − 14B = distance between foci</text>' +
+      '<text class="lab hw" x="998" y="980" style="font-size:36px">8.7 cm − 7.3 cm = 1.4 cm</text></g>' +
       '<g id="m2prot" style="opacity:0"><g id="m2protS">' +
       '<path d="M100 0 A100 100 0 1 0 -100 0 A100 100 0 1 0 100 0 Z M56 0 A56 56 0 1 1 -56 0 A56 56 0 1 1 56 0 Z" style="fill:rgba(190,215,235,.45);fill-rule:evenodd;stroke:rgba(27,36,56,.55);stroke-width:1.2"/>' +
       '<circle r="74" style="fill:none;stroke:var(--ink);stroke-width:.8"/><path d="' + pk + '" style="stroke:var(--ink);stroke-width:.6"/>' + pn +
@@ -484,7 +489,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
   const art = document.getElementById('art');
   art.innerHTML = buildSvg();
   // Labels the students write themselves look handwritten; printed labels on the sheet stay in type.
-  ['m1f2l', 'm1orbl', 'm1perl', 'm1aphl', 'm2m3l', 'm2orbl', 'm2axl', 'm2aphl', 'm2perl'].forEach(id => { const e = document.getElementById(id); if (e) e.classList.add('hw'); });
+  ['m1f2l', 'm1orbl', 'm1perl', 'm1aphl', 'm2m3l', 'm2orbl', 'm2axl', 'm2aphl', 'm2perl', 'm2av', 'm2bv'].forEach(id => { const e = document.getElementById(id); if (e) e.classList.add('hw'); });
   document.getElementById('m2m3l').classList.add('hw-g');
   const $ = id => art.getElementById ? art.getElementById(id) : document.getElementById(id);
   const el = {}; const g = id => el[id] || (el[id] = document.getElementById(id));
@@ -534,7 +539,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     draw('m2ma', eio(v('a14'))); draw('m2mb', eio(v('b14')));
     op('m2pres', c.pre == null ? 1 : c.pre);
     op('m2m3l', v('m3')); op('m2orbl', v('orbl')); op('m2axl', v('axis')); op('m2aphl', v('aph')); op('m2perl', v('per'));
-    op('m2al', v('a14')); op('m2bl', v('b14')); op('m2eq', v('eq'));
+    op('m2al', v('a14')); op('m2bl', v('b14')); op('m2eq', v('eq')); op('m2av', v('vals')); op('m2bv', v('vals')); op('m2math', v('math'));
     const pr = v('ruler'); op('m2ruler', pr); g('m2ruler').setAttribute('transform', 'translate(0 ' + (24 * (1 - eio(pr))).toFixed(1) + ')');
     if (c.mars) { const th = 330 + 16 * t, P = pt(marsR(th), th); g('m2mars').setAttribute('transform', 'translate(' + f(P[0]) + ' ' + f(P[1]) + ')'); op('m2mars', 1); } else op('m2mars', 0);
     const p = c.prot;
@@ -702,8 +707,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       todo: ['14A: Measure from M1 to the Sun. Write the value above the line between M1 and the Sun.', '14B: Measure from the Sun to M3. Write the value above the line between the Sun and M3.', 'Round both to the nearest tenth.'],
       record: 'PINK packet #14A and #14B', check: 'M1 to the Sun is the longer side.', draw: Object.assign({ mode: 'm2', axis: 1, a14: [.3, 1.5], b14: [2, 3.2] }, FULL) },
     { part: 'Part 2', tag: 'Part 2 · Steps 14C–14D', title: 'Label the ends and subtract', dur: 3.4,
-      todo: ['14C: On MODEL 2, label the M1 end Aphelion and the M3 end Perihelion.', '14D: Subtract #14A − #14B. (M1 to Sun) − (Sun to M3) = distance between foci.', 'Round to the nearest tenth.'],
-      record: 'PINK packet #14D', check: 'Aphelion is at the longer end. Perihelion is at the shorter end, closer to the Sun.', draw: Object.assign({ mode: 'm2', axis: 1, a14: 1, b14: 1, aph: [.3, .8], per: [1.1, 1.6], eq: [2.2, 2.8] }, FULL) },
+      todo: ['14C: On MODEL 2, label the M1 end Aphelion and the M3 end Perihelion.', '14D: Take your bigger number (#14A) minus your smaller number (#14B). That answer is the distance between foci.', 'Round to the nearest tenth.'],
+      record: 'PINK packet #14D', check: 'Aphelion is at the longer end. Perihelion is at the shorter end, closer to the Sun.', draw: Object.assign({ mode: 'm2', axis: 1, a14: 1, b14: 1, vals: [.2, .6], aph: [.8, 1.2], per: [1.3, 1.7], math: [2, 2.6] }, FULL) },
     { part: 'Calculate', tag: 'Calculate · Step 15', title: 'Calculate the eccentricity', dur: 3.6,
       todo: ['Find #15 in your PINK packet.', 'Divide: distance between foci (#14D) ÷ length of major axis (#13).', 'Keep cm with each number when you set it up: ___ cm ÷ ___ cm.', 'Your eccentricity has NO units. The cm on the top and the cm on the bottom cancel out.', 'Show your work. Round to the nearest thousandth (3 decimal places).'],
       record: 'PINK packet #15', check: 'Mars’ orbit is close to a circle, so your answer should be a small decimal near 0.094.', draw: { mode: 'card' },
