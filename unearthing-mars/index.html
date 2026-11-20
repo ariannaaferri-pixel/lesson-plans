@@ -175,7 +175,13 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
 .pk-warn { border: .3cqw solid #C2366E; background: #FBE3EC; border-radius: 1cqw; padding: 1cqw 1.8cqw; font-size: 2.2cqw; line-height: 1.35; color: #15203A; }
 .pk-warn b:first-child { color: #A3204F; font-size: 2.6cqw; }
 .card mark.pk-flip { background: #FFE27A; }
-.pk-tag { margin-left: .6cqw; background: #EEF1F7; border-radius: .5cqw; padding: .1cqw .8cqw; font-size: 1.7cqw; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #4A5468; }
+.pk-sm { font-family: var(--font-body); font-weight: 500; font-size: 1.8cqw; color: #4A5468; margin-left: .4cqw; }
+.pk-x { text-decoration: line-through; text-decoration-color: #C8462E; text-decoration-thickness: .3cqw; }
+.pk-info { border: .3cqw solid #1F4FD1; background: #E6EDFC; border-radius: 1cqw; padding: 1cqw 1.8cqw; font-size: 2.2cqw; line-height: 1.35; color: #15203A; }
+.pk-info b:first-child { color: #1F4FD1; }
+.pk-hint { font-size: 1.9cqw; font-style: italic; }
+
+.pk-tag { display: inline-block; white-space: nowrap; margin-left: .6cqw; background: #EEF1F7; border-radius: .5cqw; padding: .1cqw .8cqw; font-size: 1.7cqw; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #4A5468; }
 @media (max-width: 900px) {
   .stage { grid-template-columns: 1fr; }
   .sheet, .viewbar { width: 100%; }
@@ -701,7 +707,15 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
     { part: 'Calculate', tag: 'Calculate · Step 15', title: 'Calculate the eccentricity', dur: 3.6,
       todo: ['Find #15 in your PINK packet.', 'Divide: distance between foci (#14D) ÷ length of major axis (#13).', 'Keep cm with each number when you set it up: ___ cm ÷ ___ cm.', 'Your eccentricity has NO units. The cm on the top and the cm on the bottom cancel out.', 'Show your work. Round to the nearest thousandth (3 decimal places).'],
       record: 'PINK packet #15', check: 'Mars’ orbit is close to a circle, so your answer should be a small decimal near 0.094.', draw: { mode: 'card' },
-      card: '<p class="c-h" data-at="0">PINK packet #15</p><p class="c-big" data-at=".3">eccentricity = distance between foci ÷ length of major axis</p><p class="c-row" data-at="1.3">eccentricity = #14D (cm) ÷ #13 (cm)</p><p class="c-row" data-at="1.9">cm ÷ cm cancel out, so eccentricity has <b>no units</b>.</p><p class="c-note" data-at="2.6">Rounding example only (not the answer):</p><p class="c-ex" data-at="3">0.08734 rounds to 0.087</p>' },
+      card: '<div class="pk-wrap"><p class="pk-h" data-at="0"><b>15. Eccentricity of <i>Model of Mars’ Orbit Using Triangulation</i></b> <span class="pk-tag">Example numbers, not your answer</span></p>' +
+        '<p class="pk-l" data-at=".2" style="font-weight:700;font-style:italic">*This is your calculated value. Round to the nearest thousandth.*</p>' +
+        '<div class="pk-box" data-at=".6"><div class="pk-f">Eccentricity = <span class="pk-fr"><span>distance between foci (cm)</span><span>length of major axis (cm)</span></span></div>' +
+        '<div class="pk-ws"><span class="lbl">Workspace:</span>' +
+        '<div class="pk-row" data-at="1.4"><span class="lbl" style="font-size:2.3cqw">Eccentricity =</span><span class="pk-fr"><span><span class="pk-hw">1.4 <mark class="pk-flip pk-x">cm</mark></span><span class="pk-sm">from #14D</span></span><span><span class="pk-hw">16.1 <mark class="pk-flip pk-x">cm</mark></span><span class="pk-sm">from #13</span></span></span></div>' +
+        '<div class="pk-row" data-at="2.2" style="padding-left:16cqw"><span class="pk-hw">= 0.08696</span></div>' +
+        '<div class="pk-row" data-at="2.8" style="padding-left:16cqw"><span class="pk-hw">≈ 0.087</span><span class="pk-sm">3 decimal places</span></div></div>' +
+        '<div class="pk-ans" data-at="3.3" style="flex-direction:column;align-items:flex-end;gap:.3cqw"><span>Eccentricity: <span class="pk-blank"><span class="pk-hw">0.087</span></span></span><span class="pk-hint">(express your answer <i>to the nearest thousandth</i>)</span></div></div>' +
+        '<p class="pk-info" data-at="1.9"><b>Eccentricity has NO units.</b> The cm on the top and the cm on the bottom cancel out. Then round to 3 decimal places: 0.08696 rounds to 0.087.</p></div>' },
     { part: 'Calculate', tag: 'Calculate · Read first', title: 'Why calculate percent error?', dur: 4.4, read: true, checkLabel: 'Keep in mind',
       note: 'READ ME: Nothing to calculate yet. Read this to understand why you will find your percent error.',
       intro: 'Percent error compares the eccentricity you got from MODEL 2 to the real eccentricity of Mars (0.094). It shows how close your model came to Mars’ real orbit.',
