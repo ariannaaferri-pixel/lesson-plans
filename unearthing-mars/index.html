@@ -691,7 +691,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
         '<li data-at="3.1">Mars’ orbit is almost a circle, so being off by just 1 or 2 mm can change your answer a lot.</li></ul>' +
         '<p class="c-sum" data-at="3.8" style="font-size:2.7cqw">Scientists always check their models against real data. That is what you are doing here.</p>' },
     { part: 'Calculate', tag: 'Calculate · Step 16', title: 'Calculate your percent error', dur: 4.6,
-      todo: ['Find #16 in your PINK packet.', 'Subtract: calculated value (#15) − accepted value (0.094). If your calculated value is LOWER than 0.094, flip them: 0.094 − calculated value. Your difference should never be negative.', 'Divide by 0.094, then multiply by 100.', 'Show your work. Round to the nearest tenth.'],
+      todo: ['Find #16 in your PINK packet.', { b: 'You should NOT have a negative percent error.', r: 'Subtract: calculated value (#15) − accepted value (0.094). If your calculated value is LOWER than 0.094, flip them: 0.094 − calculated value. Your difference should never be negative.' }, 'Divide by 0.094, then multiply by 100.', 'Show your work. Round to the nearest tenth.'],
       record: 'PINK packet #16', check: 'Percent error is always positive. A smaller percent means your model was closer to the accepted value.', draw: { mode: 'card' },
       card: '<p class="c-h" data-at="0">PINK packet #16</p><p class="c-big" data-at=".3">percent error = (difference ÷ 0.094) × 100</p><p class="c-row" data-at="1.1"><b>Step 1:</b> Subtract calculated − accepted. If your calculated value is LOWER than 0.094, flip them: 0.094 − calculated.</p><div class="c-two" data-at="2"><div class="c-box sun"><h3>Lower than 0.094: flip</h3><p>Example value: 0.087</p><p>0.094 − 0.087 = 0.007</p><p>0.007 ÷ 0.094 = 0.0745</p><p>0.0745 × 100 = <b>7.4%</b></p></div><div class="c-box earth"><h3>Higher than 0.094</h3><p>Example value: 0.100</p><p>0.100 − 0.094 = 0.006</p><p>0.006 ÷ 0.094 = 0.0638</p><p>0.0638 × 100 = <b>6.4%</b></p></div></div><p class="c-note" data-at="3.4">Examples only, not your answer. Subtract first, then divide. Your percent error is always positive.</p>' },
     { part: 'Finish', tag: 'Finish · Steps 17–19', title: 'Clean up and answer the questions', dur: 3,
@@ -919,7 +919,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); ou
       box.addEventListener('change', () => { checks[id] = box.checked; store.set('um4-checks', checks); updateGate(); });
       if (typeof txt === 'object') {
         const bb = document.createElement('b'); bb.textContent = txt.b; sp.append(bb);
-        if (txt.p) { const u = document.createElement('ul'); u.className = 'pts'; txt.p.forEach(x => { const l = document.createElement('li'); l.textContent = x; u.append(l); }); sp.append(u); } else if (txt.t) sp.append(document.createTextNode(': ' + txt.t));
+        if (txt.p) { const u = document.createElement('ul'); u.className = 'pts'; txt.p.forEach(x => { const l = document.createElement('li'); l.textContent = x; u.append(l); }); sp.append(u); } else if (txt.t) sp.append(document.createTextNode(': ' + txt.t)); else if (txt.r) sp.append(document.createTextNode(' ' + txt.r));
         if (txt.s) { const st = document.createElement('span'); st.className = 'starter'; const sb = document.createElement('b'); sb.textContent = 'Sentence starter: '; st.append(sb, document.createTextNode(txt.s)); sp.append(st); }
       } else sp.textContent = txt; lab.htmlFor = id; lab.append(box, sp); li.append(lab); ul.append(li);
     });
